@@ -1,0 +1,523 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>TF-IDF | im-vincent</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="vincent">
+    
+
+    
+    <meta name="description" content="ER as Text Similarity - Weighted Bag-of-Words using TF-IDFBag-of-words comparisons are not very good when all tokens are treated the same: some tokens are more important than others. Weights give us a">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TF-IDF">
+<meta property="og:url" content="http://yoursite.com/2015/09/24/TF-IDF/index.html">
+<meta property="og:site_name" content="im-vincent">
+<meta property="og:description" content="ER as Text Similarity - Weighted Bag-of-Words using TF-IDFBag-of-words comparisons are not very good when all tokens are treated the same: some tokens are more important than others. Weights give us a">
+<meta property="og:updated_time" content="2016-10-19T02:05:49.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="TF-IDF">
+<meta name="twitter:description" content="ER as Text Similarity - Weighted Bag-of-Words using TF-IDFBag-of-words comparisons are not very good when all tokens are treated the same: some tokens are more important than others. Weights give us a">
+<meta name="twitter:creator" content="@im_Vincent__">
+
+    
+    <link rel="alternative" href="/atom.xml" title="im-vincent" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="im-vincent" title="im-vincent"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="im-vincent">im-vincent</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/09/24/TF-IDF/" title="TF-IDF" itemprop="url">TF-IDF</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="vincent" target="_blank" itemprop="author">vincent</a>
+		
+  <p class="article-time">
+    <time datetime="2015-09-24T06:57:45.000Z" itemprop="datePublished"> 发表于 2015-09-24</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#ER-as-Text-Similarity-Weighted-Bag-of-Words-using-TF-IDF"><span class="toc-number">1.</span> <span class="toc-text">ER as Text Similarity - Weighted Bag-of-Words using TF-IDF</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Bag-of-words-comparisons-are-not-very-good-when-all-tokens-are-treated-the-same-some-tokens-are-more-important-than-others-Weights-give-us-a-way-to-specify-which-tokens-to-favor-With-weights-when-we-compare-documents-instead-of-counting-common-tokens-we-sum-up-the-weights-of-common-tokens-A-good-heuristic-for-assigning-weights-is-called-“Term-Frequency-Inverse-Document-Frequency-”-or-TF-IDF-for-short"><span class="toc-number">1.1.</span> <span class="toc-text">Bag-of-words comparisons are not very good when all tokens are treated the same: some tokens are more important than others. Weights give us a way to specify which tokens to favor. With weights, when we compare documents, instead of counting common tokens, we sum up the weights of common tokens. A good heuristic for assigning weights is called “Term-Frequency/Inverse-Document-Frequency,” or TF-IDF for short.</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#TF"><span class="toc-number">1.2.</span> <span class="toc-text">TF</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#TF-rewards-tokens-that-appear-many-times-in-the-same-document-It-is-computed-as-the-frequency-of-a-token-in-a-document-that-is-if-document-d-contains-100-tokens-and-token-t-appears-in-d-5-times-then-the-TF-weight-of-t-in-d-is-5-100-1-20-The-intuition-for-TF-is-that-if-a-word-occurs-often-in-a-document-then-it-is-more-important-to-the-meaning-of-the-document"><span class="toc-number">1.3.</span> <span class="toc-text">TF rewards tokens that appear many times in the same document. It is computed as the frequency of a token in a document, that is, if document d contains 100 tokens and token t appears in d 5 times, then the TF weight of t in d is 5/100 = 1/20. The intuition for TF is that if a word occurs often in a document, then it is more important to the meaning of the document.</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#IDF"><span class="toc-number">1.4.</span> <span class="toc-text">IDF</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#IDF-rewards-tokens-that-are-rare-overall-in-a-dataset-The-intuition-is-that-it-is-more-significant-if-two-documents-share-a-rare-word-than-a-common-one-IDF-weight-for-a-token-t-in-a-set-of-documents-U-is-computed-as-follows"><span class="toc-number">1.5.</span> <span class="toc-text">IDF rewards tokens that are rare overall in a dataset. The intuition is that it is more significant if two documents share a rare word than a common one. IDF weight for a token, t, in a set of documents, U, is computed as follows:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Let-N-be-the-total-number-of-documents-in-U"><span class="toc-number">1.6.</span> <span class="toc-text">Let N be the total number of documents in U</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Find-n-t-the-number-of-documents-in-U-that-contain-t"><span class="toc-number">1.7.</span> <span class="toc-text">Find n(t), the number of documents in U that contain t</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Then-IDF-t-N-n-t"><span class="toc-number">1.8.</span> <span class="toc-text">Then IDF(t) = N/n(t).</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Note-that-n-t-N-is-the-frequency-of-t-in-U-and-N-n-t-is-the-inverse-frequency"><span class="toc-number">1.9.</span> <span class="toc-text">Note that n(t)/N is the frequency of t in U, and N/n(t) is the inverse frequency.</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Note-on-terminology-Sometimes-token-weights-depend-on-the-document-the-token-belongs-to-that-is-the-same-token-may-have-a-different-weight-when-it’s-found-in-different-documents-We-call-these-weights-local-weights-TF-is-an-example-of-a-local-weight-because-it-depends-on-the-length-of-the-source-On-the-other-hand-some-token-weights-only-depend-on-the-token-and-are-the-same-everywhere-that-token-is-found-We-call-these-weights-global-and-IDF-is-one-such-weight"><span class="toc-number">1.10.</span> <span class="toc-text">Note on terminology: Sometimes token weights depend on the document the token belongs to, that is, the same token may have a different weight when it’s found in different documents.  We call these weights local weights.  TF is an example of a local weight, because it depends on the length of the source.  On the other hand, some token weights only depend on the token, and are the same everywhere that token is found.  We call these weights global, and IDF is one such weight.</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#TF-IDF"><span class="toc-number">1.11.</span> <span class="toc-text">TF-IDF</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Finally-to-bring-it-all-together-the-total-TF-IDF-weight-for-a-token-in-a-document-is-the-product-of-its-TF-and-IDF-weights"><span class="toc-number">1.12.</span> <span class="toc-text">Finally, to bring it all together, the total TF-IDF weight for a token in a document is the product of its TF and IDF weights.</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Implement-a-TF-function"><span class="toc-number">2.</span> <span class="toc-text">Implement a TF function</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Implement-tf-tokens-that-takes-a-list-of-tokens-and-returns-a-Python-dictionary-mapping-tokens-to-TF-weights"><span class="toc-number">2.1.</span> <span class="toc-text">Implement tf(tokens) that takes a list of tokens and returns a Python dictionary mapping tokens to TF weights.</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#The-steps-your-function-should-perform-are"><span class="toc-number">2.2.</span> <span class="toc-text">The steps your function should perform are:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Create-an-empty-Python-dictionary"><span class="toc-number">2.3.</span> <span class="toc-text">Create an empty Python dictionary</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#For-each-of-the-tokens-in-the-input-tokens-list-count-1-for-each-occurance-and-add-the-token-to-the-dictionary"><span class="toc-number">2.4.</span> <span class="toc-text">For each of the tokens in the input tokens list, count 1 for each occurance and add the token to the dictionary</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#For-each-of-the-tokens-in-the-dictionary-divide-the-token’s-count-by-the-total-number-of-tokens-in-the-input-tokens-list"><span class="toc-number">2.5.</span> <span class="toc-text">For each of the tokens in the dictionary, divide the token’s count by the total number of tokens in the input tokens list</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Implement-an-IDFs-function"><span class="toc-number">3.</span> <span class="toc-text">Implement an IDFs function</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Implement-idfs-that-assigns-an-IDF-weight-to-every-unique-token-in-an-RDD-called-corpus-The-function-should-return-an-pair-RDD-where-the-key-is-the-unique-token-and-value-is-the-IDF-weight-for-the-token"><span class="toc-number">3.1.</span> <span class="toc-text">Implement idfs that assigns an IDF weight to every unique token in an RDD called corpus. The function should return an pair RDD where the key is the unique token and value is the IDF weight for the token.</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Recall-that-the-IDF-weight-for-a-token-t-in-a-set-of-documents-U-is-computed-as-follows"><span class="toc-number">3.2.</span> <span class="toc-text">Recall that the IDF weight for a token, t, in a set of documents, U, is computed as follows:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Let-N-be-the-total-number-of-documents-in-U-1"><span class="toc-number">3.3.</span> <span class="toc-text">Let N be the total number of documents in U.</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Find-n-t-the-number-of-documents-in-U-that-contain-t-1"><span class="toc-number">3.4.</span> <span class="toc-text">Find n(t), the number of documents in U that contain t.</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Then-IDF-t-N-n-t-1"><span class="toc-number">3.5.</span> <span class="toc-text">Then IDF(t) = N/n(t).</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#The-steps-your-function-should-perform-are-1"><span class="toc-number">3.6.</span> <span class="toc-text">The steps your function should perform are:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Calculate-N-Think-about-how-you-can-calculate-N-from-the-input-RDD"><span class="toc-number">3.7.</span> <span class="toc-text">Calculate N. Think about how you can calculate N from the input RDD.</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Create-an-RDD-not-a-pair-RDD-containing-the-unique-tokens-from-each-document-in-the-input-corpus-For-each-document-you-should-only-include-a-token-once-even-if-it-appears-multiple-times-in-that-document"><span class="toc-number">3.8.</span> <span class="toc-text">Create an RDD (not a pair RDD) containing the unique tokens from each document in the input corpus. For each document, you should only include a token once, even if it appears multiple times in that document.</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#For-each-of-the-unique-tokens-count-how-many-times-it-appears-in-the-document-and-then-compute-the-IDF-for-that-token-N-n-t"><span class="toc-number">3.9.</span> <span class="toc-text">For each of the unique tokens, count how many times it appears in the document and then compute the IDF for that token: N/n(t)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Use-your-idfs-to-compute-the-IDF-weights-for-all-tokens-in-corpusRDD-the-combined-small-datasets"><span class="toc-number">3.10.</span> <span class="toc-text">Use your idfs to compute the IDF weights for all tokens in corpusRDD (the combined small datasets).</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#How-many-unique-tokens-are-there"><span class="toc-number">3.11.</span> <span class="toc-text">How many unique tokens are there?</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Implement-a-TF-IDF-function"><span class="toc-number">4.</span> <span class="toc-text">Implement a TF-IDF function</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Use-your-tf-function-to-implement-a-tfidf-tokens-idfs-function-that-takes-a-list-of-tokens-from-a-document-and-a-Python-dictionary-of-IDF-weights-and-returns-a-Python-dictionary-mapping-individual-tokens-to-total-TF-IDF-weights"><span class="toc-number">4.1.</span> <span class="toc-text">Use your tf function to implement a tfidf(tokens, idfs) function that takes a list of tokens from a document and a Python dictionary of IDF weights and returns a Python dictionary mapping individual tokens to total TF-IDF weights.</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#The-steps-your-function-should-perform-are-2"><span class="toc-number">4.2.</span> <span class="toc-text">The steps your function should perform are:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Calculate-the-token-frequencies-TF-for-tokens"><span class="toc-number">4.3.</span> <span class="toc-text">Calculate the token frequencies (TF) for tokens</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Create-a-Python-dictionary-where-each-token-maps-to-the-token’s-frequency-times-the-token’s-IDF-weight"><span class="toc-number">4.4.</span> <span class="toc-text">Create a Python dictionary where each token maps to the token’s frequency times the token’s IDF weight</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Use-your-tfidf-function-to-compute-the-weights-of-Amazon-product-record-‘b000hkgj8k’-To-do-this-we-need-to-extract-the-record-for-the-token-from-the-tokenized-small-Amazon-dataset-and-we-need-to-convert-the-IDFs-for-the-small-dataset-into-a-Python-dictionary-We-can-do-the-first-part-by-using-a-filter-transformation-to-extract-the-matching-record-and-a-collect-action-to-return-the-value-to-the-driver-For-the-second-part-we-use-the-collectAsMap-action-to-return-the-IDFs-to-the-driver-as-a-Python-dictionary"><span class="toc-number">4.5.</span> <span class="toc-text">Use your tfidf function to compute the weights of Amazon product record ‘b000hkgj8k’. To do this, we need to extract the record for the token from the tokenized small Amazon dataset and we need to convert the IDFs for the small dataset into a Python dictionary. We can do the first part, by using a filter() transformation to extract the matching record and a collect() action to return the value to the driver. For the second part, we use the collectAsMap() action to return the IDFs to the driver as a Python dictionary.</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h3 id="ER-as-Text-Similarity-Weighted-Bag-of-Words-using-TF-IDF"><a href="#ER-as-Text-Similarity-Weighted-Bag-of-Words-using-TF-IDF" class="headerlink" title="ER as Text Similarity - Weighted Bag-of-Words using TF-IDF"></a><strong>ER as Text Similarity - Weighted Bag-of-Words using TF-IDF</strong></h3><h4 id="Bag-of-words-comparisons-are-not-very-good-when-all-tokens-are-treated-the-same-some-tokens-are-more-important-than-others-Weights-give-us-a-way-to-specify-which-tokens-to-favor-With-weights-when-we-compare-documents-instead-of-counting-common-tokens-we-sum-up-the-weights-of-common-tokens-A-good-heuristic-for-assigning-weights-is-called-“Term-Frequency-Inverse-Document-Frequency-”-or-TF-IDF-for-short"><a href="#Bag-of-words-comparisons-are-not-very-good-when-all-tokens-are-treated-the-same-some-tokens-are-more-important-than-others-Weights-give-us-a-way-to-specify-which-tokens-to-favor-With-weights-when-we-compare-documents-instead-of-counting-common-tokens-we-sum-up-the-weights-of-common-tokens-A-good-heuristic-for-assigning-weights-is-called-“Term-Frequency-Inverse-Document-Frequency-”-or-TF-IDF-for-short" class="headerlink" title="Bag-of-words comparisons are not very good when all tokens are treated the same: some tokens are more important than others. Weights give us a way to specify which tokens to favor. With weights, when we compare documents, instead of counting common tokens, we sum up the weights of common tokens. A good heuristic for assigning weights is called “Term-Frequency/Inverse-Document-Frequency,” or TF-IDF for short."></a>Bag-of-words comparisons are not very good when all tokens are treated the same: some tokens are more important than others. Weights give us a way to specify which tokens to favor. With weights, when we compare documents, instead of counting common tokens, we sum up the weights of common tokens. A good heuristic for assigning weights is called “Term-Frequency/Inverse-Document-Frequency,” or <a href="https://en.wikipedia.org/wiki/Tf%E2%80%93idf" target="_blank" rel="external">TF-IDF</a> for short.</h4><h4 id="TF"><a href="#TF" class="headerlink" title="TF"></a><strong>TF</strong></h4><h4 id="TF-rewards-tokens-that-appear-many-times-in-the-same-document-It-is-computed-as-the-frequency-of-a-token-in-a-document-that-is-if-document-d-contains-100-tokens-and-token-t-appears-in-d-5-times-then-the-TF-weight-of-t-in-d-is-5-100-1-20-The-intuition-for-TF-is-that-if-a-word-occurs-often-in-a-document-then-it-is-more-important-to-the-meaning-of-the-document"><a href="#TF-rewards-tokens-that-appear-many-times-in-the-same-document-It-is-computed-as-the-frequency-of-a-token-in-a-document-that-is-if-document-d-contains-100-tokens-and-token-t-appears-in-d-5-times-then-the-TF-weight-of-t-in-d-is-5-100-1-20-The-intuition-for-TF-is-that-if-a-word-occurs-often-in-a-document-then-it-is-more-important-to-the-meaning-of-the-document" class="headerlink" title="TF rewards tokens that appear many times in the same document. It is computed as the frequency of a token in a document, that is, if document d contains 100 tokens and token t appears in d 5 times, then the TF weight of t in d is 5/100 = 1/20. The intuition for TF is that if a word occurs often in a document, then it is more important to the meaning of the document."></a>TF rewards tokens that appear many times in the same document. It is computed as the frequency of a token in a document, that is, if document <em>d</em> contains 100 tokens and token <em>t</em> appears in <em>d</em> 5 times, then the TF weight of <em>t</em> in <em>d</em> is <em>5/100 = 1/20</em>. The intuition for TF is that if a word occurs often in a document, then it is more important to the meaning of the document.</h4><h4 id="IDF"><a href="#IDF" class="headerlink" title="IDF"></a><strong>IDF</strong></h4><h4 id="IDF-rewards-tokens-that-are-rare-overall-in-a-dataset-The-intuition-is-that-it-is-more-significant-if-two-documents-share-a-rare-word-than-a-common-one-IDF-weight-for-a-token-t-in-a-set-of-documents-U-is-computed-as-follows"><a href="#IDF-rewards-tokens-that-are-rare-overall-in-a-dataset-The-intuition-is-that-it-is-more-significant-if-two-documents-share-a-rare-word-than-a-common-one-IDF-weight-for-a-token-t-in-a-set-of-documents-U-is-computed-as-follows" class="headerlink" title="IDF rewards tokens that are rare overall in a dataset. The intuition is that it is more significant if two documents share a rare word than a common one. IDF weight for a token, t, in a set of documents, U, is computed as follows:"></a>IDF rewards tokens that are rare overall in a dataset. The intuition is that it is more significant if two documents share a rare word than a common one. IDF weight for a token, <em>t</em>, in a set of documents, <em>U</em>, is computed as follows:</h4><ul>
+<li><h4 id="Let-N-be-the-total-number-of-documents-in-U"><a href="#Let-N-be-the-total-number-of-documents-in-U" class="headerlink" title="Let N be the total number of documents in U"></a>Let <em>N</em> be the total number of documents in <em>U</em></h4></li>
+<li><h4 id="Find-n-t-the-number-of-documents-in-U-that-contain-t"><a href="#Find-n-t-the-number-of-documents-in-U-that-contain-t" class="headerlink" title="Find n(t), the number of documents in U that contain t"></a>Find <em>n(t)</em>, the number of documents in <em>U</em> that contain <em>t</em></h4></li>
+<li><h4 id="Then-IDF-t-N-n-t"><a href="#Then-IDF-t-N-n-t" class="headerlink" title="Then IDF(t) = N/n(t)."></a>Then <em>IDF(t) = N/n(t)</em>.</h4><h4 id="Note-that-n-t-N-is-the-frequency-of-t-in-U-and-N-n-t-is-the-inverse-frequency"><a href="#Note-that-n-t-N-is-the-frequency-of-t-in-U-and-N-n-t-is-the-inverse-frequency" class="headerlink" title="Note that n(t)/N is the frequency of t in U, and N/n(t) is the inverse frequency."></a>Note that <em>n(t)/N</em> is the frequency of <em>t</em> in <em>U</em>, and <em>N/n(t)</em> is the inverse frequency.</h4><blockquote>
+<h4 id="Note-on-terminology-Sometimes-token-weights-depend-on-the-document-the-token-belongs-to-that-is-the-same-token-may-have-a-different-weight-when-it’s-found-in-different-documents-We-call-these-weights-local-weights-TF-is-an-example-of-a-local-weight-because-it-depends-on-the-length-of-the-source-On-the-other-hand-some-token-weights-only-depend-on-the-token-and-are-the-same-everywhere-that-token-is-found-We-call-these-weights-global-and-IDF-is-one-such-weight"><a href="#Note-on-terminology-Sometimes-token-weights-depend-on-the-document-the-token-belongs-to-that-is-the-same-token-may-have-a-different-weight-when-it’s-found-in-different-documents-We-call-these-weights-local-weights-TF-is-an-example-of-a-local-weight-because-it-depends-on-the-length-of-the-source-On-the-other-hand-some-token-weights-only-depend-on-the-token-and-are-the-same-everywhere-that-token-is-found-We-call-these-weights-global-and-IDF-is-one-such-weight" class="headerlink" title="Note on terminology: Sometimes token weights depend on the document the token belongs to, that is, the same token may have a different weight when it’s found in different documents.  We call these weights local weights.  TF is an example of a local weight, because it depends on the length of the source.  On the other hand, some token weights only depend on the token, and are the same everywhere that token is found.  We call these weights global, and IDF is one such weight."></a><strong>Note on terminology</strong>: Sometimes token weights depend on the document the token belongs to, that is, the same token may have a different weight when it’s found in different documents.  We call these weights <em>local</em> weights.  TF is an example of a local weight, because it depends on the length of the source.  On the other hand, some token weights only depend on the token, and are the same everywhere that token is found.  We call these weights <em>global</em>, and IDF is one such weight.</h4><h4 id="TF-IDF"><a href="#TF-IDF" class="headerlink" title="TF-IDF"></a><strong>TF-IDF</strong></h4><h4 id="Finally-to-bring-it-all-together-the-total-TF-IDF-weight-for-a-token-in-a-document-is-the-product-of-its-TF-and-IDF-weights"><a href="#Finally-to-bring-it-all-together-the-total-TF-IDF-weight-for-a-token-in-a-document-is-the-product-of-its-TF-and-IDF-weights" class="headerlink" title="Finally, to bring it all together, the total TF-IDF weight for a token in a document is the product of its TF and IDF weights."></a>Finally, to bring it all together, the total TF-IDF weight for a token in a document is the product of its TF and IDF weights.</h4></blockquote>
+</li>
+</ul>
+<h3 id="Implement-a-TF-function"><a href="#Implement-a-TF-function" class="headerlink" title="Implement a TF function"></a><strong>Implement a TF function</strong></h3><h4 id="Implement-tf-tokens-that-takes-a-list-of-tokens-and-returns-a-Python-dictionary-mapping-tokens-to-TF-weights"><a href="#Implement-tf-tokens-that-takes-a-list-of-tokens-and-returns-a-Python-dictionary-mapping-tokens-to-TF-weights" class="headerlink" title="Implement tf(tokens) that takes a list of tokens and returns a Python dictionary mapping tokens to TF weights."></a>Implement <code>tf(tokens)</code> that takes a list of tokens and returns a Python <a href="https://docs.python.org/2/tutorial/datastructures.html#dictionaries" target="_blank" rel="external">dictionary</a> mapping tokens to TF weights.</h4><h4 id="The-steps-your-function-should-perform-are"><a href="#The-steps-your-function-should-perform-are" class="headerlink" title="The steps your function should perform are:"></a>The steps your function should perform are:</h4><ul>
+<li><h4 id="Create-an-empty-Python-dictionary"><a href="#Create-an-empty-Python-dictionary" class="headerlink" title="Create an empty Python dictionary"></a>Create an empty Python dictionary</h4></li>
+<li><h4 id="For-each-of-the-tokens-in-the-input-tokens-list-count-1-for-each-occurance-and-add-the-token-to-the-dictionary"><a href="#For-each-of-the-tokens-in-the-input-tokens-list-count-1-for-each-occurance-and-add-the-token-to-the-dictionary" class="headerlink" title="For each of the tokens in the input tokens list, count 1 for each occurance and add the token to the dictionary"></a>For each of the tokens in the input <code>tokens</code> list, count 1 for each occurance and add the token to the dictionary</h4></li>
+<li><h4 id="For-each-of-the-tokens-in-the-dictionary-divide-the-token’s-count-by-the-total-number-of-tokens-in-the-input-tokens-list"><a href="#For-each-of-the-tokens-in-the-dictionary-divide-the-token’s-count-by-the-total-number-of-tokens-in-the-input-tokens-list" class="headerlink" title="For each of the tokens in the dictionary, divide the token’s count by the total number of tokens in the input tokens list"></a>For each of the tokens in the dictionary, divide the token’s count by the total number of tokens in the input <code>tokens</code> list</h4></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">tf</span><span class="params">(tokens)</span>:</span></div><div class="line">    <span class="string">""" Compute TF</span></div><div class="line">    Args:</div><div class="line">        tokens (list of str): input list of tokens from tokenize</div><div class="line">    Returns:</div><div class="line">        dictionary: a dictionary of tokens to its TF values</div><div class="line">    """</div><div class="line"></div><div class="line">    <span class="keyword">return</span> &#123;token:tokens.count(token)/float(len(tokens)) <span class="keyword">for</span> token <span class="keyword">in</span> tokens&#125;</div><div class="line">    <span class="comment">#词频 (TF) 是一词语出现的次数除以该文件的总词语数</span></div><div class="line"></div><div class="line"><span class="keyword">print</span> tf(tokenize(quickbrownfox)) <span class="comment"># Should give &#123; 'quick': 0.1666 ... &#125;</span></div></pre></td></tr></table></figure>
+<h3 id="Implement-an-IDFs-function"><a href="#Implement-an-IDFs-function" class="headerlink" title="Implement an IDFs function"></a><strong>Implement an IDFs function</strong></h3><h4 id="Implement-idfs-that-assigns-an-IDF-weight-to-every-unique-token-in-an-RDD-called-corpus-The-function-should-return-an-pair-RDD-where-the-key-is-the-unique-token-and-value-is-the-IDF-weight-for-the-token"><a href="#Implement-idfs-that-assigns-an-IDF-weight-to-every-unique-token-in-an-RDD-called-corpus-The-function-should-return-an-pair-RDD-where-the-key-is-the-unique-token-and-value-is-the-IDF-weight-for-the-token" class="headerlink" title="Implement idfs that assigns an IDF weight to every unique token in an RDD called corpus. The function should return an pair RDD where the key is the unique token and value is the IDF weight for the token."></a>Implement <code>idfs</code> that assigns an IDF weight to every unique token in an RDD called <code>corpus</code>. The function should return an pair RDD where the <code>key</code> is the unique token and value is the IDF weight for the token.</h4><h4 id="Recall-that-the-IDF-weight-for-a-token-t-in-a-set-of-documents-U-is-computed-as-follows"><a href="#Recall-that-the-IDF-weight-for-a-token-t-in-a-set-of-documents-U-is-computed-as-follows" class="headerlink" title="Recall that the IDF weight for a token, t, in a set of documents, U, is computed as follows:"></a>Recall that the IDF weight for a token, <em>t</em>, in a set of documents, <em>U</em>, is computed as follows:</h4><ul>
+<li><h4 id="Let-N-be-the-total-number-of-documents-in-U-1"><a href="#Let-N-be-the-total-number-of-documents-in-U-1" class="headerlink" title="Let N be the total number of documents in U."></a>Let <em>N</em> be the total number of documents in <em>U</em>.</h4></li>
+<li><h4 id="Find-n-t-the-number-of-documents-in-U-that-contain-t-1"><a href="#Find-n-t-the-number-of-documents-in-U-that-contain-t-1" class="headerlink" title="Find n(t), the number of documents in U that contain t."></a>Find <em>n(t)</em>, the number of documents in <em>U</em> that contain <em>t</em>.</h4></li>
+<li><h4 id="Then-IDF-t-N-n-t-1"><a href="#Then-IDF-t-N-n-t-1" class="headerlink" title="Then IDF(t) = N/n(t)."></a>Then <em>IDF(t) = N/n(t)</em>.</h4><h4 id="The-steps-your-function-should-perform-are-1"><a href="#The-steps-your-function-should-perform-are-1" class="headerlink" title="The steps your function should perform are:"></a>The steps your function should perform are:</h4></li>
+<li><h4 id="Calculate-N-Think-about-how-you-can-calculate-N-from-the-input-RDD"><a href="#Calculate-N-Think-about-how-you-can-calculate-N-from-the-input-RDD" class="headerlink" title="Calculate N. Think about how you can calculate N from the input RDD."></a>Calculate <em>N</em>. Think about how you can calculate <em>N</em> from the input RDD.</h4></li>
+<li><h4 id="Create-an-RDD-not-a-pair-RDD-containing-the-unique-tokens-from-each-document-in-the-input-corpus-For-each-document-you-should-only-include-a-token-once-even-if-it-appears-multiple-times-in-that-document"><a href="#Create-an-RDD-not-a-pair-RDD-containing-the-unique-tokens-from-each-document-in-the-input-corpus-For-each-document-you-should-only-include-a-token-once-even-if-it-appears-multiple-times-in-that-document" class="headerlink" title="Create an RDD (not a pair RDD) containing the unique tokens from each document in the input corpus. For each document, you should only include a token once, even if it appears multiple times in that document."></a>Create an RDD (<em>not a pair RDD</em>) containing the unique tokens from each document in the input <code>corpus</code>. For each document, you should only include a token once, <em>even if it appears multiple times in that document.</em></h4></li>
+<li><h4 id="For-each-of-the-unique-tokens-count-how-many-times-it-appears-in-the-document-and-then-compute-the-IDF-for-that-token-N-n-t"><a href="#For-each-of-the-unique-tokens-count-how-many-times-it-appears-in-the-document-and-then-compute-the-IDF-for-that-token-N-n-t" class="headerlink" title="For each of the unique tokens, count how many times it appears in the document and then compute the IDF for that token: N/n(t)"></a>For each of the unique tokens, count how many times it appears in the document and then compute the IDF for that token: <em>N/n(t)</em></h4><h4 id="Use-your-idfs-to-compute-the-IDF-weights-for-all-tokens-in-corpusRDD-the-combined-small-datasets"><a href="#Use-your-idfs-to-compute-the-IDF-weights-for-all-tokens-in-corpusRDD-the-combined-small-datasets" class="headerlink" title="Use your idfs to compute the IDF weights for all tokens in corpusRDD (the combined small datasets)."></a>Use your <code>idfs</code> to compute the IDF weights for all tokens in <code>corpusRDD</code> (the combined small datasets).</h4><h4 id="How-many-unique-tokens-are-there"><a href="#How-many-unique-tokens-are-there" class="headerlink" title="How many unique tokens are there?"></a>How many unique tokens are there?</h4></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">idfs</span><span class="params">(corpus)</span>:</span></div><div class="line">    <span class="string">""" Compute IDF</span></div><div class="line">    Args:</div><div class="line">        corpus (RDD): input corpus</div><div class="line">    Returns:</div><div class="line">        RDD: a RDD of (token, IDF value)</div><div class="line">    """</div><div class="line">    N = corpus.count()</div><div class="line">    <span class="comment">#总得词数</span></div><div class="line">    uniqueTokens = corpus.map(<span class="keyword">lambda</span> (k,v): set(v))</div><div class="line">    <span class="comment">#去除每行里重复的词</span></div><div class="line">    tokenCountPairTuple = uniqueTokens.flatMap(<span class="keyword">lambda</span> x: [(t,<span class="number">1</span>) <span class="keyword">for</span> t <span class="keyword">in</span> x])  <span class="comment">#[('rom', 1)]</span></div><div class="line">    tokenSumPairTuple = tokenCountPairTuple.reduceByKey(<span class="keyword">lambda</span> a,b:a+b) <span class="comment">#[('aided', 1), ('precise', 4)]</span></div><div class="line">    <span class="comment">#计算词所出现的次数</span></div><div class="line">    <span class="keyword">return</span> (tokenSumPairTuple.map(<span class="keyword">lambda</span> (k,v): (k,N/float(v))).cache())</div><div class="line">    <span class="comment">#IDF(t) = N/n(t)</span></div><div class="line"></div><div class="line">idfsSmall = idfs(amazonRecToToken.union(googleRecToToken))</div><div class="line">uniqueTokenCount = idfsSmall.count()</div><div class="line"></div><div class="line"><span class="keyword">print</span> <span class="string">'There are %s unique tokens in the small datasets.'</span> % uniqueTokenCount</div></pre></td></tr></table></figure>
+<h3 id="Implement-a-TF-IDF-function"><a href="#Implement-a-TF-IDF-function" class="headerlink" title="Implement a TF-IDF function"></a><strong>Implement a TF-IDF function</strong></h3><h4 id="Use-your-tf-function-to-implement-a-tfidf-tokens-idfs-function-that-takes-a-list-of-tokens-from-a-document-and-a-Python-dictionary-of-IDF-weights-and-returns-a-Python-dictionary-mapping-individual-tokens-to-total-TF-IDF-weights"><a href="#Use-your-tf-function-to-implement-a-tfidf-tokens-idfs-function-that-takes-a-list-of-tokens-from-a-document-and-a-Python-dictionary-of-IDF-weights-and-returns-a-Python-dictionary-mapping-individual-tokens-to-total-TF-IDF-weights" class="headerlink" title="Use your tf function to implement a tfidf(tokens, idfs) function that takes a list of tokens from a document and a Python dictionary of IDF weights and returns a Python dictionary mapping individual tokens to total TF-IDF weights."></a>Use your <code>tf</code> function to implement a <code>tfidf(tokens, idfs)</code> function that takes a list of tokens from a document and a Python dictionary of IDF weights and returns a Python dictionary mapping individual tokens to total TF-IDF weights.</h4><h4 id="The-steps-your-function-should-perform-are-2"><a href="#The-steps-your-function-should-perform-are-2" class="headerlink" title="The steps your function should perform are:"></a>The steps your function should perform are:</h4><ul>
+<li><h4 id="Calculate-the-token-frequencies-TF-for-tokens"><a href="#Calculate-the-token-frequencies-TF-for-tokens" class="headerlink" title="Calculate the token frequencies (TF) for tokens"></a>Calculate the token frequencies (TF) for <code>tokens</code></h4></li>
+<li><h4 id="Create-a-Python-dictionary-where-each-token-maps-to-the-token’s-frequency-times-the-token’s-IDF-weight"><a href="#Create-a-Python-dictionary-where-each-token-maps-to-the-token’s-frequency-times-the-token’s-IDF-weight" class="headerlink" title="Create a Python dictionary where each token maps to the token’s frequency times the token’s IDF weight"></a>Create a Python dictionary where each token maps to the token’s frequency times the token’s IDF weight</h4><h4 id="Use-your-tfidf-function-to-compute-the-weights-of-Amazon-product-record-‘b000hkgj8k’-To-do-this-we-need-to-extract-the-record-for-the-token-from-the-tokenized-small-Amazon-dataset-and-we-need-to-convert-the-IDFs-for-the-small-dataset-into-a-Python-dictionary-We-can-do-the-first-part-by-using-a-filter-transformation-to-extract-the-matching-record-and-a-collect-action-to-return-the-value-to-the-driver-For-the-second-part-we-use-the-collectAsMap-action-to-return-the-IDFs-to-the-driver-as-a-Python-dictionary"><a href="#Use-your-tfidf-function-to-compute-the-weights-of-Amazon-product-record-‘b000hkgj8k’-To-do-this-we-need-to-extract-the-record-for-the-token-from-the-tokenized-small-Amazon-dataset-and-we-need-to-convert-the-IDFs-for-the-small-dataset-into-a-Python-dictionary-We-can-do-the-first-part-by-using-a-filter-transformation-to-extract-the-matching-record-and-a-collect-action-to-return-the-value-to-the-driver-For-the-second-part-we-use-the-collectAsMap-action-to-return-the-IDFs-to-the-driver-as-a-Python-dictionary" class="headerlink" title="Use your tfidf function to compute the weights of Amazon product record ‘b000hkgj8k’. To do this, we need to extract the record for the token from the tokenized small Amazon dataset and we need to convert the IDFs for the small dataset into a Python dictionary. We can do the first part, by using a filter() transformation to extract the matching record and a collect() action to return the value to the driver. For the second part, we use the collectAsMap() action to return the IDFs to the driver as a Python dictionary."></a>Use your <code>tfidf</code> function to compute the weights of Amazon product record ‘b000hkgj8k’. To do this, we need to extract the record for the token from the tokenized small Amazon dataset and we need to convert the IDFs for the small dataset into a Python dictionary. We can do the first part, by using a <code>filter()</code> transformation to extract the matching record and a <code>collect()</code> action to return the value to the driver. For the second part, we use the <a href="http://spark.apache.org/docs/latest/api/python/pyspark.html#pyspark.RDD.collectAsMap" target="_blank" rel="external"><code>collectAsMap()</code> action</a> to return the IDFs to the driver as a Python dictionary.</h4></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">tfidf</span><span class="params">(tokens, idfs)</span>:</span></div><div class="line">    <span class="string">""" Compute TF-IDF</span></div><div class="line">    Args:</div><div class="line">        tokens (list of str): input list of tokens from tokenize</div><div class="line">        idfs (dictionary): record to IDF value</div><div class="line">    Returns:</div><div class="line">        dictionary: a dictionary of records to TF-IDF values</div><div class="line">    """</div><div class="line">    tfs = tf(tokens)</div><div class="line">    tfIdfDict = &#123;token:tfs[token]*idfs[token] <span class="keyword">for</span> token <span class="keyword">in</span> tokens&#125;</div><div class="line">    <span class="keyword">return</span> tfIdfDict</div></pre></td></tr></table></figure>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/python/">python</a><a href="/tags/spark/">spark</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2015/09/24/TF-IDF/" data-title="TF-IDF | im-vincent" data-tsina="1850090763" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2015/09/25/CRS-0184-Cannot-communicate-with-the-CRS-daemon/" title="CRS-0184: Cannot communicate with the CRS daemon">
+  <strong>上一篇：</strong><br/>
+  <span>
+  CRS-0184: Cannot communicate with the CRS daemon</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2015/09/24/python单行循环判断/"  title="python单行循环判断">
+ <strong>下一篇：</strong><br/> 
+ <span>python单行循环判断
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2015/09/24/TF-IDF/" data-title="TF-IDF" data-url="http://yoursite.com/2015/09/24/TF-IDF/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#ER-as-Text-Similarity-Weighted-Bag-of-Words-using-TF-IDF"><span class="toc-number">1.</span> <span class="toc-text">ER as Text Similarity - Weighted Bag-of-Words using TF-IDF</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Bag-of-words-comparisons-are-not-very-good-when-all-tokens-are-treated-the-same-some-tokens-are-more-important-than-others-Weights-give-us-a-way-to-specify-which-tokens-to-favor-With-weights-when-we-compare-documents-instead-of-counting-common-tokens-we-sum-up-the-weights-of-common-tokens-A-good-heuristic-for-assigning-weights-is-called-“Term-Frequency-Inverse-Document-Frequency-”-or-TF-IDF-for-short"><span class="toc-number">1.1.</span> <span class="toc-text">Bag-of-words comparisons are not very good when all tokens are treated the same: some tokens are more important than others. Weights give us a way to specify which tokens to favor. With weights, when we compare documents, instead of counting common tokens, we sum up the weights of common tokens. A good heuristic for assigning weights is called “Term-Frequency/Inverse-Document-Frequency,” or TF-IDF for short.</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#TF"><span class="toc-number">1.2.</span> <span class="toc-text">TF</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#TF-rewards-tokens-that-appear-many-times-in-the-same-document-It-is-computed-as-the-frequency-of-a-token-in-a-document-that-is-if-document-d-contains-100-tokens-and-token-t-appears-in-d-5-times-then-the-TF-weight-of-t-in-d-is-5-100-1-20-The-intuition-for-TF-is-that-if-a-word-occurs-often-in-a-document-then-it-is-more-important-to-the-meaning-of-the-document"><span class="toc-number">1.3.</span> <span class="toc-text">TF rewards tokens that appear many times in the same document. It is computed as the frequency of a token in a document, that is, if document d contains 100 tokens and token t appears in d 5 times, then the TF weight of t in d is 5/100 = 1/20. The intuition for TF is that if a word occurs often in a document, then it is more important to the meaning of the document.</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#IDF"><span class="toc-number">1.4.</span> <span class="toc-text">IDF</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#IDF-rewards-tokens-that-are-rare-overall-in-a-dataset-The-intuition-is-that-it-is-more-significant-if-two-documents-share-a-rare-word-than-a-common-one-IDF-weight-for-a-token-t-in-a-set-of-documents-U-is-computed-as-follows"><span class="toc-number">1.5.</span> <span class="toc-text">IDF rewards tokens that are rare overall in a dataset. The intuition is that it is more significant if two documents share a rare word than a common one. IDF weight for a token, t, in a set of documents, U, is computed as follows:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Let-N-be-the-total-number-of-documents-in-U"><span class="toc-number">1.6.</span> <span class="toc-text">Let N be the total number of documents in U</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Find-n-t-the-number-of-documents-in-U-that-contain-t"><span class="toc-number">1.7.</span> <span class="toc-text">Find n(t), the number of documents in U that contain t</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Then-IDF-t-N-n-t"><span class="toc-number">1.8.</span> <span class="toc-text">Then IDF(t) = N/n(t).</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Note-that-n-t-N-is-the-frequency-of-t-in-U-and-N-n-t-is-the-inverse-frequency"><span class="toc-number">1.9.</span> <span class="toc-text">Note that n(t)/N is the frequency of t in U, and N/n(t) is the inverse frequency.</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Note-on-terminology-Sometimes-token-weights-depend-on-the-document-the-token-belongs-to-that-is-the-same-token-may-have-a-different-weight-when-it’s-found-in-different-documents-We-call-these-weights-local-weights-TF-is-an-example-of-a-local-weight-because-it-depends-on-the-length-of-the-source-On-the-other-hand-some-token-weights-only-depend-on-the-token-and-are-the-same-everywhere-that-token-is-found-We-call-these-weights-global-and-IDF-is-one-such-weight"><span class="toc-number">1.10.</span> <span class="toc-text">Note on terminology: Sometimes token weights depend on the document the token belongs to, that is, the same token may have a different weight when it’s found in different documents.  We call these weights local weights.  TF is an example of a local weight, because it depends on the length of the source.  On the other hand, some token weights only depend on the token, and are the same everywhere that token is found.  We call these weights global, and IDF is one such weight.</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#TF-IDF"><span class="toc-number">1.11.</span> <span class="toc-text">TF-IDF</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Finally-to-bring-it-all-together-the-total-TF-IDF-weight-for-a-token-in-a-document-is-the-product-of-its-TF-and-IDF-weights"><span class="toc-number">1.12.</span> <span class="toc-text">Finally, to bring it all together, the total TF-IDF weight for a token in a document is the product of its TF and IDF weights.</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Implement-a-TF-function"><span class="toc-number">2.</span> <span class="toc-text">Implement a TF function</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Implement-tf-tokens-that-takes-a-list-of-tokens-and-returns-a-Python-dictionary-mapping-tokens-to-TF-weights"><span class="toc-number">2.1.</span> <span class="toc-text">Implement tf(tokens) that takes a list of tokens and returns a Python dictionary mapping tokens to TF weights.</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#The-steps-your-function-should-perform-are"><span class="toc-number">2.2.</span> <span class="toc-text">The steps your function should perform are:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Create-an-empty-Python-dictionary"><span class="toc-number">2.3.</span> <span class="toc-text">Create an empty Python dictionary</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#For-each-of-the-tokens-in-the-input-tokens-list-count-1-for-each-occurance-and-add-the-token-to-the-dictionary"><span class="toc-number">2.4.</span> <span class="toc-text">For each of the tokens in the input tokens list, count 1 for each occurance and add the token to the dictionary</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#For-each-of-the-tokens-in-the-dictionary-divide-the-token’s-count-by-the-total-number-of-tokens-in-the-input-tokens-list"><span class="toc-number">2.5.</span> <span class="toc-text">For each of the tokens in the dictionary, divide the token’s count by the total number of tokens in the input tokens list</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Implement-an-IDFs-function"><span class="toc-number">3.</span> <span class="toc-text">Implement an IDFs function</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Implement-idfs-that-assigns-an-IDF-weight-to-every-unique-token-in-an-RDD-called-corpus-The-function-should-return-an-pair-RDD-where-the-key-is-the-unique-token-and-value-is-the-IDF-weight-for-the-token"><span class="toc-number">3.1.</span> <span class="toc-text">Implement idfs that assigns an IDF weight to every unique token in an RDD called corpus. The function should return an pair RDD where the key is the unique token and value is the IDF weight for the token.</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Recall-that-the-IDF-weight-for-a-token-t-in-a-set-of-documents-U-is-computed-as-follows"><span class="toc-number">3.2.</span> <span class="toc-text">Recall that the IDF weight for a token, t, in a set of documents, U, is computed as follows:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Let-N-be-the-total-number-of-documents-in-U-1"><span class="toc-number">3.3.</span> <span class="toc-text">Let N be the total number of documents in U.</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Find-n-t-the-number-of-documents-in-U-that-contain-t-1"><span class="toc-number">3.4.</span> <span class="toc-text">Find n(t), the number of documents in U that contain t.</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Then-IDF-t-N-n-t-1"><span class="toc-number">3.5.</span> <span class="toc-text">Then IDF(t) = N/n(t).</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#The-steps-your-function-should-perform-are-1"><span class="toc-number">3.6.</span> <span class="toc-text">The steps your function should perform are:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Calculate-N-Think-about-how-you-can-calculate-N-from-the-input-RDD"><span class="toc-number">3.7.</span> <span class="toc-text">Calculate N. Think about how you can calculate N from the input RDD.</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Create-an-RDD-not-a-pair-RDD-containing-the-unique-tokens-from-each-document-in-the-input-corpus-For-each-document-you-should-only-include-a-token-once-even-if-it-appears-multiple-times-in-that-document"><span class="toc-number">3.8.</span> <span class="toc-text">Create an RDD (not a pair RDD) containing the unique tokens from each document in the input corpus. For each document, you should only include a token once, even if it appears multiple times in that document.</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#For-each-of-the-unique-tokens-count-how-many-times-it-appears-in-the-document-and-then-compute-the-IDF-for-that-token-N-n-t"><span class="toc-number">3.9.</span> <span class="toc-text">For each of the unique tokens, count how many times it appears in the document and then compute the IDF for that token: N/n(t)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Use-your-idfs-to-compute-the-IDF-weights-for-all-tokens-in-corpusRDD-the-combined-small-datasets"><span class="toc-number">3.10.</span> <span class="toc-text">Use your idfs to compute the IDF weights for all tokens in corpusRDD (the combined small datasets).</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#How-many-unique-tokens-are-there"><span class="toc-number">3.11.</span> <span class="toc-text">How many unique tokens are there?</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Implement-a-TF-IDF-function"><span class="toc-number">4.</span> <span class="toc-text">Implement a TF-IDF function</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Use-your-tf-function-to-implement-a-tfidf-tokens-idfs-function-that-takes-a-list-of-tokens-from-a-document-and-a-Python-dictionary-of-IDF-weights-and-returns-a-Python-dictionary-mapping-individual-tokens-to-total-TF-IDF-weights"><span class="toc-number">4.1.</span> <span class="toc-text">Use your tf function to implement a tfidf(tokens, idfs) function that takes a list of tokens from a document and a Python dictionary of IDF weights and returns a Python dictionary mapping individual tokens to total TF-IDF weights.</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#The-steps-your-function-should-perform-are-2"><span class="toc-number">4.2.</span> <span class="toc-text">The steps your function should perform are:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Calculate-the-token-frequencies-TF-for-tokens"><span class="toc-number">4.3.</span> <span class="toc-text">Calculate the token frequencies (TF) for tokens</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Create-a-Python-dictionary-where-each-token-maps-to-the-token’s-frequency-times-the-token’s-IDF-weight"><span class="toc-number">4.4.</span> <span class="toc-text">Create a Python dictionary where each token maps to the token’s frequency times the token’s IDF weight</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Use-your-tfidf-function-to-compute-the-weights-of-Amazon-product-record-‘b000hkgj8k’-To-do-this-we-need-to-extract-the-record-for-the-token-from-the-tokenized-small-Amazon-dataset-and-we-need-to-convert-the-IDFs-for-the-small-dataset-into-a-Python-dictionary-We-can-do-the-first-part-by-using-a-filter-transformation-to-extract-the-matching-record-and-a-collect-action-to-return-the-value-to-the-driver-For-the-second-part-we-use-the-collectAsMap-action-to-return-the-IDFs-to-the-driver-as-a-Python-dictionary"><span class="toc-number">4.5.</span> <span class="toc-text">Use your tfidf function to compute the weights of Amazon product record ‘b000hkgj8k’. To do this, we need to extract the record for the token from the tokenized small Amazon dataset and we need to convert the IDFs for the small dataset into a Python dictionary. We can do the first part, by using a filter() transformation to extract the matching record and a collect() action to return the value to the driver. For the second part, we use the collectAsMap() action to return the IDFs to the driver as a Python dictionary.</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">标签云</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/Kubernetes/" style="font-size: 10px;">Kubernetes</a> <a href="/tags/docker/" style="font-size: 12px;">docker</a> <a href="/tags/linux/" style="font-size: 16px;">linux</a> <a href="/tags/mongodb/" style="font-size: 18px;">mongodb</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/oracle/" style="font-size: 20px;">oracle</a> <a href="/tags/python/" style="font-size: 18px;">python</a> <a href="/tags/spark/" style="font-size: 14px;">spark</a> <a href="/tags/statistics/" style="font-size: 12px;">statistics</a> <a href="/tags/zabbix/" style="font-size: 14px;">zabbix</a>
+    </div>
+  </div>
+
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1850090763&verifier=2163a5e7&dpc=1"></iframe>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Vincent Page in Google. <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1850090763" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/im-vincent" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/im_Vincent__" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="vincent">vincent</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"im-vincent"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

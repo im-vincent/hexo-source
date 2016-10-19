@@ -1,0 +1,607 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Kubernetes Cluster with 3 minions on CentOS 7 | im-vincent</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="vincent">
+    
+
+    
+    <meta name="description" content="Prerequisites
+
+
+名称
+IP地址
+组件
+
+
+
+
+k8s-master
+172.16.153.101
+etcd、 kube-apiserver、kube-controller- manager、 kube-scheduler
+
+
+k8s-node1
+172.16.153.111
+docker、 kubelet、 kube-proxy
+
+
+k8s-node2
+172.16.153.112">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kubernetes Cluster with 3 minions on CentOS 7">
+<meta property="og:url" content="http://yoursite.com/2016/02/23/Kubernetes-Cluster-with-3-minions-on-CentOS-7/index.html">
+<meta property="og:site_name" content="im-vincent">
+<meta property="og:description" content="Prerequisites
+
+
+名称
+IP地址
+组件
+
+
+
+
+k8s-master
+172.16.153.101
+etcd、 kube-apiserver、kube-controller- manager、 kube-scheduler
+
+
+k8s-node1
+172.16.153.111
+docker、 kubelet、 kube-proxy
+
+
+k8s-node2
+172.16.153.112">
+<meta property="og:updated_time" content="2016-10-19T02:47:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Kubernetes Cluster with 3 minions on CentOS 7">
+<meta name="twitter:description" content="Prerequisites
+
+
+名称
+IP地址
+组件
+
+
+
+
+k8s-master
+172.16.153.101
+etcd、 kube-apiserver、kube-controller- manager、 kube-scheduler
+
+
+k8s-node1
+172.16.153.111
+docker、 kubelet、 kube-proxy
+
+
+k8s-node2
+172.16.153.112">
+<meta name="twitter:creator" content="@im_Vincent__">
+
+    
+    <link rel="alternative" href="/atom.xml" title="im-vincent" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="im-vincent" title="im-vincent"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="im-vincent">im-vincent</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/02/23/Kubernetes-Cluster-with-3-minions-on-CentOS-7/" title="Kubernetes Cluster with 3 minions on CentOS 7" itemprop="url">Kubernetes Cluster with 3 minions on CentOS 7</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="vincent" target="_blank" itemprop="author">vincent</a>
+		
+  <p class="article-time">
+    <time datetime="2016-02-23T07:19:42.000Z" itemprop="datePublished"> 发表于 2016-02-23</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Prerequisites"><span class="toc-number">1.</span> <span class="toc-text">Prerequisites</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Setting-up-the-Kubernetes-Master"><span class="toc-number">2.</span> <span class="toc-text">Setting up the Kubernetes Master</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#安装etcd、kubernetes"><span class="toc-number">2.1.</span> <span class="toc-text">安装etcd、kubernetes</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#配置etcd"><span class="toc-number">2.2.</span> <span class="toc-text">配置etcd</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#配置apiserver"><span class="toc-number">2.3.</span> <span class="toc-text">配置apiserver</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#启动服务"><span class="toc-number">2.4.</span> <span class="toc-text">启动服务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#配置flannel网络信息在etcd"><span class="toc-number">2.5.</span> <span class="toc-text">配置flannel网络信息在etcd</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Setting-up-Kubernetes-Minions-Nodes"><span class="toc-number">3.</span> <span class="toc-text">Setting up Kubernetes Minions (Nodes)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#安装flannel、Kubernetes"><span class="toc-number">3.1.</span> <span class="toc-text">安装flannel、Kubernetes</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#配置flannel"><span class="toc-number">3.2.</span> <span class="toc-text">配置flannel</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#配置kubernetes"><span class="toc-number">3.3.</span> <span class="toc-text">配置kubernetes</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#启动node端服务（node1、node2）"><span class="toc-number">3.4.</span> <span class="toc-text">启动node端服务（node1、node2）</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h3 id="Prerequisites"><a href="#Prerequisites" class="headerlink" title="Prerequisites"></a>Prerequisites</h3><table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th>IP地址</th>
+<th>组件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">k8s-master</td>
+<td>172.16.153.101</td>
+<td>etcd、 kube-apiserver、kube-controller- manager、 kube-scheduler</td>
+</tr>
+<tr>
+<td style="text-align:left">k8s-node1</td>
+<td>172.16.153.111</td>
+<td>docker、 kubelet、 kube-proxy</td>
+</tr>
+<tr>
+<td style="text-align:left">k8s-node2</td>
+<td>172.16.153.112</td>
+<td>docker、 kubelet、 kube-proxy</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="string">hostnamectl </span><span class="built_in">set-hostname</span> <span class="string">k8s-master</span></div><div class="line"><span class="comment">#设置主机名</span></div><div class="line"></div><div class="line"><span class="string">sed </span>-i <span class="string">'s/SELINUX=enforcing/SELINUX=disabled/'</span> /<span class="string">etc/</span><span class="string">selinux/</span><span class="string">config</span></div><div class="line"><span class="comment">#关闭selinux</span></div><div class="line"></div><div class="line"><span class="string">systemctl </span><span class="string">stop </span><span class="string">firewalld</span></div><div class="line"><span class="string">systemctl </span><span class="string">disable </span><span class="string">firewalld</span></div><div class="line"><span class="comment">#关闭防火墙</span></div><div class="line"></div><div class="line"><span class="string">yum </span>-y <span class="string">install </span><span class="string">ntp</span></div><div class="line"><span class="string">systemctl </span><span class="string">start </span><span class="string">ntpd</span></div><div class="line"><span class="string">systemctl </span><span class="string">enable </span><span class="string">ntpd</span></div><div class="line"><span class="comment">#ntp时间同步</span></div></pre></td></tr></table></figure>
+<h3 id="Setting-up-the-Kubernetes-Master"><a href="#Setting-up-the-Kubernetes-Master" class="headerlink" title="Setting up the Kubernetes Master"></a>Setting up the Kubernetes Master</h3><h4 id="安装etcd、kubernetes"><a href="#安装etcd、kubernetes" class="headerlink" title="安装etcd、kubernetes"></a>安装etcd、kubernetes</h4><pre><code><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum -y <span class="keyword">install</span> etcd kubernetes-<span class="keyword">master</span></div></pre></td></tr></table></figure>
+</code></pre><h4 id="配置etcd"><a href="#配置etcd" class="headerlink" title="配置etcd"></a>配置etcd</h4><pre><code><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">[root@k8s-<span class="keyword">master</span> <span class="title">~]# rpm</span> -qc etcd</div><div class="line">/etc/etcd/etcd.conf</div><div class="line"></div><div class="line">[root@k8s-<span class="keyword">master</span> <span class="title">~]# grep</span> -v ^<span class="comment"># /etc/etcd/etcd.conf</span></div><div class="line"><span class="attr">ETCD_NAME=</span>default</div><div class="line"><span class="attr">ETCD_DATA_DIR=</span><span class="string">"/var/lib/etcd/default.etcd"</span></div><div class="line"><span class="attr">ETCD_LISTEN_CLIENT_URLS=</span><span class="string">"http://0.0.0.0:2379"</span></div><div class="line"><span class="attr">ETCD_ADVERTISE_CLIENT_URLS=</span><span class="string">"http://localhost:2379"</span></div></pre></td></tr></table></figure>
+
+ ​
+</code></pre><h4 id="配置apiserver"><a href="#配置apiserver" class="headerlink" title="配置apiserver"></a>配置apiserver</h4><pre><code><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">[root@k8s-<span class="keyword">master</span> <span class="title">~]# rpm</span> -qa|grep kube</div><div class="line">kubernetes-<span class="literal">master</span>-<span class="number">1.2</span>.<span class="number">0</span>-<span class="number">0.11</span>.git738b760.el7.x86_64</div><div class="line">kubernetes-<span class="number">1.2</span>.<span class="number">0</span>-<span class="number">0.11</span>.git738b760.el7.x86_64</div><div class="line"></div><div class="line">[root@k8s-<span class="keyword">master</span> <span class="title">~]# grep</span> -v <span class="string">"^#"</span> /etc/kubernetes/config</div><div class="line"><span class="attr">KUBE_LOGTOSTDERR=</span><span class="string">"--logtostderr=true"</span></div><div class="line"><span class="attr">KUBE_LOG_LEVEL=</span><span class="string">"--v=0"</span></div><div class="line"><span class="attr">KUBE_ALLOW_PRIV=</span><span class="string">"--allow-privileged=false"</span></div><div class="line"><span class="attr">KUBE_MASTER=</span><span class="string">"--master=http://172.16.153.101:8080"</span></div><div class="line"></div><div class="line">[root@k8s-<span class="keyword">master</span> <span class="title">~]# grep</span> -v <span class="string">"^#"</span> /etc/kubernetes/apiserver</div><div class="line"><span class="attr">KUBE_API_ADDRESS=</span><span class="string">"--address=0.0.0.0"</span></div><div class="line"><span class="attr">KUBE_ETCD_SERVERS=</span><span class="string">"--etcd-servers=http://172.16.153.101:2379"</span></div><div class="line"><span class="attr">KUBE_SERVICE_ADDRESSES=</span><span class="string">"--service-cluster-ip-range=10.254.0.0/16"</span></div><div class="line"><span class="attr">KUBE_ADMISSION_CONTROL=</span><span class="string">"--admission-  control=NamespaceLifecycle,NamespaceExists,LimitRanger,SecurityContextDeny,ResourceQuota"</span></div><div class="line"><span class="attr">KUBE_API_ARGS=</span><span class="string">""</span></div><div class="line"><span class="comment">#注意，--admission-control参数里没有ServiceAccount</span></div></pre></td></tr></table></figure>
+
+ ​
+</code></pre><h4 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h4><pre><code><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> SERVICES <span class="keyword">in</span> etcd kube-apiserver kube-controller-manager kube-scheduler; <span class="keyword">do</span></div><div class="line">    systemctl restart <span class="variable">$SERVICES</span></div><div class="line">    systemctl <span class="built_in">enable</span> <span class="variable">$SERVICES</span></div><div class="line">    systemctl status <span class="variable">$SERVICES</span></div><div class="line"><span class="keyword">done</span></div></pre></td></tr></table></figure>
+
+ ​
+</code></pre><h4 id="配置flannel网络信息在etcd"><a href="#配置flannel网络信息在etcd" class="headerlink" title="配置flannel网络信息在etcd"></a>配置flannel网络信息在etcd</h4><pre><code><figure class="highlight verilog"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">etcdctl mk /atomic<span class="variable">.io</span>/network/<span class="keyword">config</span> '&#123;<span class="string">"Network"</span>:<span class="string">"172.17.0.0/16"</span>&#125;'</div><div class="line">#/atomic<span class="variable">.io</span>/network/<span class="keyword">config</span>这个信息要和后面flannel配置信息一致，如果配置错误删除etcd不能删除这个信息。</div></pre></td></tr></table></figure>
+
+​
+</code></pre><h3 id="Setting-up-Kubernetes-Minions-Nodes"><a href="#Setting-up-Kubernetes-Minions-Nodes" class="headerlink" title="Setting up Kubernetes Minions (Nodes)"></a>Setting up Kubernetes Minions (Nodes)</h3><h4 id="安装flannel、Kubernetes"><a href="#安装flannel、Kubernetes" class="headerlink" title="安装flannel、Kubernetes"></a>安装flannel、Kubernetes</h4><pre><code><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum -y install flannel kubernetes-<span class="keyword">node</span><span class="title"></span></div></pre></td></tr></table></figure>
+</code></pre><h4 id="配置flannel"><a href="#配置flannel" class="headerlink" title="配置flannel"></a>配置flannel</h4><pre><code><figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="section">[root@localhost ~]</span><span class="comment"># grep -v ^# /etc/sysconfig/flanneld</span></div><div class="line"><span class="attr">FLANNEL_ETCD</span>=<span class="string">"http://172.16.153.101:2379"</span></div><div class="line"><span class="attr">FLANNEL_ETCD_KEY</span>=<span class="string">"/atomic.io/network"</span></div></pre></td></tr></table></figure>
+</code></pre><h4 id="配置kubernetes"><a href="#配置kubernetes" class="headerlink" title="配置kubernetes"></a>配置kubernetes</h4><pre><code><figure class="highlight protobuf"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# grep -v ^# /etc/kubernetes/config</div><div class="line">KUBE_LOGTOSTDERR=<span class="string">"--logtostderr=true"</span></div><div class="line">KUBE_LOG_LEVEL=<span class="string">"--v=0"</span></div><div class="line">KUBE_ALLOW_PRIV=<span class="string">"--allow-privileged=false"</span></div><div class="line">KUBE_MASTER=<span class="string">"--master=http://172.16.153.101:8080"</span></div><div class="line"></div><div class="line">root@localhost ~]# grep -v ^# /etc/kubernetes/kubelet</div><div class="line">KUBELET_ADDRESS=<span class="string">"--address=0.0.0.0"</span></div><div class="line">KUBELET_HOSTNAME=<span class="string">"--hostname-override=172.16.153.111"</span></div><div class="line">KUBELET_API_SERVER=<span class="string">"--api-servers=http://172.16.153.101:8080"</span></div><div class="line">KUBELET_POD_INFRA_CONTAINER=<span class="string">"--pod-infra-container-image=registry.access.redhat.com/rhel7/pod-infrastructure:latest"</span></div><div class="line">KUBELET_ARGS=<span class="string">"--pod-infra-container-image=index.alauda.cn/googlecontainer/pause"</span></div><div class="line">#这里自定义设置了一个pause，防止被墙下载不过来</div></pre></td></tr></table></figure>
+</code></pre><h4 id="启动node端服务（node1、node2）"><a href="#启动node端服务（node1、node2）" class="headerlink" title="启动node端服务（node1、node2）"></a>启动node端服务（node1、node2）</h4><pre><code><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> SERVICES <span class="keyword">in</span> kube-proxy kubelet docker flanneld; <span class="keyword">do</span></div><div class="line">    systemctl restart <span class="variable">$SERVICES</span></div><div class="line">    systemctl <span class="built_in">enable</span> <span class="variable">$SERVICES</span></div><div class="line">    systemctl status <span class="variable">$SERVICES</span></div><div class="line"><span class="keyword">done</span></div></pre></td></tr></table></figure>
+
+ ​
+
+ ​
+</code></pre>  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Kubernetes/">Kubernetes</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2016/02/23/Kubernetes-Cluster-with-3-minions-on-CentOS-7/" data-title="Kubernetes Cluster with 3 minions on CentOS 7 | im-vincent" data-tsina="1850090763" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/03/31/Deploying-a-registry-server/" title="Deploying a registry server">
+  <strong>上一篇：</strong><br/>
+  <span>
+  Deploying a registry server</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/01/18/oracle数据库坏块处理/"  title="oracle数据库坏块处理">
+ <strong>下一篇：</strong><br/> 
+ <span>oracle数据库坏块处理
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/02/23/Kubernetes-Cluster-with-3-minions-on-CentOS-7/" data-title="Kubernetes Cluster with 3 minions on CentOS 7" data-url="http://yoursite.com/2016/02/23/Kubernetes-Cluster-with-3-minions-on-CentOS-7/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Prerequisites"><span class="toc-number">1.</span> <span class="toc-text">Prerequisites</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Setting-up-the-Kubernetes-Master"><span class="toc-number">2.</span> <span class="toc-text">Setting up the Kubernetes Master</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#安装etcd、kubernetes"><span class="toc-number">2.1.</span> <span class="toc-text">安装etcd、kubernetes</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#配置etcd"><span class="toc-number">2.2.</span> <span class="toc-text">配置etcd</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#配置apiserver"><span class="toc-number">2.3.</span> <span class="toc-text">配置apiserver</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#启动服务"><span class="toc-number">2.4.</span> <span class="toc-text">启动服务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#配置flannel网络信息在etcd"><span class="toc-number">2.5.</span> <span class="toc-text">配置flannel网络信息在etcd</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Setting-up-Kubernetes-Minions-Nodes"><span class="toc-number">3.</span> <span class="toc-text">Setting up Kubernetes Minions (Nodes)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#安装flannel、Kubernetes"><span class="toc-number">3.1.</span> <span class="toc-text">安装flannel、Kubernetes</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#配置flannel"><span class="toc-number">3.2.</span> <span class="toc-text">配置flannel</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#配置kubernetes"><span class="toc-number">3.3.</span> <span class="toc-text">配置kubernetes</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#启动node端服务（node1、node2）"><span class="toc-number">3.4.</span> <span class="toc-text">启动node端服务（node1、node2）</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">标签云</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/Kubernetes/" style="font-size: 10px;">Kubernetes</a> <a href="/tags/docker/" style="font-size: 12px;">docker</a> <a href="/tags/linux/" style="font-size: 16px;">linux</a> <a href="/tags/mongodb/" style="font-size: 18px;">mongodb</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/oracle/" style="font-size: 20px;">oracle</a> <a href="/tags/python/" style="font-size: 18px;">python</a> <a href="/tags/spark/" style="font-size: 14px;">spark</a> <a href="/tags/statistics/" style="font-size: 12px;">statistics</a> <a href="/tags/zabbix/" style="font-size: 14px;">zabbix</a>
+    </div>
+  </div>
+
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1850090763&verifier=2163a5e7&dpc=1"></iframe>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Vincent Page in Google. <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1850090763" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/im-vincent" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/im_Vincent__" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="vincent">vincent</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"im-vincent"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

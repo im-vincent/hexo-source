@@ -1,0 +1,1143 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>im-vincent</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="vincent">
+    
+
+    
+    <meta property="og:type" content="website">
+<meta property="og:title" content="im-vincent">
+<meta property="og:url" content="http://yoursite.com/page/3/index.html">
+<meta property="og:site_name" content="im-vincent">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="im-vincent">
+<meta name="twitter:creator" content="@im_Vincent__">
+
+    
+    <link rel="alternative" href="/atom.xml" title="im-vincent" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="im-vincent" title="im-vincent"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="im-vincent">im-vincent</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main">
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/11/05/Installing-MariaDB-Binary-Tarballs/" title="Installing MariaDB Binary Tarballs" itemprop="url">Installing MariaDB Binary Tarballs</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="vincent" target="_blank" itemprop="author">vincent</a>
+		
+  <p class="article-time">
+    <time datetime="2015-11-05T06:18:48.000Z" itemprop="datePublished"> 发表于 2015-11-05</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p><a href="https://mariadb.com/kb/en/mariadb/installing-mariadb-binary-tarballs/" title="Title" target="_blank" rel="external">Installing MariaDB Binary Tarballs</a></p>
+<p>Installing MariaDB as root in /usr/local/mysql<br>If you have root access to the system, you probably want to install MariaDB under the user and group ‘mysql’ (to keep compatibility with MySQL installations):</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">groupadd mysql</div><div class="line">useradd -<span class="keyword">g</span> mysql mysql</div><div class="line"><span class="keyword">cd</span> /usr/<span class="keyword">local</span></div><div class="line">tar -zxvpf /path-to/mariadb-<span class="keyword">VERSION</span>-OS.tar.gz</div><div class="line">ln -s mariadb-<span class="keyword">VERSION</span>-OS mysql</div><div class="line"><span class="keyword">cd</span> mysql</div><div class="line">./scripts/mysql_install_db --user=mysql</div><div class="line">chown -R root .</div><div class="line">chown -R mysql data</div></pre></td></tr></table></figure>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">./bin/mysqld_safe <span class="attr">--user=mysql</span> &amp;</div><div class="line"><span class="literal">or</span></div><div class="line">./bin/mysqld_safe <span class="attr">--defaults-file=~/.my.cnf</span> <span class="attr">--user=mysql</span> &amp;</div></pre></td></tr></table></figure>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">export PATH=<span class="variable">$PATH</span><span class="symbol">:/usr/local/mysql/bin/</span></div></pre></td></tr></table></figure>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cp support-files/mysql<span class="selector-class">.server</span> /etc/init.d/mysql<span class="selector-class">.server</span></div><div class="line">cp ./support-files/my-medium<span class="selector-class">.cnf</span> /etc/my.cnf</div></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/mysql/">mysql</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/11/05/Installing-MariaDB-Binary-Tarballs/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/11/05/Installing-MariaDB-Binary-Tarballs/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/10/15/rman多路径备份/" title="rman多路径备份" itemprop="url">rman多路径备份</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="vincent" target="_blank" itemprop="author">vincent</a>
+		
+  <p class="article-time">
+    <time datetime="2015-10-15T02:46:59.000Z" itemprop="datePublished"> 发表于 2015-10-15</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h4 id="建立备份目录"><a href="#建立备份目录" class="headerlink" title="建立备份目录"></a>建立备份目录</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd /<span class="keyword">backup</span></div><div class="line">mkdir <span class="keyword">data</span> rman <span class="keyword">logs</span> arch</div></pre></td></tr></table></figure>
+<h4 id="配置rman"><a href="#配置rman" class="headerlink" title="配置rman"></a>配置rman</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">rman target /</div><div class="line"></div><div class="line">CONFIGURE DATAFILE <span class="keyword">BACKUP</span> COPIES <span class="keyword">FOR</span> DEVICE <span class="keyword">TYPE</span> DISK <span class="keyword">TO</span> <span class="number">2</span>;</div><div class="line">CONFIGURE ARCHIVELOG <span class="keyword">BACKUP</span> COPIES <span class="keyword">FOR</span> DEVICE <span class="keyword">TYPE</span> DISK <span class="keyword">TO</span> <span class="number">2</span>;</div></pre></td></tr></table></figure>
+<h4 id="配置rman-backup-twoaddr-sh"><a href="#配置rman-backup-twoaddr-sh" class="headerlink" title="配置rman_backup_twoaddr.sh"></a>配置rman_backup_twoaddr.sh</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/ksh</span></div><div class="line"><span class="built_in">export</span> LANG=en_US</div><div class="line">BACKUP_DATE=`date +%d`</div><div class="line">RMAN_LOG_FILE=/opt/backup/logs/rmanlog`date +%Y%m%d`.out</div><div class="line">TODAY=`date`</div><div class="line">USER=`id|cut <span class="_">-d</span> <span class="string">"("</span> <span class="_">-f</span>2|cut <span class="_">-d</span> <span class="string">")"</span> <span class="_">-f</span>1`</div><div class="line"><span class="built_in">echo</span> <span class="string">"-----------------<span class="variable">$TODAY</span>-------------------"</span>&gt;<span class="variable">$RMAN_LOG_FILE</span></div><div class="line">ORACLE_HOME=/opt/ora10g/db_1</div><div class="line"><span class="built_in">export</span> ORACLE_HOME</div><div class="line">RMAN=<span class="variable">$ORACLE_HOME</span>/bin/rman</div><div class="line"><span class="built_in">export</span> RMAN</div><div class="line">ORACLE_SID=zmedi</div><div class="line"><span class="built_in">export</span> ORACLE_SID</div><div class="line">ORACLE_USER=oracle</div><div class="line"><span class="built_in">export</span> ORACLE_USER</div><div class="line"></div><div class="line"><span class="built_in">echo</span> <span class="string">"ORACLE_SID: <span class="variable">$ORACLE_SID</span>"</span>&gt;&gt;<span class="variable">$RMAN_LOG_FILE</span></div><div class="line"><span class="built_in">echo</span> <span class="string">"ORACLE_HOME:<span class="variable">$ORACLE_HOME</span>"</span>&gt;&gt;<span class="variable">$RMAN_LOG_FILE</span></div><div class="line"><span class="built_in">echo</span> <span class="string">"ORACLE_USER:<span class="variable">$ORACLE_USER</span>"</span>&gt;&gt;<span class="variable">$RMAN_LOG_FILE</span></div><div class="line"><span class="built_in">echo</span> <span class="string">"=========================================="</span>&gt;&gt;<span class="variable">$RMAN_LOG_FILE</span></div><div class="line"><span class="built_in">echo</span> <span class="string">"BACKUP DATABASE BEGIN......"</span>&gt;&gt;<span class="variable">$RMAN_LOG_FILE</span></div><div class="line"><span class="built_in">echo</span> <span class="string">"                   "</span>&gt;&gt;<span class="variable">$RMAN_LOG_FILE</span></div><div class="line">chmod 666 <span class="variable">$RMAN_LOG_FILE</span></div><div class="line"></div><div class="line">WEEK_DAILY=`date +%a`</div><div class="line"><span class="keyword">case</span>  <span class="string">"<span class="variable">$WEEK_DAILY</span>"</span> <span class="keyword">in</span></div><div class="line">       <span class="string">"Mon"</span>)</div><div class="line">            BAK_LEVEL=2</div><div class="line">            ;;</div><div class="line">       <span class="string">"Tue"</span>)</div><div class="line">            BAK_LEVEL=2</div><div class="line">            ;;</div><div class="line">       <span class="string">"Wed"</span>)</div><div class="line">            BAK_LEVEL=2</div><div class="line">            ;;</div><div class="line">       <span class="string">"Thu"</span>)</div><div class="line">            BAK_LEVEL=1</div><div class="line">            ;;</div><div class="line">       <span class="string">"Fri"</span>)</div><div class="line">            BAK_LEVEL=2</div><div class="line">            ;;</div><div class="line">       <span class="string">"Sat"</span>)</div><div class="line">            BAK_LEVEL=2</div><div class="line">            ;;</div><div class="line">       <span class="string">"Sun"</span>)</div><div class="line">            BAK_LEVEL=0</div><div class="line">            ;;</div><div class="line">       <span class="string">"*"</span>)</div><div class="line">            BAK_LEVEL=error</div><div class="line"><span class="keyword">esac</span></div><div class="line"></div><div class="line"><span class="built_in">export</span> BAK_LEVEL=<span class="variable">$BAK_LEVEL</span></div><div class="line"><span class="built_in">echo</span> <span class="string">"Today is : <span class="variable">$WEEK_DAILY</span>  incremental level= <span class="variable">$BAK_LEVEL</span>"</span>&gt;&gt;<span class="variable">$RMAN_LOG_FILE</span></div><div class="line"></div><div class="line">RUN_STR=<span class="string">"</span></div><div class="line">BAK_LEVEL=<span class="variable">$BAK_LEVEL</span></div><div class="line">export BAK_LEVEL</div><div class="line">ORACLE_HOME=<span class="variable">$ORACLE_HOME</span></div><div class="line">export ORACLE_HOME</div><div class="line">ORACLE_SID=<span class="variable">$ORACLE_SID</span></div><div class="line">export ORACLE_SID</div><div class="line"><span class="variable">$RMAN</span> nocatalog TARGET / msglog <span class="variable">$RMAN_LOG_FILE</span> append &lt;&lt;EOF</div><div class="line">run</div><div class="line">&#123;</div><div class="line">allocate channel c1 type disk MAXPIECESIZE=64G;</div><div class="line">allocate channel c2 type disk MAXPIECESIZE=64G;</div><div class="line">allocate channel c3 type disk MAXPIECESIZE=64G;</div><div class="line">allocate channel c4 type disk MAXPIECESIZE=64G;</div><div class="line">backup as compressed backupset incremental level= <span class="variable">$BAK_LEVEL</span>  skip inaccessible  </div><div class="line">Database format='/opt/backup/data/lev"<span class="variable">$BAK_LEVEL</span><span class="string">"_%d_%U','/opt/nfsbackup/246zgwdb/rmanbackup/data/lev"</span><span class="variable">$BAK_LEVEL</span><span class="string">"_%d_%U' tag='lev"</span><span class="variable">$BAK_LEVEL</span><span class="string">"'</span></div><div class="line">plus archivelog format='/opt/backup/data/arch_%d_%U','/opt/nfsbackup/246zgwdb/rmanbackup/data/arch_%d_%U' delete input;</div><div class="line">release channel c1;</div><div class="line">release channel c2;</div><div class="line">release channel c3;</div><div class="line">release channel c4;</div><div class="line">&#125;</div><div class="line">allocate channel for maintenance device type disk;</div><div class="line">report obsolete;</div><div class="line">delete noprompt obsolete;</div><div class="line">crosscheck backup;</div><div class="line">delete noprompt expired backup;</div><div class="line">list backup summary;</div><div class="line">release channel;</div><div class="line">EOF</div><div class="line">"</div><div class="line"> <span class="comment"># Initiate the command string</span></div><div class="line"></div><div class="line"><span class="keyword">if</span> [ <span class="string">"<span class="variable">$CUSER</span>"</span> = <span class="string">"root"</span> ]</div><div class="line"><span class="keyword">then</span></div><div class="line">    <span class="built_in">echo</span> <span class="string">"Root Command String: <span class="variable">$RUN_STR</span>"</span> &gt;&gt; <span class="variable">$RMAN_LOG_FILE</span>    </div><div class="line">    su - <span class="variable">$ORACLE_USER</span> -c <span class="string">"<span class="variable">$RUN_STR</span>"</span> &gt;&gt; <span class="variable">$RMAN_LOG_FILE</span></div><div class="line">    RSTAT=$?</div><div class="line"><span class="keyword">else</span></div><div class="line">    <span class="built_in">echo</span> <span class="string">"User Command String: <span class="variable">$RUN_STR</span>"</span> &gt;&gt; <span class="variable">$RMAN_LOG_FILE</span>    </div><div class="line">    /bin/sh -c <span class="string">"<span class="variable">$RUN_STR</span>"</span> &gt;&gt; <span class="variable">$RMAN_LOG_FILE</span></div><div class="line">    RSTAT=$?</div><div class="line"><span class="keyword">fi</span></div><div class="line"></div><div class="line"><span class="comment"># ---------------------------------------------------------------------------</span></div><div class="line"><span class="comment"># Log the completion of this script.</span></div><div class="line"><span class="comment"># ---------------------------------------------------------------------------</span></div><div class="line"></div><div class="line"><span class="keyword">if</span> [ <span class="string">"<span class="variable">$RSTAT</span>"</span> = <span class="string">"0"</span> ]</div><div class="line"><span class="keyword">then</span></div><div class="line">    LOGMSG=<span class="string">"ended successfully"</span></div><div class="line"><span class="keyword">else</span></div><div class="line">    LOGMSG=<span class="string">"ended in error"</span></div><div class="line"><span class="keyword">fi</span></div><div class="line"><span class="built_in">echo</span> &gt;&gt; <span class="variable">$RMAN_LOG_FILE</span></div><div class="line"><span class="built_in">echo</span> Script <span class="variable">$0</span> &gt;&gt; <span class="variable">$RMAN_LOG_FILE</span></div><div class="line"><span class="built_in">echo</span> ==== <span class="variable">$LOGMSG</span> on `date` ==== &gt;&gt; <span class="variable">$RMAN_LOG_FILE</span></div><div class="line"><span class="built_in">echo</span> &gt;&gt; <span class="variable">$RMAN_LOG_FILE</span></div><div class="line"><span class="built_in">exit</span> <span class="variable">$RSTAT</span></div></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/oracle/">oracle</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/10/15/rman多路径备份/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/10/15/rman多路径备份/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/10/12/RAC-CRS-PROT-602-Failed-to-retrieve-data-from-the-cluster-registry/" title="RAC CRS PROT-602: Failed to retrieve data from the cluster registry" itemprop="url">RAC CRS PROT-602: Failed to retrieve data from the cluster registry</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="vincent" target="_blank" itemprop="author">vincent</a>
+		
+  <p class="article-time">
+    <time datetime="2015-10-12T02:58:07.000Z" itemprop="datePublished"> 发表于 2015-10-12</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>最近巡检发现crs检测发现有点异常，但是业务没有收到影响，记录下</p>
+<p>###ocrcheck###<br><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">PROT<span class="number">-602</span>: Failed <span class="built_in">to</span> retrieve data <span class="built_in">from</span> <span class="keyword">the</span> cluster registry</div><div class="line">PROC<span class="number">-26</span>: Error <span class="keyword">while</span> accessing <span class="keyword">the</span> physical storage</div></pre></td></tr></table></figure></p>
+<p>###crsctl query css votedisk###<br><figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">##  <span class="selector-tag">STATE</span>    <span class="selector-tag">File</span> <span class="selector-tag">Universal</span> <span class="selector-tag">Id</span>                <span class="selector-tag">File</span> <span class="selector-tag">Name</span> <span class="selector-tag">Disk</span> <span class="selector-tag">group</span></div><div class="line"><span class="selector-tag">--</span>  <span class="selector-tag">-----</span>    <span class="selector-tag">-----------------</span>                <span class="selector-tag">---------</span> <span class="selector-tag">---------</span></div><div class="line"> <span class="selector-tag">1</span>. <span class="selector-tag">ONLINE</span>   <span class="selector-tag">4288e5de20214f1bbfaae80747c8df2c</span> (/dev/mapper/ocr_01) <span class="selector-attr">[OCR]</span></div><div class="line"> <span class="selector-tag">2</span>. <span class="selector-tag">ONLINE</span>   <span class="selector-tag">44a9e2ae3f064fafbf78ddd425d8a399</span> (/dev/mapper/ocr_02) <span class="selector-attr">[OCR]</span></div><div class="line"> <span class="selector-tag">3</span>. <span class="selector-tag">ONLINE</span>   <span class="selector-tag">5914cd18dd654f77bf1b893b5b9d73c4</span> (/dev/mapper/ocr_03) <span class="selector-attr">[OCR]</span></div><div class="line"><span class="selector-tag">Located</span> <span class="selector-tag">3</span> <span class="selector-tag">voting</span> <span class="selector-tag">disk</span>(s).</div></pre></td></tr></table></figure></p>
+<p>###crsctl status res -t###<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">--------------------------------------------------------------------------------</div><div class="line">NAME           TARGET  STATE        SERVER                   STATE_DETAILS       </div><div class="line">--------------------------------------------------------------------------------</div><div class="line">Local Resources</div><div class="line">--------------------------------------------------------------------------------</div><div class="line">ora<span class="selector-class">.ARCH</span><span class="selector-class">.dg</span></div><div class="line">               ONLINE  ONLINE       XXXX01                                      </div><div class="line">               ONLINE  ONLINE       XXXX02                                      </div><div class="line">ora<span class="selector-class">.DATA</span><span class="selector-class">.dg</span></div><div class="line">               ONLINE  ONLINE       XXXX01                                      </div><div class="line">               ONLINE  ONLINE       XXXX02                                      </div><div class="line">ora<span class="selector-class">.LISTENER</span><span class="selector-class">.lsnr</span></div><div class="line">               ONLINE  ONLINE       XXXX01                                      </div><div class="line">               ONLINE  ONLINE       XXXX02                                      </div><div class="line">ora<span class="selector-class">.OCR</span><span class="selector-class">.dg</span></div><div class="line">               OFFLINE OFFLINE      XXXX01                                      </div><div class="line">               ONLINE  ONLINE       XXXX02                                      </div><div class="line">ora<span class="selector-class">.asm</span></div><div class="line">               ONLINE  ONLINE       XXXX01                  Started             </div><div class="line">               ONLINE  ONLINE       XXXX02                  Started             </div><div class="line">ora<span class="selector-class">.gsd</span></div><div class="line">               OFFLINE OFFLINE      XXXX01                                      </div><div class="line">               OFFLINE OFFLINE      XXXX02                                      </div><div class="line">ora<span class="selector-class">.net1</span><span class="selector-class">.network</span></div><div class="line">               ONLINE  ONLINE       XXXX01                                      </div><div class="line">               ONLINE  ONLINE       XXXX02                                      </div><div class="line">ora<span class="selector-class">.ons</span></div><div class="line">               ONLINE  ONLINE       XXXX01                                      </div><div class="line">               ONLINE  ONLINE       XXXX02</div></pre></td></tr></table></figure></p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">检查asm磁盘状态</div><div class="line">su - grid</div><div class="line"></div><div class="line">sqlplus / as sysasm</div><div class="line">col name format a15</div><div class="line">col path format a17</div><div class="line">select name,path,header<span class="emphasis">_status,mount_</span>status,state from v$asm<span class="emphasis">_disk;</span></div><div class="line"></div><div class="line"></div><div class="line">挂载被dismount磁盘</div><div class="line">asmcmd</div><div class="line"></div><div class="line">mount -a</div><div class="line"></div><div class="line">检查asm日志</div><div class="line">sqlplus / as sysasm</div><div class="line"></div><div class="line">SQL&gt; show parameter dump</div><div class="line"></div><div class="line">NAME                                 TYPE        VALUE</div><div class="line"><span class="bullet">------------------------------------ </span>----------- ------------------------------</div><div class="line">background<span class="emphasis">_core_</span>dump                 string      partial</div><div class="line">background<span class="emphasis">_dump_</span>dest                 string      /u01/app/grid/diag/asm/<span class="code">+asm/+</span>A</div><div class="line"><span class="code">                                                 SM2/trace  &lt;---asm实例日志</span></div><div class="line">core<span class="emphasis">_dump_</span>dest                       string      /u01/app/grid/diag/asm/<span class="code">+asm/+</span>A</div><div class="line"><span class="code">                                                 SM2/cdump</span></div><div class="line">max<span class="emphasis">_dump_</span>file<span class="emphasis">_size                   string      unlimited</span></div><div class="line">shadow_core<span class="emphasis">_dump                     string      partial</span></div><div class="line">user_dump<span class="emphasis">_dest                       string      /u01/app/grid/diag/asm/+asm/+A</span></div><div class="line">                                                 SM2/trace</div><div class="line"></div><div class="line"></div><div class="line">tail -100 /u01/app/grid/diag/asm/<span class="code">+asm/+</span>ASM2/trace</div><div class="line"><span class="symbol">WARNING: </span>Waited 15 secs for write IO to PST disk 0 in group 2.</div><div class="line"><span class="symbol">WARNING: </span>Waited 15 secs for write IO to PST disk 0 in group 2.</div><div class="line"><span class="symbol">WARNING: </span>Waited 15 secs for write IO to PST disk 0 in group 3.</div><div class="line"><span class="symbol">WARNING: </span>Waited 15 secs for write IO to PST disk 1 in group 3.</div><div class="line"><span class="symbol">WARNING: </span>Waited 15 secs for write IO to PST disk 2 in group 3.</div><div class="line"><span class="symbol">WARNING: </span>Waited 15 secs for write IO to PST disk 0 in group 3.</div><div class="line"><span class="symbol">WARNING: </span>Waited 15 secs for write IO to PST disk 1 in group 3.</div><div class="line"><span class="symbol">WARNING: </span>Waited 15 secs for write IO to PST disk 2 in group 3.</div><div class="line">Fri Dec 04 01:48:17 2015</div><div class="line"><span class="symbol">NOTE: </span>process <span class="emphasis">_b000_</span>+asm1 (99207) initiating offline of disk 0.3916016564 (OCR<span class="emphasis">_0000) with mask 0x7e in group 3</span></div><div class="line">NOTE: process _b000<span class="emphasis">_+asm1 (99207) initiating offline of disk 1.3916016563 (OCR_</span>0001) with mask 0x7e in group 3</div><div class="line"><span class="symbol">NOTE: </span>process <span class="emphasis">_b000_</span>+asm1 (99207) initiating offline of disk 2.3916016562 (OCR<span class="emphasis">_0002) with mask 0x7e in group 3</span></div><div class="line">NOTE: checking PST: grp = 3</div><div class="line">GMON checking disk modes for group 3 at 22 for pid 27, osid 99207</div><div class="line">ERROR: no read quorum in group: required 2, found 0 disks</div><div class="line">NOTE: checking PST for grp 3 done.</div><div class="line">NOTE: initiating PST update: grp = 3, dsk = 0/0xe969abb4, mask = 0x6a, op = clear</div><div class="line">NOTE: initiating PST update: grp = 3, dsk = 1/0xe969abb3, mask = 0x6a, op = clear</div><div class="line">NOTE: initiating PST update: grp = 3, dsk = 2/0xe969abb2, mask = 0x6a, op = clear</div><div class="line">GMON updating disk modes for group 3 at 23 for pid 27, osid 99207</div><div class="line">ERROR: no read quorum in group: required 2, found 0 disks</div><div class="line">Fri Dec 04 01:48:17 2015</div><div class="line">NOTE: cache dismounting (not clean) group 3/0xD0095B7D (OCR)</div><div class="line">WARNING: Offline for disk OCR_0000 in mode 0x7f failed.</div><div class="line"><span class="symbol">WARNING: </span>Offline for disk OCR<span class="emphasis">_0001 in mode 0x7f failed.</span></div><div class="line">WARNING: Offline for disk OCR_0002 in mode 0x7f failed.</div><div class="line"><span class="symbol">NOTE: </span>messaging CKPT to quiesce pins Unix process pid: 99209, image: oracle@zjbmi01 (B001)</div><div class="line">Fri Dec 04 01:48:17 2015</div><div class="line"><span class="symbol">NOTE: </span>halting all I/Os to diskgroup 3 (OCR)</div><div class="line">Fri Dec 04 01:48:18 2015</div><div class="line"><span class="symbol">NOTE: </span>LGWR doing non-clean dismount of group 3 (OCR)</div><div class="line"><span class="symbol">NOTE: </span>LGWR sync ABA=13.88 last written ABA 13.88</div><div class="line">Fri Dec 04 01:48:18 2015</div><div class="line"><span class="symbol">NOTE: </span>No asm libraries found in the system</div><div class="line">Fri Dec 04 01:48:18 2015</div><div class="line">kjbdomdet send to inst 2</div><div class="line">detach from dom 3, sending detach message to inst 2</div><div class="line">Fri Dec 04 01:48:18 2015</div><div class="line">List of instances:</div><div class="line"><span class="code"> 1 2</span></div><div class="line">Dirty detach reconfiguration started (new ddet inc 1, cluster inc 8)</div><div class="line"><span class="code"> Global Resource Directory partially frozen for dirty detach</span></div><div class="line"><span class="bullet">* </span>dirty detach - domain 3 invalid = TRUE</div><div class="line"><span class="code"> 770 GCS resources traversed, 0 cancelled</span></div><div class="line">Dirty Detach Reconfiguration complete</div><div class="line">Fri Dec 04 01:48:18 2015</div><div class="line"><span class="symbol">WARNING: </span>dirty detached from domain 3</div><div class="line"><span class="symbol">NOTE: </span>cache dismounted group 3/0xD0095B7D (OCR)</div><div class="line">SQL&gt; alter diskgroup OCR dismount force /* ASM SERVER:3490274173 <span class="strong">*/</span></div></pre></td></tr></table></figure>
+<p>bug 相关信息</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">redhat <span class="string">'multipathd'</span> and disk checker recognises failed disks later then Oracle ASM</div><div class="line">https:<span class="regexp">//</span>access.redhat.com<span class="regexp">/solutions/</span><span class="number">1241173</span></div><div class="line"></div><div class="line">oracle bug <span class="number">17274537</span></div><div class="line">http:<span class="regexp">//</span>blog.csdn.net<span class="regexp">/wuweilong/</span>article<span class="regexp">/details/</span><span class="number">41042145</span></div></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/oracle/">oracle</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/10/12/RAC-CRS-PROT-602-Failed-to-retrieve-data-from-the-cluster-registry/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/10/12/RAC-CRS-PROT-602-Failed-to-retrieve-data-from-the-cluster-registry/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/10/08/mongodb-3-0-x-explain执行计划/" title="mongodb 3.0.x explain执行计划" itemprop="url">mongodb 3.0.x explain执行计划</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="vincent" target="_blank" itemprop="author">vincent</a>
+		
+  <p class="article-time">
+    <time datetime="2015-10-08T07:08:43.000Z" itemprop="datePublished"> 发表于 2015-10-08</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <blockquote>
+<p>本文参考MongoDB干货系列 <a href="http://www.mongoing.com/eshu_explain3" target="_blank" rel="external">http://www.mongoing.com/eshu_explain3</a></p>
+</blockquote>
+<h3 id="现版本explain有三种模式，分别如下："><a href="#现版本explain有三种模式，分别如下：" class="headerlink" title="现版本explain有三种模式，分别如下："></a>现版本explain有三种模式，分别如下：</h3><ul>
+<li><p>queryPlanner</p>
+</li>
+<li><p>executionStats</p>
+</li>
+<li><p>allPlansExecution</p>
+</li>
+</ul>
+<h4 id="IndexFilter"><a href="#IndexFilter" class="headerlink" title="IndexFilter"></a>IndexFilter</h4><p>IndexFilter决定了查询优化器对于某一类型的查询将如何使用index，indexFilter仅影响查询优化器对于该类查询可以用尝试哪些index的执行计划分析，查询优化器还是根据分析情况选择最优计划。</p>
+<blockquote>
+<p><a href="http://docs.mongodb.org/manual/reference/command/planCacheSetFilter/#dbcmd.planCacheSetFilter" target="_blank" rel="external">http://docs.mongodb.org/manual/reference/command/planCacheSetFilter/#dbcmd.planCacheSetFilter</a></p>
+</blockquote>
+<h4 id="Stage的意义"><a href="#Stage的意义" class="headerlink" title="Stage的意义"></a>Stage的意义</h4><p>如explain.queryPlanner.winningPlan.stage和explain.queryPlanner.winningPlan.inputStage等。</p>
+<p>文档中仅有如下几类介绍</p>
+<ul>
+<li><p>COLLSCAN    全表扫描</p>
+</li>
+<li><p>IXSCAN    索引扫描</p>
+</li>
+<li><p>FETCH        根据索引去检索指定document</p>
+</li>
+<li><p>SHARD_MERGE    将各个分片返回数据进行merge</p>
+</li>
+</ul>
+<p>但是根据源码中的信息，个人还总结了文档中没有的如下几类(常用如下，由于是通过源码查找，可能有所遗漏)</p>
+<ul>
+<li><p>SORT            表明在内存中进行了排序（与老版本的scanAndOrder:true一致）</p>
+</li>
+<li><p>LIMIT            使用limit限制返回数</p>
+</li>
+<li><p>SKIP            使用skip进行跳过</p>
+</li>
+<li><p>IDHACK         针对_id进行查询</p>
+</li>
+<li><p>SHARDING_FILTER    通过mongos对分片数据进行查询</p>
+</li>
+<li><p>COUNT            利用db.coll.explain().count()之类进行count运算</p>
+</li>
+<li><p>COUNTSCAN        count不使用用Index进行count时的stage返回</p>
+</li>
+<li><p>COUNT_SCAN    count使用了Index进行count时的stage返回</p>
+</li>
+<li><p>SUBPLA        未使用到索引的$or查询的stage返回</p>
+</li>
+<li><p>TEXT            使用全文索引进行查询时候的stage返回</p>
+</li>
+<li><p>PROJECTION    限定返回字段时候stage的返回</p>
+</li>
+</ul>
+<h4 id="对Explain返回逐层分析"><a href="#对Explain返回逐层分析" class="headerlink" title="对Explain返回逐层分析"></a>对Explain返回逐层分析</h4><figure class="highlight ada"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="string">"executionStats"</span> : &#123;</div><div class="line">                <span class="string">"executionSuccess"</span> : <span class="type">true</span>,</div><div class="line">                <span class="string">"nReturned"</span> : 29861,</div><div class="line">                <span class="string">"executionTimeMillis"</span> : 66948,</div><div class="line">                <span class="string">"totalKeysExamined"</span> : 29861,</div><div class="line">                <span class="string">"totalDocsExamined"</span> : 29861,</div><div class="line">                <span class="string">"executionStages"</span> : &#123;</div><div class="line">                        <span class="string">"stage"</span> : "<span class="type">FETCH</span><span class="string">",</span></div><div class="line">                        "nReturned<span class="string">" : 29861,</span></div><div class="line">                        "executionTimeMillisEstimate<span class="string">" : 66244,</span></div><div class="line">                        "works<span class="string">" : 29862,</span></div><div class="line">                        "advanced<span class="string">" : 29861,</span></div><div class="line">                        "needTime<span class="string">" : 0,</span></div><div class="line">                        "needFetch<span class="string">" : 0,</span></div><div class="line">                        "saveState<span class="string">" : 2934,</span></div><div class="line">                        "restoreState<span class="string">" : 2934,</span></div><div class="line">                        "isEOF<span class="string">" : 1,</span></div><div class="line">                        "invalidates<span class="string">" : 0,</span></div><div class="line">                        "docsExamined<span class="string">" : 29861,</span></div><div class="line">                        "alreadyHasObj<span class="string">" : 0,</span></div><div class="line">                        "inputStage<span class="string">" : &#123;</span></div><div class="line">                                "stage<span class="string">" : "</span>IXSCAN<span class="string">",</span></div><div class="line">                                "nReturned<span class="string">" : 29861,</span></div><div class="line">                                "executionTimeMillisEstimate<span class="string">" : 290,</span></div><div class="line">                                "works<span class="string">" : 29862,</span></div><div class="line">                                "advanced<span class="string">" : 29861,</span></div><div class="line">                                "needTime<span class="string">" : 0,</span></div><div class="line">                                "needFetch<span class="string">" : 0,</span></div><div class="line">                                "saveState<span class="string">" : 2934,</span></div><div class="line">                                "restoreState<span class="string">" : 2934,</span></div><div class="line">                                ...</div></pre></td></tr></table></figure>
+<ol>
+<li>executionTimeMillis<ul>
+<li>executionStats.executionTimeMillis<br>该query的整体查询时间</li>
+<li>executionStats.executionStages.executionTimeMillis     该查询根据index去检索document获取29861条具体数据的时间</li>
+<li>executionStats.executionStages.inputStage.executionTimeMillis    该查询扫描29861行index所用时间</li>
+</ul>
+</li>
+<li>index与document扫描数与查询返回条目数<ul>
+<li>nReturned=totalKeysExamined &amp; totalDocsExamined=0</li>
+<li>nReturned=totalKeysExamined=totalDocsExamined(需要具体情况具体分析)</li>
+<li>如果有sort的时候，为了使得sort不在内存中进行，我们可以在保证nReturned=totalDocsExamined<br>的基础上，totalKeysExamined可以大于totalDocsExamined与nReturned，因为量级较大的时候内存排序非常消耗性能。</li>
+</ul>
+</li>
+<li>Stage状态分析<ul>
+<li>我们希望看到的组合：<ul>
+<li>Fetch+IDHACK</li>
+<li>Fetch+ixscan</li>
+<li>Limit+（Fetch+ixscan）</li>
+<li>PROJECTION+ixscan</li>
+<li>SHARDING_FILTER+ixscan</li>
+</ul>
+</li>
+<li>不希望看到包含如下的stage：<ul>
+<li>COLLSCAN（全表扫）</li>
+<li>SORT（使用sort但是无index）</li>
+<li>不合理的SKIP</li>
+<li>SUBPLA(未用到index的$or)</li>
+</ul>
+</li>
+<li>对于count查询<ul>
+<li>COUNT_SCAN(好的)</li>
+<li>COUNTSCAN(不好的)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>当查询覆盖精确匹配，范围查询与排序的时候<br>{精确匹配字段,排序字段,范围查询字段}这样的索引排序会更为高效。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/mongodb/">mongodb</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/10/08/mongodb-3-0-x-explain执行计划/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/10/08/mongodb-3-0-x-explain执行计划/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/10/08/chunks碎片处理/" title="chunks碎片处理" itemprop="url">chunks碎片处理</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="vincent" target="_blank" itemprop="author">vincent</a>
+		
+  <p class="article-time">
+    <time datetime="2015-10-08T03:26:33.000Z" itemprop="datePublished"> 发表于 2015-10-08</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <blockquote>
+<p><a href="http://docs.mongodb.org/manual/reference/method/db.collection.getShardDistribution/" target="_blank" rel="external">http://docs.mongodb.org/manual/reference/method/db.collection.getShardDistribution/</a></p>
+</blockquote>
+<h2 id="查询chunk碎片"><a href="#查询chunk碎片" class="headerlink" title="查询chunk碎片"></a>查询chunk碎片</h2><p>db.collection.getShardDistribution()</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">Shard shard-a at shard-a/MyMachine.<span class="string">local:</span><span class="number">30000</span>,MyMachine.<span class="string">local:</span><span class="number">30001</span>,MyMachine.<span class="string">local:</span><span class="number">30002</span></div><div class="line"><span class="string">data :</span> <span class="number">38.14</span>Mb <span class="string">docs :</span> <span class="number">1000003</span> <span class="string">chunks :</span> <span class="number">2</span></div><div class="line">estimated data per <span class="string">chunk :</span> <span class="number">19.07</span>Mb</div><div class="line">estimated docs per <span class="string">chunk :</span> <span class="number">500001</span></div><div class="line"></div><div class="line">Shard shard-b at shard-b/MyMachine.<span class="string">local:</span><span class="number">30100</span>,MyMachine.<span class="string">local:</span><span class="number">30101</span>,MyMachine.<span class="string">local:</span><span class="number">30102</span></div><div class="line"><span class="string">data :</span> <span class="number">38.14</span>Mb <span class="string">docs :</span> <span class="number">999999</span> <span class="string">chunks :</span> <span class="number">3</span></div><div class="line">estimated data per <span class="string">chunk :</span> <span class="number">12.71</span>Mb</div><div class="line">estimated docs per <span class="string">chunk :</span> <span class="number">333333</span></div><div class="line"></div><div class="line">Totals</div><div class="line"><span class="string">data :</span> <span class="number">76.29</span>Mb <span class="string">docs :</span> <span class="number">2000002</span> <span class="string">chunks :</span> <span class="number">5</span></div><div class="line">Shard shard-a contains <span class="number">50</span>% data, <span class="number">50</span>% docs <span class="keyword">in</span> cluster, avg obj size on <span class="string">shard :</span> <span class="number">40</span>b</div><div class="line">Shard shard-b contains <span class="number">49.99</span>% data, <span class="number">49.99</span>% docs <span class="keyword">in</span> cluster, avg obj size on <span class="string">shard :</span> <span class="number">40</span>b</div></pre></td></tr></table></figure>
+<h2 id="合并chunk减少碎片"><a href="#合并chunk减少碎片" class="headerlink" title="合并chunk减少碎片"></a>合并chunk减少碎片</h2><blockquote>
+<p><a href="https://github.com/snmaynard/mongo-scripts" target="_blank" rel="external">https://github.com/snmaynard/mongo-scripts</a></p>
+</blockquote>
+<h3 id="MergeChunks-js"><a href="#MergeChunks-js" class="headerlink" title="MergeChunks.js"></a>MergeChunks.js</h3><p>This script allows you to merge your empty chunks across your entire cluster. Run the script on a mongos instance attached to 2.6 mongods. The script contains a function that takes the following arguments,</p>
+<p>mergeChunks(dbName, collection, keyPattern, sleepValue = 0)</p>
+<ul>
+<li>dbName: Set this to the database name</li>
+<li>collection: Set this to the collection you want to merge chunks in</li>
+<li>keyPattern: Set this to the key pattern, ie { “_id” : “hashed” }</li>
+<li>sleepValue: How long to sleep between each chunk (for backoff) - optional</li>
+</ul>
+<h3 id="SplitChunks"><a href="#SplitChunks" class="headerlink" title="SplitChunks"></a>SplitChunks</h3><p>This script allows you to split your chunks on a single shard. Useful when a shard contains significantly more data than others. The script is built using ruby on mongoid as it needs to connect to both a mongos and a mongod. The script contains a function that takes the following arguments,</p>
+<p>split_chunks(db, collection, key_pattern, shard, primary_mongod, split_min = 10, mongos = “localhost:27017”)</p>
+<ul>
+<li>db: The database name to split chunks in</li>
+<li>collection: The collection to split chunks in</li>
+<li>key_pattern: The key pattern used to shard the collection, i.e. {“_id” =&gt; 1}</li>
+<li>shard: The id of the shard to split chunks on (check sh.status())</li>
+<li>primary_mongod: The address and port of the mongod i.e. “mongo.example.com:27017”</li>
+<li>split_min: The minimum number of splits required in a chunk to actually split it - optional</li>
+<li>mongos: The address and port of the mongos - optional</li>
+</ul>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/mongodb/">mongodb</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/10/08/chunks碎片处理/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/10/08/chunks碎片处理/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/10/08/mongodb慢日志/" title="mongodb慢日志" itemprop="url">mongodb慢日志</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="vincent" target="_blank" itemprop="author">vincent</a>
+		
+  <p class="article-time">
+    <time datetime="2015-10-08T02:57:27.000Z" itemprop="datePublished"> 发表于 2015-10-08</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p><a href="http://docs.mongodb.org/manual/tutorial/manage-the-database-profiler/" title="Title" target="_blank" rel="external">官方文档</a></p>
+<blockquote>
+<p><a href="http://blog.csdn.net/mchdba/article/details/8950632" target="_blank" rel="external">http://blog.csdn.net/mchdba/article/details/8950632</a><br>参考博客 </p>
+</blockquote>
+<h3 id="Profiling-Levels"><a href="#Profiling-Levels" class="headerlink" title="Profiling Levels"></a>Profiling Levels</h3><p>The following profiling levels are available:</p>
+<ul>
+<li>0 - the profiler is off, does not collect any data. mongod always writes operations longer than the slowOpThresholdMs threshold to its log.</li>
+<li>1 - collects profiling data for slow operations only. By default slow operations are those slower than 100 milliseconds.<br>You can modify the threshold for “slow” operations with the slowOpThresholdMs runtime option or the setParameter command. See the Specify the Threshold for Slow Operations section for more information.</li>
+<li>2 - collects profiling data for all database operations.</li>
+</ul>
+<h3 id="Enable-Database-Profiling-and-Set-the-Profiling-Level"><a href="#Enable-Database-Profiling-and-Set-the-Profiling-Level" class="headerlink" title="Enable Database Profiling and Set the Profiling Level"></a>Enable Database Profiling and Set the Profiling Level</h3><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">db.setProfilingLevel(<span class="number">2</span>) #全部开启</div><div class="line"></div><div class="line">db.setProfilingLevel(<span class="number">1</span>,<span class="number">20</span>) #超过<span class="number">20</span>ms的记录</div></pre></td></tr></table></figure>
+<h3 id="Check-Profiling-Level"><a href="#Check-Profiling-Level" class="headerlink" title="Check Profiling Level"></a>Check Profiling Level</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">db</span><span class="selector-class">.getProfilingStatus</span>()</div><div class="line"><span class="selector-tag">db</span><span class="selector-class">.getProfilingLevel</span>()</div></pre></td></tr></table></figure>
+<h3 id="Example-Profiler-Data-Queries"><a href="#Example-Profiler-Data-Queries" class="headerlink" title="Example Profiler Data Queries"></a>Example Profiler Data Queries</h3><figure class="highlight roboconf"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">db.system.profile.find().limit(10).sort( &#123; <span class="attribute">ts</span> : -1 &#125; )<span class="variable">.pretty</span>()</div><div class="line">db<span class="variable">.system</span><span class="variable">.profile</span><span class="variable">.find</span>( &#123; op: &#123; $ne : 'command' &#125; &#125; )<span class="variable">.pretty</span>()</div><div class="line">db<span class="variable">.system</span><span class="variable">.profile</span><span class="variable">.find</span>( &#123; ns : 'mydb<span class="variable">.test</span>' &#125; )<span class="variable">.pretty</span>()</div><div class="line">db<span class="variable">.system</span><span class="variable">.profile</span><span class="variable">.find</span>( &#123; millis : &#123; $gt : 5 &#125; &#125; )<span class="variable">.pretty</span>()</div><div class="line"></div><div class="line">查看执行时间大于100毫秒的执行操作，并倒序排列,并取前5行</div><div class="line">db<span class="variable">.system</span><span class="variable">.profile</span><span class="variable">.find</span>(&#123;millis:&#123;$gt:100&#125;&#125;)<span class="variable">.sort</span>(&#123;$natural:-1&#125;)<span class="variable">.limit</span>(5);</div></pre></td></tr></table></figure>
+<h3 id="Change-Size-of-system-profile-Collection-on-the-Primary"><a href="#Change-Size-of-system-profile-Collection-on-the-Primary" class="headerlink" title="Change Size of system.profile Collection on the Primary"></a>Change Size of system.profile Collection on the Primary</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">db</span><span class="selector-class">.setProfilingLevel</span>(0)</div><div class="line"></div><div class="line"><span class="selector-tag">db</span><span class="selector-class">.system</span><span class="selector-class">.profile</span><span class="selector-class">.drop</span>()</div><div class="line"></div><div class="line"><span class="selector-tag">db</span><span class="selector-class">.createCollection</span>( "<span class="selector-tag">system</span><span class="selector-class">.profile</span>", &#123; <span class="attribute">capped</span>: true, size:<span class="number">4000000</span> &#125; )</div><div class="line"></div><div class="line"><span class="selector-tag">db</span><span class="selector-class">.setProfilingLevel</span>(1)</div></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/mongodb/">mongodb</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/10/08/mongodb慢日志/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/10/08/mongodb慢日志/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/09/30/NumPy/" title="NumPy" itemprop="url">NumPy</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="vincent" target="_blank" itemprop="author">vincent</a>
+		
+  <p class="article-time">
+    <time datetime="2015-09-30T01:49:55.000Z" itemprop="datePublished"> 发表于 2015-09-30</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <blockquote>
+<p><a href="https://uqer.io/community/share/54ca15f9f9f06c276f651a56" title="Title" target="_blank" rel="external">量化分析师的Python日记</a></p>
+</blockquote>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">import numpy as np</div><div class="line">np<span class="selector-class">.version</span><span class="selector-class">.full_version</span></div><div class="line"><span class="string">'1.9.2'</span></div></pre></td></tr></table></figure>
+<h4 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h4><p>通过”type”函数查看a的类型，这里显示a是一个array</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">a = np.arange(<span class="number">20</span>)</div><div class="line">print a</div><div class="line"></div><div class="line">[ <span class="number">0</span>  <span class="number">1</span>  <span class="number">2</span>  <span class="number">3</span>  <span class="number">4</span>  <span class="number">5</span>  <span class="number">6</span>  <span class="number">7</span>  <span class="number">8</span>  <span class="number">9</span> <span class="number">10</span> <span class="number">11</span> <span class="number">12</span> <span class="number">13</span> <span class="number">14</span> <span class="number">15</span> <span class="number">16</span> <span class="number">17</span> <span class="number">18</span> <span class="number">19</span>]</div><div class="line"></div><div class="line">type(a)</div><div class="line"></div><div class="line">numpy.ndarray</div></pre></td></tr></table></figure>
+<p>reshape重新构造数组,构造一个4*5的二维数组（4行5列)</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">a = a.reshape(<span class="number">4</span>, <span class="number">5</span>)</div><div class="line">print a</div><div class="line"></div><div class="line">[[ <span class="number">0</span>  <span class="number">1</span>  <span class="number">2</span>  <span class="number">3</span>  <span class="number">4</span>]</div><div class="line"> [ <span class="number">5</span>  <span class="number">6</span>  <span class="number">7</span>  <span class="number">8</span>  <span class="number">9</span>]</div><div class="line"> [<span class="number">10</span> <span class="number">11</span> <span class="number">12</span> <span class="number">13</span> <span class="number">14</span>]</div><div class="line"> [<span class="number">15</span> <span class="number">16</span> <span class="number">17</span> <span class="number">18</span> <span class="number">19</span>]]</div></pre></td></tr></table></figure>
+<p>“ndim”查看维度；”shape”查看各维度的大小；”size”查看全部的元素个数，等于各维度大小的乘积；”dtype”可查看元素类型；”dsize”查看元素占位（bytes）大小。</p>
+<p>创建数组</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line">raw = [<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]</div><div class="line"><span class="selector-tag">a</span> = np.array(raw)</div><div class="line"><span class="selector-tag">a</span></div><div class="line"><span class="function"><span class="title">array</span><span class="params">([<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>])</span></span></div><div class="line"></div><div class="line"></div><div class="line">raw = [[<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>], [<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>]]</div><div class="line"><span class="selector-tag">b</span> = np.array(raw)</div><div class="line"><span class="selector-tag">b</span></div><div class="line">array([[<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>],</div><div class="line">       [<span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>]])</div><div class="line">       </div><div class="line">       </div><div class="line">d = (<span class="number">4</span>, <span class="number">5</span>)</div><div class="line">np.zeros(d)</div><div class="line">array([[ <span class="number">0</span>.,  <span class="number">0</span>.,  <span class="number">0</span>.,  <span class="number">0</span>.,  <span class="number">0</span>.],</div><div class="line">       [ <span class="number">0</span>.,  <span class="number">0</span>.,  <span class="number">0</span>.,  <span class="number">0</span>.,  <span class="number">0</span>.],</div><div class="line">       [ <span class="number">0</span>.,  <span class="number">0</span>.,  <span class="number">0</span>.,  <span class="number">0</span>.,  <span class="number">0</span>.],</div><div class="line">       [ <span class="number">0</span>.,  <span class="number">0</span>.,  <span class="number">0</span>.,  <span class="number">0</span>.,  <span class="number">0</span>.]])</div><div class="line">#<span class="number">4</span>*<span class="number">5</span>的全零矩阵</div><div class="line"></div><div class="line">np<span class="selector-class">.random</span><span class="selector-class">.rand</span>(<span class="number">5</span>)</div><div class="line"><span class="function"><span class="title">array</span><span class="params">([ <span class="number">0.93807818</span>,  <span class="number">0.45307847</span>,  <span class="number">0.90732828</span>,  <span class="number">0.36099623</span>,  <span class="number">0.71981451</span>])</span></span></div><div class="line">#(<span class="number">0</span>, <span class="number">1</span>)区间的随机数数组：</div><div class="line"></div><div class="line"><span class="selector-tag">a</span> = np.arange(<span class="number">20</span>).reshape(<span class="number">4</span>,<span class="number">5</span>)</div><div class="line">print <span class="string">"a:"</span></div><div class="line">print <span class="selector-tag">a</span></div><div class="line">print <span class="string">"sum of all elements in a: "</span> + str(<span class="selector-tag">a</span>.sum())</div><div class="line">print <span class="string">"maximum element in a: "</span> + str(<span class="selector-tag">a</span>.max())</div><div class="line">print <span class="string">"minimum element in a: "</span> + str(<span class="selector-tag">a</span>.min())</div><div class="line">print <span class="string">"maximum element in each row of a: "</span> + str(<span class="selector-tag">a</span>.max(axis=<span class="number">1</span>))</div><div class="line">print <span class="string">"minimum element in each column of a: "</span> + str(<span class="selector-tag">a</span>.min(axis=<span class="number">0</span>))</div><div class="line"><span class="selector-tag">a</span>:</div><div class="line">[[ <span class="number">0</span>  <span class="number">1</span>  <span class="number">2</span>  <span class="number">3</span>  <span class="number">4</span>]</div><div class="line"> [ <span class="number">5</span>  <span class="number">6</span>  <span class="number">7</span>  <span class="number">8</span>  <span class="number">9</span>]</div><div class="line"> [<span class="number">10</span> <span class="number">11</span> <span class="number">12</span> <span class="number">13</span> <span class="number">14</span>]</div><div class="line"> [<span class="number">15</span> <span class="number">16</span> <span class="number">17</span> <span class="number">18</span> <span class="number">19</span>]]</div><div class="line">sum of all elements <span class="keyword">in</span> <span class="selector-tag">a</span>: <span class="number">190</span></div><div class="line">maximum element <span class="keyword">in</span> <span class="selector-tag">a</span>: <span class="number">19</span></div><div class="line">minimum element <span class="keyword">in</span> <span class="selector-tag">a</span>: <span class="number">0</span></div><div class="line">maximum element <span class="keyword">in</span> each row of <span class="selector-tag">a</span>: [ <span class="number">4</span>  <span class="number">9</span> <span class="number">14</span> <span class="number">19</span>]</div><div class="line">minimum element <span class="keyword">in</span> each column of <span class="selector-tag">a</span>: [<span class="number">0</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span>]</div><div class="line">#axis(<span class="number">0</span>列,<span class="number">1</span>行)</div></pre></td></tr></table></figure>
+<h4 id="矩阵"><a href="#矩阵" class="headerlink" title="矩阵"></a>矩阵</h4><p>科学计算中大量使用到矩阵运算，除了数组，NumPy同时提供了矩阵对象（matrix）。矩阵对象和数组的主要有两点差别：一是矩阵是二维的，而数组的可以是任意正整数维；二是矩阵的’<em>‘操作符进行的是矩阵乘法，乘号左侧的矩阵列和乘号右侧的矩阵行要相等，而在数组中’</em>‘操作符进行的是每一元素的对应相乘，乘号两侧的数组每一维大小需要一致。数组可以通过asmatrix或者mat转换为矩阵，或者直接生成也可以：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">a = np.arange(20).<span class="keyword">reshape</span>(4, 5)</div><div class="line">a = np.asmatrix(a)</div><div class="line"><span class="keyword">print</span> <span class="keyword">type</span>(a)</div><div class="line"></div><div class="line">b = np.<span class="built_in">matrix</span>('1.0 2.0; 3.0 4.0')</div><div class="line"><span class="keyword">print</span> <span class="keyword">type</span>(b)</div><div class="line"></div><div class="line">&lt;<span class="keyword">class</span> 'numpy.matrixlib.defmatrix.<span class="keyword">matrix</span>'&gt;</div><div class="line">&lt;<span class="keyword">class</span> 'numpy.matrixlib.defmatrix.<span class="keyword">matrix</span>'&gt;</div></pre></td></tr></table></figure>
+<h4 id="数组元素访问"><a href="#数组元素访问" class="headerlink" title="数组元素访问"></a>数组元素访问</h4><p>数组和矩阵元素的访问可通过下标进行，以下均以二维数组（或矩阵）为例：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">a = np.array([[3.2, 1.5], [2.5, 4]])</div><div class="line">print a[<span class="string">0</span>][<span class="symbol">1</span>]</div><div class="line">print a[0, 1]</div><div class="line"></div><div class="line">1.5</div><div class="line">1.5</div></pre></td></tr></table></figure>
+<p>利用’:’可以访问到某一维的全部数据，例如取矩阵中的指定列：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">a = np.arange(<span class="number">20</span>).reshape(<span class="number">4</span>, <span class="number">5</span>)</div><div class="line"><span class="built_in">print</span> <span class="string">"a:"</span></div><div class="line"><span class="built_in">print</span> a</div><div class="line"><span class="built_in">print</span> <span class="string">"the 2nd and 4th column of a:"</span></div><div class="line"><span class="built_in">print</span> a[:,[<span class="number">1</span>,<span class="number">3</span>]]</div><div class="line"></div><div class="line">a:</div><div class="line"><span class="string">[[ 0  1  2  3  4]</span></div><div class="line"> [ 5  6  7  8  9]</div><div class="line"> [10 11 12 13 14]</div><div class="line"> [15 16 17 18 19]]</div><div class="line">the <span class="number">2</span>nd <span class="keyword">and</span> <span class="number">4</span>th column of a:</div><div class="line"><span class="string">[[ 1  3]</span></div><div class="line"> [ 6  8]</div><div class="line"> [11 13]</div><div class="line"> [16 18]]</div></pre></td></tr></table></figure>
+<p>稍微复杂一些，我们尝试取出满足某些条件的元素，这在数据的处理中十分常见，通常用在单行单列上。下面这个例子是将第一列大于5的元素（10和15）对应的第三列元素（12和17）取出来</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">a[<span class="string">:, 2</span>][<span class="symbol">a[:, 0</span>] &gt; 5]</div><div class="line"></div><div class="line"><span class="section">#array([12, 17])</span></div></pre></td></tr></table></figure>
+<p>可使用where函数查找特定值在数组中的位置：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">loc = numpy.where(a==11)</div><div class="line">print loc</div><div class="line">print a[<span class="string">loc[0</span>][<span class="symbol">0</span>], loc[<span class="string">1</span>][<span class="symbol">0</span>]]</div><div class="line"></div><div class="line">(array([2]), array([1]))</div><div class="line">11</div></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/python/">python</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/09/30/NumPy/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/09/30/NumPy/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/09/28/统计简单学-第二單元-常用統計量/" title="统计简单学 第二單元 常用統計量" itemprop="url">统计简单学 第二單元 常用統計量</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="vincent" target="_blank" itemprop="author">vincent</a>
+		
+  <p class="article-time">
+    <time datetime="2015-09-28T05:58:55.000Z" itemprop="datePublished"> 发表于 2015-09-28</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="第二單元-常用統計量"><a href="#第二單元-常用統計量" class="headerlink" title="第二單元 常用統計量"></a>第二單元 常用統計量</h2><h4 id="連續型數據之特徵值"><a href="#連續型數據之特徵值" class="headerlink" title="連續型數據之特徵值:"></a>連續型數據之特徵值:</h4><ul>
+<li><p>集中趨勢指標</p>
+<ul>
+<li>平均數</li>
+<li>中位數</li>
+<li>众数<blockquote>
+<p>平均數對離群值非常敏感,而中位數或眾數則對離群值較不敏感。<br>當資料中有離群值時,建議使用中位數或眾數,否則,使用平均數。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>分散趨勢指標</p>
+<ul>
+<li>全距</li>
+<li>變異數</li>
+<li>標準差</li>
+</ul>
+</li>
+<li><p>偏態係數</p>
+<ul>
+<li>偏態係數 = 0 ,表示樣本分佈呈對稱</li>
+<li>偏態係數 &gt; 0 ,表示樣本分佈呈右偏</li>
+<li><p>偏態係數 &lt; 0 ,表示樣本分佈呈左偏</p>
+<p>  <img src="http://7xn3gp.com1.z0.glb.clouddn.com/FF3A29C5-B135-4B43-9C2C-8C93106B2E40.png?imageView/2/w/300/q/100" alt="alt text" title="Title"></p>
+</li>
+</ul>
+</li>
+<li><p>峰度係數</p>
+<ul>
+<li>峰度係數 = 0 ,表示資料呈常態峰</li>
+<li>峰度係數 &gt; 0 ,表示資料呈高峽峰</li>
+<li>峰度係數 &lt; 0 ,表示資料呈低闊峰</li>
+</ul>
+</li>
+</ul>
+<h4 id="數據特徵值之應用"><a href="#數據特徵值之應用" class="headerlink" title="數據特徵值之應用:"></a>數據特徵值之應用:</h4><ul>
+<li>經驗法則</li>
+<li>盒鬚圖</li>
+</ul>
+<p><img src="http://7xn3gp.com1.z0.glb.clouddn.com/C966B5E0-31D4-4631-AAD9-9C7F850FC6AC.png?imageView/2/w/400/q/100" alt="box1" title="Title"></p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">import pandas as pd</div><div class="line">df = pd.read_excel('test.xlsx')</div><div class="line">print df.head()</div><div class="line"></div><div class="line"> 生产线<span class="number">1</span>  生产线<span class="number">2</span>  生产线<span class="number">3</span></div><div class="line"><span class="number">0</span>  <span class="number">0.99</span>  <span class="number">0.97</span>  <span class="number">0.92</span></div><div class="line"><span class="number">1</span>  <span class="number">0.98</span>  <span class="number">0.93</span>  <span class="number">0.92</span></div><div class="line"><span class="number">2</span>  <span class="number">0.91</span>  <span class="number">0.93</span>  <span class="number">0.97</span></div><div class="line"><span class="number">3</span>  <span class="number">0.86</span>  <span class="number">0.97</span>  <span class="number">0.95</span></div><div class="line"><span class="number">4</span>  <span class="number">0.97</span>  <span class="number">0.91</span>  <span class="number">0.96</span></div><div class="line"></div><div class="line">import matplotlib.pyplot as plt</div><div class="line">plt.show(df.plot(kind = 'box'))</div></pre></td></tr></table></figure>
+<p><img src="http://7xn3gp.com1.z0.glb.clouddn.com/asd.png?imageView/2/w/400/q/100" alt="box2" title="Title"></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/python/">python</a><a href="/tags/statistics/">statistics</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/09/28/统计简单学-第二單元-常用統計量/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/09/28/统计简单学-第二單元-常用統計量/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/09/28/统计简单学-第一單元-統計基本概念介紹/" title="统计简单学 第一單元 統計基本概念介紹" itemprop="url">统计简单学 第一單元 統計基本概念介紹</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="vincent" target="_blank" itemprop="author">vincent</a>
+		
+  <p class="article-time">
+    <time datetime="2015-09-28T05:57:55.000Z" itemprop="datePublished"> 发表于 2015-09-28</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="第一單元-統計基本概念介紹"><a href="#第一單元-統計基本概念介紹" class="headerlink" title="第一單元 統計基本概念介紹"></a>第一單元 統計基本概念介紹</h2><h4 id="統計學常用術語-–-群體"><a href="#統計學常用術語-–-群體" class="headerlink" title="統計學常用術語: – 群體"></a>統計學常用術語: – 群體</h4><ul>
+<li>樣本</li>
+<li>參數</li>
+<li>統計量</li>
+</ul>
+<h4 id="隨機變數的種類"><a href="#隨機變數的種類" class="headerlink" title="隨機變數的種類:"></a>隨機變數的種類:</h4><ul>
+<li>質變數(又稱定性變數或類別變數)</li>
+<li>量變數(又稱數值變數)<ul>
+<li>離散型</li>
+<li>連續型</li>
+</ul>
+</li>
+</ul>
+<h4 id="數據取得之方式"><a href="#數據取得之方式" class="headerlink" title="數據取得之方式:"></a>數據取得之方式:</h4><ul>
+<li>普查</li>
+<li>抽樣<ul>
+<li>簡單隨機抽樣</li>
+<li>系統抽樣</li>
+<li>分層隨機抽樣</li>
+<li>部落抽樣</li>
+</ul>
+</li>
+</ul>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/python/">python</a><a href="/tags/statistics/">statistics</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/09/28/统计简单学-第一單元-統計基本概念介紹/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/09/28/统计简单学-第一單元-統計基本概念介紹/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/09/25/CRS-0184-Cannot-communicate-with-the-CRS-daemon/" title="CRS-0184: Cannot communicate with the CRS daemon" itemprop="url">CRS-0184: Cannot communicate with the CRS daemon</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="vincent" target="_blank" itemprop="author">vincent</a>
+		
+  <p class="article-time">
+    <time datetime="2015-09-25T07:28:00.000Z" itemprop="datePublished"> 发表于 2015-09-25</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <ul>
+<li><p>crs_stat-t/crsctl status res -t<br>CRS-0184: Cannot communicate with the CRSdaemon.</p>
+</li>
+<li><p>crsctlcheck crs<br>CRS-4638: Oracle High Availability Servicesis online<br>CRS-4535: Cannot communicate with ClusterReady Services<br>CRS-4529: Cluster Synchronization Servicesis online<br>CRS-4533: Event Manager is online</p>
+</li>
+<li><p>检查message<br>zjbmi01<br>Aug 25 09:23:08 zjbmi01 kernel: pcieport 0000:00:03.0: em3: Link is down<br>Aug 25 09:23:08 zjbmi01 kernel: pcieport 0000:00:03.1: em1: Link is down<br>Aug 25 09:23:08 zjbmi01 kernel: pcieport 0000:00:03.1: em2: Link is down<br>zjbmi02<br>Aug 25 09:23:08 zjbmi02 kernel: pcieport 0000:00:03.0: em3: Link is down<br>Aug 25 09:23:08 zjbmi02 kernel: pcieport 0000:00:03.1: em2: Link is down<br>Aug 25 09:23:08 zjbmi02 kernel: pcieport 0000:00:03.1: em1: Link is down</p>
+</li>
+<li><p>检查crs日志<br>2015-08-25 09:23:09.938: [    AGFW][2849957632]{0:3:1071} Received state change for ora.net1.network zjbmi01 1 [old state = ONLINE, new state = OFFLINE]<br>2015-08-25 09:23:09.938: [    AGFW][2849957632]{0:3:1071} Agfw Proxy Server sending message to PE, Contents = [MIDTo:2|OpID:3|FromA:{Invalid|Node:0|Process:0|Type:0}|ToA:{Invalid|Node:-1|Process:-1|Type:-1}|MIDFrom:0|Type:4|Pri2|Id:163360:Ver:2]<br>2015-08-25 09:23:09.938: [    AGFW][2849957632]{0:3:1071} Agfw Proxy Server replying to the message: RESOURCE_STATUS[Proxy] ID 20481:3076255<br>2015-08-25 09:23:09.938: [   CRSPE][2839451392]{0:3:1071} State change received from zjbmi01 for ora.net1.network zjbmi01 1<br>2015-08-25 09:23:09.939: [   CRSPE][2839451392]{0:3:1071} Processing PE command id=7647. Description: [Resource State Change (ora.net1.network zjbmi01 1) : 0x7fdf380f5830]<br>2015-08-25 09:23:09.939: [   CRSPE][2839451392]{0:3:1071} RI [ora.net1.network zjbmi01 1] new external state [OFFLINE] old value: [ONLINE] on zjbmi01 label = []<br>2015-08-25 09:23:09.939: [    CRSD][2839451392]{0:3:1071} {0:3:1071} Resource Resource Instance ID[ora.net1.network zjbmi01 1]. Values:<br>确定网络问题被驱逐</p>
+</li>
+<li><p>检查asm_disk是否正常</p>
+<figure class="highlight pf"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$sqlplus</span>/ as sysasm</div><div class="line">SQL&gt;col name format a20</div><div class="line">SQL&gt;col path format a20</div><div class="line">SQL&gt;select name,path,header_status,mount_status,<span class="keyword">state</span> <span class="keyword">from</span> v<span class="variable">$asm_disk</span>;</div><div class="line"><span class="variable">$asmcmd</span></div><div class="line">mount -a</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>重新挂载后一切正常</p>
+<ul>
+<li>reboot os<br>init 6</li>
+</ul>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/oracle/">oracle</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/09/25/CRS-0184-Cannot-communicate-with-the-CRS-daemon/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/09/25/CRS-0184-Cannot-communicate-with-the-CRS-daemon/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+
+  <nav id="page-nav" class="clearfix">
+    <a class="extend prev" rel="prev" href="/page/2/"><span></span>Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/">Next<span></span></a>
+  </nav>
+
+</div>
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">标签云</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/Kubernetes/" style="font-size: 10px;">Kubernetes</a> <a href="/tags/docker/" style="font-size: 12px;">docker</a> <a href="/tags/linux/" style="font-size: 16px;">linux</a> <a href="/tags/mongodb/" style="font-size: 18px;">mongodb</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/oracle/" style="font-size: 20px;">oracle</a> <a href="/tags/python/" style="font-size: 18px;">python</a> <a href="/tags/spark/" style="font-size: 14px;">spark</a> <a href="/tags/statistics/" style="font-size: 12px;">statistics</a> <a href="/tags/zabbix/" style="font-size: 14px;">zabbix</a>
+    </div>
+  </div>
+
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1850090763&verifier=2163a5e7&dpc=1"></iframe>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Vincent Page in Google. <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1850090763" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/im-vincent" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/im_Vincent__" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="vincent">vincent</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+ </html>

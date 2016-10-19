@@ -1,0 +1,529 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>NumPy | im-vincent</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="vincent">
+    
+
+    
+    <meta name="description" content="量化分析师的Python日记
+
+123import numpy as npnp.version.full_version&apos;1.9.2&apos;
+数组通过”type”函数查看a的类型，这里显示a是一个array
+12345678a = np.arange(20)print a[ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19]type(">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NumPy">
+<meta property="og:url" content="http://yoursite.com/2015/09/30/NumPy/index.html">
+<meta property="og:site_name" content="im-vincent">
+<meta property="og:description" content="量化分析师的Python日记
+
+123import numpy as npnp.version.full_version&apos;1.9.2&apos;
+数组通过”type”函数查看a的类型，这里显示a是一个array
+12345678a = np.arange(20)print a[ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19]type(">
+<meta property="og:updated_time" content="2015-09-30T03:05:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="NumPy">
+<meta name="twitter:description" content="量化分析师的Python日记
+
+123import numpy as npnp.version.full_version&apos;1.9.2&apos;
+数组通过”type”函数查看a的类型，这里显示a是一个array
+12345678a = np.arange(20)print a[ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19]type(">
+<meta name="twitter:creator" content="@im_Vincent__">
+
+    
+    <link rel="alternative" href="/atom.xml" title="im-vincent" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="im-vincent" title="im-vincent"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="im-vincent">im-vincent</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/09/30/NumPy/" title="NumPy" itemprop="url">NumPy</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="vincent" target="_blank" itemprop="author">vincent</a>
+		
+  <p class="article-time">
+    <time datetime="2015-09-30T01:49:55.000Z" itemprop="datePublished"> 发表于 2015-09-30</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#数组"><span class="toc-number">1.</span> <span class="toc-text">数组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#矩阵"><span class="toc-number">2.</span> <span class="toc-text">矩阵</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#数组元素访问"><span class="toc-number">3.</span> <span class="toc-text">数组元素访问</span></a></li></ol>
+		
+		</div>
+		
+		<blockquote>
+<p><a href="https://uqer.io/community/share/54ca15f9f9f06c276f651a56" title="Title" target="_blank" rel="external">量化分析师的Python日记</a></p>
+</blockquote>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">import numpy as np</div><div class="line">np<span class="selector-class">.version</span><span class="selector-class">.full_version</span></div><div class="line"><span class="string">'1.9.2'</span></div></pre></td></tr></table></figure>
+<h4 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h4><p>通过”type”函数查看a的类型，这里显示a是一个array</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">a = np.arange(<span class="number">20</span>)</div><div class="line">print a</div><div class="line"></div><div class="line">[ <span class="number">0</span>  <span class="number">1</span>  <span class="number">2</span>  <span class="number">3</span>  <span class="number">4</span>  <span class="number">5</span>  <span class="number">6</span>  <span class="number">7</span>  <span class="number">8</span>  <span class="number">9</span> <span class="number">10</span> <span class="number">11</span> <span class="number">12</span> <span class="number">13</span> <span class="number">14</span> <span class="number">15</span> <span class="number">16</span> <span class="number">17</span> <span class="number">18</span> <span class="number">19</span>]</div><div class="line"></div><div class="line">type(a)</div><div class="line"></div><div class="line">numpy.ndarray</div></pre></td></tr></table></figure>
+<p>reshape重新构造数组,构造一个4*5的二维数组（4行5列)</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">a = a.reshape(<span class="number">4</span>, <span class="number">5</span>)</div><div class="line">print a</div><div class="line"></div><div class="line">[[ <span class="number">0</span>  <span class="number">1</span>  <span class="number">2</span>  <span class="number">3</span>  <span class="number">4</span>]</div><div class="line"> [ <span class="number">5</span>  <span class="number">6</span>  <span class="number">7</span>  <span class="number">8</span>  <span class="number">9</span>]</div><div class="line"> [<span class="number">10</span> <span class="number">11</span> <span class="number">12</span> <span class="number">13</span> <span class="number">14</span>]</div><div class="line"> [<span class="number">15</span> <span class="number">16</span> <span class="number">17</span> <span class="number">18</span> <span class="number">19</span>]]</div></pre></td></tr></table></figure>
+<p>“ndim”查看维度；”shape”查看各维度的大小；”size”查看全部的元素个数，等于各维度大小的乘积；”dtype”可查看元素类型；”dsize”查看元素占位（bytes）大小。</p>
+<p>创建数组</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line">raw = [<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]</div><div class="line"><span class="selector-tag">a</span> = np.array(raw)</div><div class="line"><span class="selector-tag">a</span></div><div class="line"><span class="function"><span class="title">array</span><span class="params">([<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>])</span></span></div><div class="line"></div><div class="line"></div><div class="line">raw = [[<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>], [<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>]]</div><div class="line"><span class="selector-tag">b</span> = np.array(raw)</div><div class="line"><span class="selector-tag">b</span></div><div class="line">array([[<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>],</div><div class="line">       [<span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>]])</div><div class="line">       </div><div class="line">       </div><div class="line">d = (<span class="number">4</span>, <span class="number">5</span>)</div><div class="line">np.zeros(d)</div><div class="line">array([[ <span class="number">0</span>.,  <span class="number">0</span>.,  <span class="number">0</span>.,  <span class="number">0</span>.,  <span class="number">0</span>.],</div><div class="line">       [ <span class="number">0</span>.,  <span class="number">0</span>.,  <span class="number">0</span>.,  <span class="number">0</span>.,  <span class="number">0</span>.],</div><div class="line">       [ <span class="number">0</span>.,  <span class="number">0</span>.,  <span class="number">0</span>.,  <span class="number">0</span>.,  <span class="number">0</span>.],</div><div class="line">       [ <span class="number">0</span>.,  <span class="number">0</span>.,  <span class="number">0</span>.,  <span class="number">0</span>.,  <span class="number">0</span>.]])</div><div class="line">#<span class="number">4</span>*<span class="number">5</span>的全零矩阵</div><div class="line"></div><div class="line">np<span class="selector-class">.random</span><span class="selector-class">.rand</span>(<span class="number">5</span>)</div><div class="line"><span class="function"><span class="title">array</span><span class="params">([ <span class="number">0.93807818</span>,  <span class="number">0.45307847</span>,  <span class="number">0.90732828</span>,  <span class="number">0.36099623</span>,  <span class="number">0.71981451</span>])</span></span></div><div class="line">#(<span class="number">0</span>, <span class="number">1</span>)区间的随机数数组：</div><div class="line"></div><div class="line"><span class="selector-tag">a</span> = np.arange(<span class="number">20</span>).reshape(<span class="number">4</span>,<span class="number">5</span>)</div><div class="line">print <span class="string">"a:"</span></div><div class="line">print <span class="selector-tag">a</span></div><div class="line">print <span class="string">"sum of all elements in a: "</span> + str(<span class="selector-tag">a</span>.sum())</div><div class="line">print <span class="string">"maximum element in a: "</span> + str(<span class="selector-tag">a</span>.max())</div><div class="line">print <span class="string">"minimum element in a: "</span> + str(<span class="selector-tag">a</span>.min())</div><div class="line">print <span class="string">"maximum element in each row of a: "</span> + str(<span class="selector-tag">a</span>.max(axis=<span class="number">1</span>))</div><div class="line">print <span class="string">"minimum element in each column of a: "</span> + str(<span class="selector-tag">a</span>.min(axis=<span class="number">0</span>))</div><div class="line"><span class="selector-tag">a</span>:</div><div class="line">[[ <span class="number">0</span>  <span class="number">1</span>  <span class="number">2</span>  <span class="number">3</span>  <span class="number">4</span>]</div><div class="line"> [ <span class="number">5</span>  <span class="number">6</span>  <span class="number">7</span>  <span class="number">8</span>  <span class="number">9</span>]</div><div class="line"> [<span class="number">10</span> <span class="number">11</span> <span class="number">12</span> <span class="number">13</span> <span class="number">14</span>]</div><div class="line"> [<span class="number">15</span> <span class="number">16</span> <span class="number">17</span> <span class="number">18</span> <span class="number">19</span>]]</div><div class="line">sum of all elements <span class="keyword">in</span> <span class="selector-tag">a</span>: <span class="number">190</span></div><div class="line">maximum element <span class="keyword">in</span> <span class="selector-tag">a</span>: <span class="number">19</span></div><div class="line">minimum element <span class="keyword">in</span> <span class="selector-tag">a</span>: <span class="number">0</span></div><div class="line">maximum element <span class="keyword">in</span> each row of <span class="selector-tag">a</span>: [ <span class="number">4</span>  <span class="number">9</span> <span class="number">14</span> <span class="number">19</span>]</div><div class="line">minimum element <span class="keyword">in</span> each column of <span class="selector-tag">a</span>: [<span class="number">0</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span>]</div><div class="line">#axis(<span class="number">0</span>列,<span class="number">1</span>行)</div></pre></td></tr></table></figure>
+<h4 id="矩阵"><a href="#矩阵" class="headerlink" title="矩阵"></a>矩阵</h4><p>科学计算中大量使用到矩阵运算，除了数组，NumPy同时提供了矩阵对象（matrix）。矩阵对象和数组的主要有两点差别：一是矩阵是二维的，而数组的可以是任意正整数维；二是矩阵的’<em>‘操作符进行的是矩阵乘法，乘号左侧的矩阵列和乘号右侧的矩阵行要相等，而在数组中’</em>‘操作符进行的是每一元素的对应相乘，乘号两侧的数组每一维大小需要一致。数组可以通过asmatrix或者mat转换为矩阵，或者直接生成也可以：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">a = np.arange(20).<span class="keyword">reshape</span>(4, 5)</div><div class="line">a = np.asmatrix(a)</div><div class="line"><span class="keyword">print</span> <span class="keyword">type</span>(a)</div><div class="line"></div><div class="line">b = np.<span class="built_in">matrix</span>('1.0 2.0; 3.0 4.0')</div><div class="line"><span class="keyword">print</span> <span class="keyword">type</span>(b)</div><div class="line"></div><div class="line">&lt;<span class="keyword">class</span> 'numpy.matrixlib.defmatrix.<span class="keyword">matrix</span>'&gt;</div><div class="line">&lt;<span class="keyword">class</span> 'numpy.matrixlib.defmatrix.<span class="keyword">matrix</span>'&gt;</div></pre></td></tr></table></figure>
+<h4 id="数组元素访问"><a href="#数组元素访问" class="headerlink" title="数组元素访问"></a>数组元素访问</h4><p>数组和矩阵元素的访问可通过下标进行，以下均以二维数组（或矩阵）为例：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">a = np.array([[3.2, 1.5], [2.5, 4]])</div><div class="line">print a[<span class="string">0</span>][<span class="symbol">1</span>]</div><div class="line">print a[0, 1]</div><div class="line"></div><div class="line">1.5</div><div class="line">1.5</div></pre></td></tr></table></figure>
+<p>利用’:’可以访问到某一维的全部数据，例如取矩阵中的指定列：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">a = np.arange(<span class="number">20</span>).reshape(<span class="number">4</span>, <span class="number">5</span>)</div><div class="line"><span class="built_in">print</span> <span class="string">"a:"</span></div><div class="line"><span class="built_in">print</span> a</div><div class="line"><span class="built_in">print</span> <span class="string">"the 2nd and 4th column of a:"</span></div><div class="line"><span class="built_in">print</span> a[:,[<span class="number">1</span>,<span class="number">3</span>]]</div><div class="line"></div><div class="line">a:</div><div class="line"><span class="string">[[ 0  1  2  3  4]</span></div><div class="line"> [ 5  6  7  8  9]</div><div class="line"> [10 11 12 13 14]</div><div class="line"> [15 16 17 18 19]]</div><div class="line">the <span class="number">2</span>nd <span class="keyword">and</span> <span class="number">4</span>th column of a:</div><div class="line"><span class="string">[[ 1  3]</span></div><div class="line"> [ 6  8]</div><div class="line"> [11 13]</div><div class="line"> [16 18]]</div></pre></td></tr></table></figure>
+<p>稍微复杂一些，我们尝试取出满足某些条件的元素，这在数据的处理中十分常见，通常用在单行单列上。下面这个例子是将第一列大于5的元素（10和15）对应的第三列元素（12和17）取出来</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">a[<span class="string">:, 2</span>][<span class="symbol">a[:, 0</span>] &gt; 5]</div><div class="line"></div><div class="line"><span class="section">#array([12, 17])</span></div></pre></td></tr></table></figure>
+<p>可使用where函数查找特定值在数组中的位置：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">loc = numpy.where(a==11)</div><div class="line">print loc</div><div class="line">print a[<span class="string">loc[0</span>][<span class="symbol">0</span>], loc[<span class="string">1</span>][<span class="symbol">0</span>]]</div><div class="line"></div><div class="line">(array([2]), array([1]))</div><div class="line">11</div></pre></td></tr></table></figure>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/python/">python</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2015/09/30/NumPy/" data-title="NumPy | im-vincent" data-tsina="1850090763" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2015/10/08/mongodb慢日志/" title="mongodb慢日志">
+  <strong>上一篇：</strong><br/>
+  <span>
+  mongodb慢日志</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2015/09/28/统计简单学-第二單元-常用統計量/"  title="统计简单学 第二單元 常用統計量">
+ <strong>下一篇：</strong><br/> 
+ <span>统计简单学 第二單元 常用統計量
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2015/09/30/NumPy/" data-title="NumPy" data-url="http://yoursite.com/2015/09/30/NumPy/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#数组"><span class="toc-number">1.</span> <span class="toc-text">数组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#矩阵"><span class="toc-number">2.</span> <span class="toc-text">矩阵</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#数组元素访问"><span class="toc-number">3.</span> <span class="toc-text">数组元素访问</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">标签云</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/Kubernetes/" style="font-size: 10px;">Kubernetes</a> <a href="/tags/docker/" style="font-size: 12px;">docker</a> <a href="/tags/linux/" style="font-size: 16px;">linux</a> <a href="/tags/mongodb/" style="font-size: 18px;">mongodb</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/oracle/" style="font-size: 20px;">oracle</a> <a href="/tags/python/" style="font-size: 18px;">python</a> <a href="/tags/spark/" style="font-size: 14px;">spark</a> <a href="/tags/statistics/" style="font-size: 12px;">statistics</a> <a href="/tags/zabbix/" style="font-size: 14px;">zabbix</a>
+    </div>
+  </div>
+
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1850090763&verifier=2163a5e7&dpc=1"></iframe>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Vincent Page in Google. <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1850090763" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/im-vincent" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/im_Vincent__" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="vincent">vincent</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"im-vincent"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

@@ -1,0 +1,721 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>im-vincent</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="vincent">
+    
+
+    
+    <meta property="og:type" content="website">
+<meta property="og:title" content="im-vincent">
+<meta property="og:url" content="http://yoursite.com/page/4/index.html">
+<meta property="og:site_name" content="im-vincent">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="im-vincent">
+<meta name="twitter:creator" content="@im_Vincent__">
+
+    
+    <link rel="alternative" href="/atom.xml" title="im-vincent" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="im-vincent" title="im-vincent"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="im-vincent">im-vincent</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main">
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/09/24/TF-IDF/" title="TF-IDF" itemprop="url">TF-IDF</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="vincent" target="_blank" itemprop="author">vincent</a>
+		
+  <p class="article-time">
+    <time datetime="2015-09-24T06:57:45.000Z" itemprop="datePublished"> 发表于 2015-09-24</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="ER-as-Text-Similarity-Weighted-Bag-of-Words-using-TF-IDF"><a href="#ER-as-Text-Similarity-Weighted-Bag-of-Words-using-TF-IDF" class="headerlink" title="ER as Text Similarity - Weighted Bag-of-Words using TF-IDF"></a><strong>ER as Text Similarity - Weighted Bag-of-Words using TF-IDF</strong></h3><h4 id="Bag-of-words-comparisons-are-not-very-good-when-all-tokens-are-treated-the-same-some-tokens-are-more-important-than-others-Weights-give-us-a-way-to-specify-which-tokens-to-favor-With-weights-when-we-compare-documents-instead-of-counting-common-tokens-we-sum-up-the-weights-of-common-tokens-A-good-heuristic-for-assigning-weights-is-called-“Term-Frequency-Inverse-Document-Frequency-”-or-TF-IDF-for-short"><a href="#Bag-of-words-comparisons-are-not-very-good-when-all-tokens-are-treated-the-same-some-tokens-are-more-important-than-others-Weights-give-us-a-way-to-specify-which-tokens-to-favor-With-weights-when-we-compare-documents-instead-of-counting-common-tokens-we-sum-up-the-weights-of-common-tokens-A-good-heuristic-for-assigning-weights-is-called-“Term-Frequency-Inverse-Document-Frequency-”-or-TF-IDF-for-short" class="headerlink" title="Bag-of-words comparisons are not very good when all tokens are treated the same: some tokens are more important than others. Weights give us a way to specify which tokens to favor. With weights, when we compare documents, instead of counting common tokens, we sum up the weights of common tokens. A good heuristic for assigning weights is called “Term-Frequency/Inverse-Document-Frequency,” or TF-IDF for short."></a>Bag-of-words comparisons are not very good when all tokens are treated the same: some tokens are more important than others. Weights give us a way to specify which tokens to favor. With weights, when we compare documents, instead of counting common tokens, we sum up the weights of common tokens. A good heuristic for assigning weights is called “Term-Frequency/Inverse-Document-Frequency,” or <a href="https://en.wikipedia.org/wiki/Tf%E2%80%93idf" target="_blank" rel="external">TF-IDF</a> for short.</h4><h4 id="TF"><a href="#TF" class="headerlink" title="TF"></a><strong>TF</strong></h4><h4 id="TF-rewards-tokens-that-appear-many-times-in-the-same-document-It-is-computed-as-the-frequency-of-a-token-in-a-document-that-is-if-document-d-contains-100-tokens-and-token-t-appears-in-d-5-times-then-the-TF-weight-of-t-in-d-is-5-100-1-20-The-intuition-for-TF-is-that-if-a-word-occurs-often-in-a-document-then-it-is-more-important-to-the-meaning-of-the-document"><a href="#TF-rewards-tokens-that-appear-many-times-in-the-same-document-It-is-computed-as-the-frequency-of-a-token-in-a-document-that-is-if-document-d-contains-100-tokens-and-token-t-appears-in-d-5-times-then-the-TF-weight-of-t-in-d-is-5-100-1-20-The-intuition-for-TF-is-that-if-a-word-occurs-often-in-a-document-then-it-is-more-important-to-the-meaning-of-the-document" class="headerlink" title="TF rewards tokens that appear many times in the same document. It is computed as the frequency of a token in a document, that is, if document d contains 100 tokens and token t appears in d 5 times, then the TF weight of t in d is 5/100 = 1/20. The intuition for TF is that if a word occurs often in a document, then it is more important to the meaning of the document."></a>TF rewards tokens that appear many times in the same document. It is computed as the frequency of a token in a document, that is, if document <em>d</em> contains 100 tokens and token <em>t</em> appears in <em>d</em> 5 times, then the TF weight of <em>t</em> in <em>d</em> is <em>5/100 = 1/20</em>. The intuition for TF is that if a word occurs often in a document, then it is more important to the meaning of the document.</h4><h4 id="IDF"><a href="#IDF" class="headerlink" title="IDF"></a><strong>IDF</strong></h4><h4 id="IDF-rewards-tokens-that-are-rare-overall-in-a-dataset-The-intuition-is-that-it-is-more-significant-if-two-documents-share-a-rare-word-than-a-common-one-IDF-weight-for-a-token-t-in-a-set-of-documents-U-is-computed-as-follows"><a href="#IDF-rewards-tokens-that-are-rare-overall-in-a-dataset-The-intuition-is-that-it-is-more-significant-if-two-documents-share-a-rare-word-than-a-common-one-IDF-weight-for-a-token-t-in-a-set-of-documents-U-is-computed-as-follows" class="headerlink" title="IDF rewards tokens that are rare overall in a dataset. The intuition is that it is more significant if two documents share a rare word than a common one. IDF weight for a token, t, in a set of documents, U, is computed as follows:"></a>IDF rewards tokens that are rare overall in a dataset. The intuition is that it is more significant if two documents share a rare word than a common one. IDF weight for a token, <em>t</em>, in a set of documents, <em>U</em>, is computed as follows:</h4><ul>
+<li><h4 id="Let-N-be-the-total-number-of-documents-in-U"><a href="#Let-N-be-the-total-number-of-documents-in-U" class="headerlink" title="Let N be the total number of documents in U"></a>Let <em>N</em> be the total number of documents in <em>U</em></h4></li>
+<li><h4 id="Find-n-t-the-number-of-documents-in-U-that-contain-t"><a href="#Find-n-t-the-number-of-documents-in-U-that-contain-t" class="headerlink" title="Find n(t), the number of documents in U that contain t"></a>Find <em>n(t)</em>, the number of documents in <em>U</em> that contain <em>t</em></h4></li>
+<li><h4 id="Then-IDF-t-N-n-t"><a href="#Then-IDF-t-N-n-t" class="headerlink" title="Then IDF(t) = N/n(t)."></a>Then <em>IDF(t) = N/n(t)</em>.</h4><h4 id="Note-that-n-t-N-is-the-frequency-of-t-in-U-and-N-n-t-is-the-inverse-frequency"><a href="#Note-that-n-t-N-is-the-frequency-of-t-in-U-and-N-n-t-is-the-inverse-frequency" class="headerlink" title="Note that n(t)/N is the frequency of t in U, and N/n(t) is the inverse frequency."></a>Note that <em>n(t)/N</em> is the frequency of <em>t</em> in <em>U</em>, and <em>N/n(t)</em> is the inverse frequency.</h4><blockquote>
+<h4 id="Note-on-terminology-Sometimes-token-weights-depend-on-the-document-the-token-belongs-to-that-is-the-same-token-may-have-a-different-weight-when-it’s-found-in-different-documents-We-call-these-weights-local-weights-TF-is-an-example-of-a-local-weight-because-it-depends-on-the-length-of-the-source-On-the-other-hand-some-token-weights-only-depend-on-the-token-and-are-the-same-everywhere-that-token-is-found-We-call-these-weights-global-and-IDF-is-one-such-weight"><a href="#Note-on-terminology-Sometimes-token-weights-depend-on-the-document-the-token-belongs-to-that-is-the-same-token-may-have-a-different-weight-when-it’s-found-in-different-documents-We-call-these-weights-local-weights-TF-is-an-example-of-a-local-weight-because-it-depends-on-the-length-of-the-source-On-the-other-hand-some-token-weights-only-depend-on-the-token-and-are-the-same-everywhere-that-token-is-found-We-call-these-weights-global-and-IDF-is-one-such-weight" class="headerlink" title="Note on terminology: Sometimes token weights depend on the document the token belongs to, that is, the same token may have a different weight when it’s found in different documents.  We call these weights local weights.  TF is an example of a local weight, because it depends on the length of the source.  On the other hand, some token weights only depend on the token, and are the same everywhere that token is found.  We call these weights global, and IDF is one such weight."></a><strong>Note on terminology</strong>: Sometimes token weights depend on the document the token belongs to, that is, the same token may have a different weight when it’s found in different documents.  We call these weights <em>local</em> weights.  TF is an example of a local weight, because it depends on the length of the source.  On the other hand, some token weights only depend on the token, and are the same everywhere that token is found.  We call these weights <em>global</em>, and IDF is one such weight.</h4><h4 id="TF-IDF"><a href="#TF-IDF" class="headerlink" title="TF-IDF"></a><strong>TF-IDF</strong></h4><h4 id="Finally-to-bring-it-all-together-the-total-TF-IDF-weight-for-a-token-in-a-document-is-the-product-of-its-TF-and-IDF-weights"><a href="#Finally-to-bring-it-all-together-the-total-TF-IDF-weight-for-a-token-in-a-document-is-the-product-of-its-TF-and-IDF-weights" class="headerlink" title="Finally, to bring it all together, the total TF-IDF weight for a token in a document is the product of its TF and IDF weights."></a>Finally, to bring it all together, the total TF-IDF weight for a token in a document is the product of its TF and IDF weights.</h4></blockquote>
+</li>
+</ul>
+<h3 id="Implement-a-TF-function"><a href="#Implement-a-TF-function" class="headerlink" title="Implement a TF function"></a><strong>Implement a TF function</strong></h3><h4 id="Implement-tf-tokens-that-takes-a-list-of-tokens-and-returns-a-Python-dictionary-mapping-tokens-to-TF-weights"><a href="#Implement-tf-tokens-that-takes-a-list-of-tokens-and-returns-a-Python-dictionary-mapping-tokens-to-TF-weights" class="headerlink" title="Implement tf(tokens) that takes a list of tokens and returns a Python dictionary mapping tokens to TF weights."></a>Implement <code>tf(tokens)</code> that takes a list of tokens and returns a Python <a href="https://docs.python.org/2/tutorial/datastructures.html#dictionaries" target="_blank" rel="external">dictionary</a> mapping tokens to TF weights.</h4><h4 id="The-steps-your-function-should-perform-are"><a href="#The-steps-your-function-should-perform-are" class="headerlink" title="The steps your function should perform are:"></a>The steps your function should perform are:</h4><ul>
+<li><h4 id="Create-an-empty-Python-dictionary"><a href="#Create-an-empty-Python-dictionary" class="headerlink" title="Create an empty Python dictionary"></a>Create an empty Python dictionary</h4></li>
+<li><h4 id="For-each-of-the-tokens-in-the-input-tokens-list-count-1-for-each-occurance-and-add-the-token-to-the-dictionary"><a href="#For-each-of-the-tokens-in-the-input-tokens-list-count-1-for-each-occurance-and-add-the-token-to-the-dictionary" class="headerlink" title="For each of the tokens in the input tokens list, count 1 for each occurance and add the token to the dictionary"></a>For each of the tokens in the input <code>tokens</code> list, count 1 for each occurance and add the token to the dictionary</h4></li>
+<li><h4 id="For-each-of-the-tokens-in-the-dictionary-divide-the-token’s-count-by-the-total-number-of-tokens-in-the-input-tokens-list"><a href="#For-each-of-the-tokens-in-the-dictionary-divide-the-token’s-count-by-the-total-number-of-tokens-in-the-input-tokens-list" class="headerlink" title="For each of the tokens in the dictionary, divide the token’s count by the total number of tokens in the input tokens list"></a>For each of the tokens in the dictionary, divide the token’s count by the total number of tokens in the input <code>tokens</code> list</h4></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">tf</span><span class="params">(tokens)</span>:</span></div><div class="line">    <span class="string">""" Compute TF</span></div><div class="line">    Args:</div><div class="line">        tokens (list of str): input list of tokens from tokenize</div><div class="line">    Returns:</div><div class="line">        dictionary: a dictionary of tokens to its TF values</div><div class="line">    """</div><div class="line"></div><div class="line">    <span class="keyword">return</span> &#123;token:tokens.count(token)/float(len(tokens)) <span class="keyword">for</span> token <span class="keyword">in</span> tokens&#125;</div><div class="line">    <span class="comment">#词频 (TF) 是一词语出现的次数除以该文件的总词语数</span></div><div class="line"></div><div class="line"><span class="keyword">print</span> tf(tokenize(quickbrownfox)) <span class="comment"># Should give &#123; 'quick': 0.1666 ... &#125;</span></div></pre></td></tr></table></figure>
+<h3 id="Implement-an-IDFs-function"><a href="#Implement-an-IDFs-function" class="headerlink" title="Implement an IDFs function"></a><strong>Implement an IDFs function</strong></h3><h4 id="Implement-idfs-that-assigns-an-IDF-weight-to-every-unique-token-in-an-RDD-called-corpus-The-function-should-return-an-pair-RDD-where-the-key-is-the-unique-token-and-value-is-the-IDF-weight-for-the-token"><a href="#Implement-idfs-that-assigns-an-IDF-weight-to-every-unique-token-in-an-RDD-called-corpus-The-function-should-return-an-pair-RDD-where-the-key-is-the-unique-token-and-value-is-the-IDF-weight-for-the-token" class="headerlink" title="Implement idfs that assigns an IDF weight to every unique token in an RDD called corpus. The function should return an pair RDD where the key is the unique token and value is the IDF weight for the token."></a>Implement <code>idfs</code> that assigns an IDF weight to every unique token in an RDD called <code>corpus</code>. The function should return an pair RDD where the <code>key</code> is the unique token and value is the IDF weight for the token.</h4><h4 id="Recall-that-the-IDF-weight-for-a-token-t-in-a-set-of-documents-U-is-computed-as-follows"><a href="#Recall-that-the-IDF-weight-for-a-token-t-in-a-set-of-documents-U-is-computed-as-follows" class="headerlink" title="Recall that the IDF weight for a token, t, in a set of documents, U, is computed as follows:"></a>Recall that the IDF weight for a token, <em>t</em>, in a set of documents, <em>U</em>, is computed as follows:</h4><ul>
+<li><h4 id="Let-N-be-the-total-number-of-documents-in-U-1"><a href="#Let-N-be-the-total-number-of-documents-in-U-1" class="headerlink" title="Let N be the total number of documents in U."></a>Let <em>N</em> be the total number of documents in <em>U</em>.</h4></li>
+<li><h4 id="Find-n-t-the-number-of-documents-in-U-that-contain-t-1"><a href="#Find-n-t-the-number-of-documents-in-U-that-contain-t-1" class="headerlink" title="Find n(t), the number of documents in U that contain t."></a>Find <em>n(t)</em>, the number of documents in <em>U</em> that contain <em>t</em>.</h4></li>
+<li><h4 id="Then-IDF-t-N-n-t-1"><a href="#Then-IDF-t-N-n-t-1" class="headerlink" title="Then IDF(t) = N/n(t)."></a>Then <em>IDF(t) = N/n(t)</em>.</h4><h4 id="The-steps-your-function-should-perform-are-1"><a href="#The-steps-your-function-should-perform-are-1" class="headerlink" title="The steps your function should perform are:"></a>The steps your function should perform are:</h4></li>
+<li><h4 id="Calculate-N-Think-about-how-you-can-calculate-N-from-the-input-RDD"><a href="#Calculate-N-Think-about-how-you-can-calculate-N-from-the-input-RDD" class="headerlink" title="Calculate N. Think about how you can calculate N from the input RDD."></a>Calculate <em>N</em>. Think about how you can calculate <em>N</em> from the input RDD.</h4></li>
+<li><h4 id="Create-an-RDD-not-a-pair-RDD-containing-the-unique-tokens-from-each-document-in-the-input-corpus-For-each-document-you-should-only-include-a-token-once-even-if-it-appears-multiple-times-in-that-document"><a href="#Create-an-RDD-not-a-pair-RDD-containing-the-unique-tokens-from-each-document-in-the-input-corpus-For-each-document-you-should-only-include-a-token-once-even-if-it-appears-multiple-times-in-that-document" class="headerlink" title="Create an RDD (not a pair RDD) containing the unique tokens from each document in the input corpus. For each document, you should only include a token once, even if it appears multiple times in that document."></a>Create an RDD (<em>not a pair RDD</em>) containing the unique tokens from each document in the input <code>corpus</code>. For each document, you should only include a token once, <em>even if it appears multiple times in that document.</em></h4></li>
+<li><h4 id="For-each-of-the-unique-tokens-count-how-many-times-it-appears-in-the-document-and-then-compute-the-IDF-for-that-token-N-n-t"><a href="#For-each-of-the-unique-tokens-count-how-many-times-it-appears-in-the-document-and-then-compute-the-IDF-for-that-token-N-n-t" class="headerlink" title="For each of the unique tokens, count how many times it appears in the document and then compute the IDF for that token: N/n(t)"></a>For each of the unique tokens, count how many times it appears in the document and then compute the IDF for that token: <em>N/n(t)</em></h4><h4 id="Use-your-idfs-to-compute-the-IDF-weights-for-all-tokens-in-corpusRDD-the-combined-small-datasets"><a href="#Use-your-idfs-to-compute-the-IDF-weights-for-all-tokens-in-corpusRDD-the-combined-small-datasets" class="headerlink" title="Use your idfs to compute the IDF weights for all tokens in corpusRDD (the combined small datasets)."></a>Use your <code>idfs</code> to compute the IDF weights for all tokens in <code>corpusRDD</code> (the combined small datasets).</h4><h4 id="How-many-unique-tokens-are-there"><a href="#How-many-unique-tokens-are-there" class="headerlink" title="How many unique tokens are there?"></a>How many unique tokens are there?</h4></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">idfs</span><span class="params">(corpus)</span>:</span></div><div class="line">    <span class="string">""" Compute IDF</span></div><div class="line">    Args:</div><div class="line">        corpus (RDD): input corpus</div><div class="line">    Returns:</div><div class="line">        RDD: a RDD of (token, IDF value)</div><div class="line">    """</div><div class="line">    N = corpus.count()</div><div class="line">    <span class="comment">#总得词数</span></div><div class="line">    uniqueTokens = corpus.map(<span class="keyword">lambda</span> (k,v): set(v))</div><div class="line">    <span class="comment">#去除每行里重复的词</span></div><div class="line">    tokenCountPairTuple = uniqueTokens.flatMap(<span class="keyword">lambda</span> x: [(t,<span class="number">1</span>) <span class="keyword">for</span> t <span class="keyword">in</span> x])  <span class="comment">#[('rom', 1)]</span></div><div class="line">    tokenSumPairTuple = tokenCountPairTuple.reduceByKey(<span class="keyword">lambda</span> a,b:a+b) <span class="comment">#[('aided', 1), ('precise', 4)]</span></div><div class="line">    <span class="comment">#计算词所出现的次数</span></div><div class="line">    <span class="keyword">return</span> (tokenSumPairTuple.map(<span class="keyword">lambda</span> (k,v): (k,N/float(v))).cache())</div><div class="line">    <span class="comment">#IDF(t) = N/n(t)</span></div><div class="line"></div><div class="line">idfsSmall = idfs(amazonRecToToken.union(googleRecToToken))</div><div class="line">uniqueTokenCount = idfsSmall.count()</div><div class="line"></div><div class="line"><span class="keyword">print</span> <span class="string">'There are %s unique tokens in the small datasets.'</span> % uniqueTokenCount</div></pre></td></tr></table></figure>
+<h3 id="Implement-a-TF-IDF-function"><a href="#Implement-a-TF-IDF-function" class="headerlink" title="Implement a TF-IDF function"></a><strong>Implement a TF-IDF function</strong></h3><h4 id="Use-your-tf-function-to-implement-a-tfidf-tokens-idfs-function-that-takes-a-list-of-tokens-from-a-document-and-a-Python-dictionary-of-IDF-weights-and-returns-a-Python-dictionary-mapping-individual-tokens-to-total-TF-IDF-weights"><a href="#Use-your-tf-function-to-implement-a-tfidf-tokens-idfs-function-that-takes-a-list-of-tokens-from-a-document-and-a-Python-dictionary-of-IDF-weights-and-returns-a-Python-dictionary-mapping-individual-tokens-to-total-TF-IDF-weights" class="headerlink" title="Use your tf function to implement a tfidf(tokens, idfs) function that takes a list of tokens from a document and a Python dictionary of IDF weights and returns a Python dictionary mapping individual tokens to total TF-IDF weights."></a>Use your <code>tf</code> function to implement a <code>tfidf(tokens, idfs)</code> function that takes a list of tokens from a document and a Python dictionary of IDF weights and returns a Python dictionary mapping individual tokens to total TF-IDF weights.</h4><h4 id="The-steps-your-function-should-perform-are-2"><a href="#The-steps-your-function-should-perform-are-2" class="headerlink" title="The steps your function should perform are:"></a>The steps your function should perform are:</h4><ul>
+<li><h4 id="Calculate-the-token-frequencies-TF-for-tokens"><a href="#Calculate-the-token-frequencies-TF-for-tokens" class="headerlink" title="Calculate the token frequencies (TF) for tokens"></a>Calculate the token frequencies (TF) for <code>tokens</code></h4></li>
+<li><h4 id="Create-a-Python-dictionary-where-each-token-maps-to-the-token’s-frequency-times-the-token’s-IDF-weight"><a href="#Create-a-Python-dictionary-where-each-token-maps-to-the-token’s-frequency-times-the-token’s-IDF-weight" class="headerlink" title="Create a Python dictionary where each token maps to the token’s frequency times the token’s IDF weight"></a>Create a Python dictionary where each token maps to the token’s frequency times the token’s IDF weight</h4><h4 id="Use-your-tfidf-function-to-compute-the-weights-of-Amazon-product-record-‘b000hkgj8k’-To-do-this-we-need-to-extract-the-record-for-the-token-from-the-tokenized-small-Amazon-dataset-and-we-need-to-convert-the-IDFs-for-the-small-dataset-into-a-Python-dictionary-We-can-do-the-first-part-by-using-a-filter-transformation-to-extract-the-matching-record-and-a-collect-action-to-return-the-value-to-the-driver-For-the-second-part-we-use-the-collectAsMap-action-to-return-the-IDFs-to-the-driver-as-a-Python-dictionary"><a href="#Use-your-tfidf-function-to-compute-the-weights-of-Amazon-product-record-‘b000hkgj8k’-To-do-this-we-need-to-extract-the-record-for-the-token-from-the-tokenized-small-Amazon-dataset-and-we-need-to-convert-the-IDFs-for-the-small-dataset-into-a-Python-dictionary-We-can-do-the-first-part-by-using-a-filter-transformation-to-extract-the-matching-record-and-a-collect-action-to-return-the-value-to-the-driver-For-the-second-part-we-use-the-collectAsMap-action-to-return-the-IDFs-to-the-driver-as-a-Python-dictionary" class="headerlink" title="Use your tfidf function to compute the weights of Amazon product record ‘b000hkgj8k’. To do this, we need to extract the record for the token from the tokenized small Amazon dataset and we need to convert the IDFs for the small dataset into a Python dictionary. We can do the first part, by using a filter() transformation to extract the matching record and a collect() action to return the value to the driver. For the second part, we use the collectAsMap() action to return the IDFs to the driver as a Python dictionary."></a>Use your <code>tfidf</code> function to compute the weights of Amazon product record ‘b000hkgj8k’. To do this, we need to extract the record for the token from the tokenized small Amazon dataset and we need to convert the IDFs for the small dataset into a Python dictionary. We can do the first part, by using a <code>filter()</code> transformation to extract the matching record and a <code>collect()</code> action to return the value to the driver. For the second part, we use the <a href="http://spark.apache.org/docs/latest/api/python/pyspark.html#pyspark.RDD.collectAsMap" target="_blank" rel="external"><code>collectAsMap()</code> action</a> to return the IDFs to the driver as a Python dictionary.</h4></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">tfidf</span><span class="params">(tokens, idfs)</span>:</span></div><div class="line">    <span class="string">""" Compute TF-IDF</span></div><div class="line">    Args:</div><div class="line">        tokens (list of str): input list of tokens from tokenize</div><div class="line">        idfs (dictionary): record to IDF value</div><div class="line">    Returns:</div><div class="line">        dictionary: a dictionary of records to TF-IDF values</div><div class="line">    """</div><div class="line">    tfs = tf(tokens)</div><div class="line">    tfIdfDict = &#123;token:tfs[token]*idfs[token] <span class="keyword">for</span> token <span class="keyword">in</span> tokens&#125;</div><div class="line">    <span class="keyword">return</span> tfIdfDict</div></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/python/">python</a><a href="/tags/spark/">spark</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/09/24/TF-IDF/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/09/24/TF-IDF/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/09/24/python单行循环判断/" title="python单行循环判断" itemprop="url">python单行循环判断</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="vincent" target="_blank" itemprop="author">vincent</a>
+		
+  <p class="article-time">
+    <time datetime="2015-09-24T02:21:04.000Z" itemprop="datePublished"> 发表于 2015-09-24</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">quickbrownfox = <span class="string">'A quick brown fox jumps over the lazy dog.'</span></div><div class="line">split_regex = <span class="string">r'\W+'</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">simpleTokenize</span><span class="params">(string)</span>:</span></div><div class="line">    <span class="string">""" A simple implementation of input string tokenization</span></div><div class="line">    Args:</div><div class="line">        string (str): input string</div><div class="line">    Returns:</div><div class="line">        list: a list of tokens</div><div class="line">    """</div><div class="line">    <span class="keyword">return</span> [token <span class="keyword">for</span> token <span class="keyword">in</span> re.split(split_regex,string.lower()) <span class="keyword">if</span> token != <span class="string">""</span>]</div><div class="line"></div><div class="line"><span class="keyword">print</span> simpleTokenize(quickbrownfox) <span class="comment"># Should give ['a', 'quick', 'brown', ... ]</span></div></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/python/">python</a><a href="/tags/spark/">spark</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/09/24/python单行循环判断/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/09/24/python单行循环判断/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/09/22/Python-Regular-Expressions/" title="Python Regular Expressions" itemprop="url">Python Regular Expressions</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="vincent" target="_blank" itemprop="author">vincent</a>
+		
+  <p class="article-time">
+    <time datetime="2015-09-22T09:44:13.000Z" itemprop="datePublished"> 发表于 2015-09-22</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <blockquote>
+<p><a href="https://developers.google.com/edu/python/regular-expressions" target="_blank" rel="external">https://developers.google.com/edu/python/regular-expressions</a></p>
+</blockquote>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/python/">python</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/09/22/Python-Regular-Expressions/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/09/22/Python-Regular-Expressions/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/09/21/python全角半角转换/" title="python全角半角转换" itemprop="url">python全角半角转换</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="vincent" target="_blank" itemprop="author">vincent</a>
+		
+  <p class="article-time">
+    <time datetime="2015-09-21T06:34:54.000Z" itemprop="datePublished"> 发表于 2015-09-21</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h1 id="python全角半角转换"><a href="#python全角半角转换" class="headerlink" title="python全角半角转换"></a>python全角半角转换</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">full2half</span>:</span></div><div class="line"></div><div class="line">    <span class="comment"># 构造函数</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__ini__</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="keyword">pass</span></div><div class="line"></div><div class="line">    <span class="comment"># 将半角字符转换成全角字符</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">charB2Q</span><span class="params">(self, uchar)</span>:</span></div><div class="line"></div><div class="line">        <span class="keyword">if</span> uchar == <span class="string">''</span>:</div><div class="line">            <span class="keyword">return</span> <span class="string">''</span></div><div class="line"></div><div class="line">        inside_code = ord(uchar)</div><div class="line"></div><div class="line">        <span class="keyword">if</span> <span class="keyword">not</span> inside_code <span class="keyword">in</span> range(<span class="number">32</span>, <span class="number">127</span>):</div><div class="line">            <span class="keyword">return</span> uchar</div><div class="line"></div><div class="line">        <span class="keyword">if</span> inside_code == <span class="number">32</span>:</div><div class="line">            inside_code = <span class="number">12288</span></div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            inside_code += <span class="number">65248</span></div><div class="line"></div><div class="line">        <span class="keyword">if</span> inside_code <span class="keyword">in</span> range(<span class="number">32</span>, <span class="number">127</span>):</div><div class="line">            <span class="keyword">return</span> uchar</div><div class="line"></div><div class="line">        <span class="keyword">return</span> unichr(inside_code).encode(<span class="string">'utf-8'</span>, <span class="string">'ignore'</span>)</div><div class="line"></div><div class="line">    <span class="comment"># 将全角字符转换成半角字符</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">charQ2B</span><span class="params">(self, uchar)</span>:</span></div><div class="line"></div><div class="line">        <span class="keyword">if</span> uchar == <span class="string">''</span>:</div><div class="line">            <span class="keyword">return</span> <span class="string">''</span></div><div class="line"></div><div class="line">        inside_code = ord(uchar)</div><div class="line"></div><div class="line">        <span class="keyword">if</span> inside_code <span class="keyword">in</span> range(<span class="number">32</span>, <span class="number">127</span>):</div><div class="line">            <span class="keyword">return</span> uchar</div><div class="line"></div><div class="line">        <span class="keyword">if</span> inside_code == <span class="number">12288</span>:</div><div class="line">            inside_code = <span class="number">32</span></div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            inside_code -= <span class="number">65248</span></div><div class="line"></div><div class="line">        <span class="keyword">if</span> <span class="keyword">not</span> inside_code <span class="keyword">in</span> range(<span class="number">32</span>, <span class="number">127</span>):</div><div class="line">            <span class="keyword">return</span> uchar</div><div class="line"></div><div class="line">        <span class="keyword">return</span> unichr(inside_code).encode(<span class="string">'utf-8'</span>, <span class="string">'ignore'</span>)</div><div class="line"></div><div class="line">    <span class="comment"># 将字符串中的半角转换成全角</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">StingB2Q</span><span class="params">(self, ustring)</span>:</span></div><div class="line"></div><div class="line">        <span class="keyword">try</span>:</div><div class="line">            ustring = ustring.decode(<span class="string">'utf-8'</span>, <span class="string">'ignore'</span>)</div><div class="line">        <span class="keyword">except</span>:</div><div class="line">            <span class="keyword">pass</span></div><div class="line"></div><div class="line">        result = <span class="string">''</span></div><div class="line">        <span class="keyword">for</span> uchar <span class="keyword">in</span> ustring:</div><div class="line"></div><div class="line">            <span class="keyword">try</span>:</div><div class="line">                uchar = uchar.encode(<span class="string">'utf-8'</span>, <span class="string">'ignore'</span>)</div><div class="line">            <span class="keyword">except</span>:</div><div class="line">                <span class="keyword">pass</span></div><div class="line"></div><div class="line">            <span class="keyword">try</span>:</div><div class="line">                inside_code = ord(uchar)</div><div class="line">            <span class="keyword">except</span>:</div><div class="line">                inside_code = <span class="string">''</span></div><div class="line"></div><div class="line">            <span class="keyword">if</span> inside_code:</div><div class="line">                <span class="keyword">if</span> inside_code <span class="keyword">in</span> range(<span class="number">32</span>, <span class="number">127</span>):</div><div class="line">                    result += self.charB2Q(uchar)</div><div class="line">                <span class="keyword">else</span>:</div><div class="line">                    result += uchar</div><div class="line">            <span class="keyword">else</span>:</div><div class="line">                result += uchar</div><div class="line"></div><div class="line">        <span class="keyword">return</span> result</div><div class="line"></div><div class="line">    <span class="comment"># 将字符串中的全角转换成半角</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">StingQ2B</span><span class="params">(self, ustring)</span>:</span></div><div class="line"></div><div class="line">        <span class="keyword">try</span>:</div><div class="line">            ustring = ustring.decode(<span class="string">'utf-8'</span>, <span class="string">'ignore'</span>)</div><div class="line">        <span class="keyword">except</span>:</div><div class="line">            <span class="keyword">pass</span></div><div class="line"></div><div class="line">        result = <span class="string">''</span></div><div class="line">        <span class="keyword">for</span> uchar <span class="keyword">in</span> ustring:</div><div class="line"></div><div class="line">            <span class="keyword">try</span>:</div><div class="line">                inside_code = ord(uchar)</div><div class="line">            <span class="keyword">except</span>:</div><div class="line">                inside_code = <span class="string">''</span></div><div class="line"></div><div class="line">            <span class="keyword">if</span> inside_code:</div><div class="line">                <span class="keyword">if</span> inside_code <span class="keyword">in</span> range(<span class="number">32</span>, <span class="number">127</span>):</div><div class="line">                    result += uchar</div><div class="line">                <span class="keyword">else</span>:</div><div class="line">                    result += self.charQ2B(uchar)</div><div class="line">            <span class="keyword">else</span>:</div><div class="line">                result += uchar</div><div class="line"></div><div class="line">        <span class="keyword">return</span> result.encode(<span class="string">'utf-8'</span>, <span class="string">'ignore'</span>)</div><div class="line"></div><div class="line">    <span class="comment"># 析构函数</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__del__</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="keyword">pass</span></div></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/python/">python</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/09/21/python全角半角转换/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/09/21/python全角半角转换/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/09/21/Autopep8:按PEP8风格自动排版Python代码/" title="Autopep8:按PEP8风格自动排版Python代码" itemprop="url">Autopep8:按PEP8风格自动排版Python代码</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="vincent" target="_blank" itemprop="author">vincent</a>
+		
+  <p class="article-time">
+    <time datetime="2015-09-21T06:15:27.000Z" itemprop="datePublished"> 发表于 2015-09-21</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>Autopep8是一个将Python代码自动排版为PEP8风格的小工具。它使用pep8工具来决定代码中的哪部分需要被排版。Autopep8可以修复大部分pep8工具中报告的排版问题。</p>
+<p>运行命令前代码的排版<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> math, sys;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">example1</span><span class="params">()</span>:</span></div><div class="line">    </div><div class="line"><span class="comment">####This is a long comment. This should be wrapped to fit within 72 characters.</span></div><div class="line">    some_tuple=(   <span class="number">1</span>,<span class="number">2</span>, <span class="number">3</span>,<span class="string">'a'</span>  );</div><div class="line">    some_variable=&#123;<span class="string">'long'</span>:<span class="string">'Long code lines should be wrapped within 79 characters.'</span>,</div><div class="line">    <span class="string">'other'</span>:[math.pi, <span class="number">100</span>,<span class="number">200</span>,<span class="number">300</span>,<span class="number">9876543210</span>,<span class="string">'This is a long string that goes on'</span>],</div><div class="line">    <span class="string">'more'</span>:&#123;<span class="string">'inner'</span>:<span class="string">'This whole logical line should be wrapped.'</span>,some_tuple:[<span class="number">1</span>,</div><div class="line">    <span class="number">20</span>,<span class="number">300</span>,<span class="number">40000</span>,<span class="number">500000000</span>,<span class="number">60000000000000000</span>]&#125;&#125;</div><div class="line">    <span class="keyword">return</span> (some_tuple, some_variable)</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">example2</span><span class="params">()</span>:</span> <span class="keyword">return</span> &#123;<span class="string">'has_key() is deprecated'</span>:<span class="keyword">True</span>&#125;.has_key(&#123;<span class="string">'f'</span>:<span class="number">2</span>&#125;.has_key(<span class="string">''</span>));</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Example3</span><span class="params">(   object )</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>    <span class="params">( self, bar )</span>:</span></div><div class="line">     </div><div class="line"><span class="comment">#Comments should have a space after the hash.</span></div><div class="line">     <span class="keyword">if</span> bar : bar+=<span class="number">1</span>;  bar=bar* bar   ; <span class="keyword">return</span> bar</div><div class="line">     <span class="keyword">else</span>:</div><div class="line">                    some_string = </div><div class="line"><span class="string">"""</span></div><div class="line">                       </div><div class="line">Indentation in multiline strings should not be touched.</div><div class="line">Only actual code should be reindented.</div><div class="line">"""</div><div class="line">                    <span class="keyword">return</span> (sys.path, some_string)</div></pre></td></tr></table></figure></p>
+<p>运行命令</p>
+<ul>
+<li><code>autopep8 --in-place --aggressive --aggressive &lt;filename&gt;</code></li>
+</ul>
+<p>运行命令后代码的排版<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> math</div><div class="line"><span class="keyword">import</span> sys</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">example1</span><span class="params">()</span>:</span></div><div class="line">    </div><div class="line"><span class="comment"># This is a long comment. This should be wrapped to fit within 72</span></div><div class="line">    </div><div class="line"><span class="comment"># characters.</span></div><div class="line">    some_tuple = (<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="string">'a'</span>)</div><div class="line">    some_variable = &#123;</div><div class="line">        <span class="string">'long'</span>: <span class="string">'Long code lines should be wrapped within 79 characters.'</span>,</div><div class="line">        <span class="string">'other'</span>: [</div><div class="line">            math.pi,</div><div class="line">            <span class="number">100</span>,</div><div class="line">            <span class="number">200</span>,</div><div class="line">            <span class="number">300</span>,</div><div class="line">            <span class="number">9876543210</span>,</div><div class="line">            <span class="string">'This is a long string that goes on'</span>],</div><div class="line">        <span class="string">'more'</span>: &#123;</div><div class="line">            <span class="string">'inner'</span>: <span class="string">'This whole logical line should be wrapped.'</span>,</div><div class="line">            some_tuple: [</div><div class="line">                <span class="number">1</span>,</div><div class="line">                <span class="number">20</span>,</div><div class="line">                <span class="number">300</span>,</div><div class="line">                <span class="number">40000</span>,</div><div class="line">                <span class="number">500000000</span>,</div><div class="line">                <span class="number">60000000000000000</span>]&#125;&#125;</div><div class="line">    <span class="keyword">return</span> (some_tuple, some_variable)</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">example2</span><span class="params">()</span>:</span></div><div class="line">    <span class="keyword">return</span> (<span class="string">''</span> <span class="keyword">in</span> &#123;<span class="string">'f'</span>: <span class="number">2</span>&#125;) <span class="keyword">in</span> &#123;<span class="string">'has_key() is deprecated'</span>: <span class="keyword">True</span>&#125;</div><div class="line"> </div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Example3</span><span class="params">(object)</span>:</span></div><div class="line"> </div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, bar)</span>:</span></div><div class="line">        </div><div class="line"><span class="comment"># Comments should have a space after the hash.</span></div><div class="line">        <span class="keyword">if</span> bar:</div><div class="line">            bar += <span class="number">1</span></div><div class="line">            bar = bar * bar</div><div class="line">            <span class="keyword">return</span> bar</div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            some_string = </div><div class="line"><span class="string">"""</span></div><div class="line">                       </div><div class="line">Indentation in multiline strings should not be touched.</div><div class="line">Only actual code should be reindented.</div><div class="line">"""</div><div class="line">            <span class="keyword">return</span> (sys.path, some_string)</div></pre></td></tr></table></figure></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/python/">python</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/09/21/Autopep8:按PEP8风格自动排版Python代码/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/09/21/Autopep8:按PEP8风格自动排版Python代码/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/09/15/Setting-up-IPython-Notebook-with-PySpark/" title="Setting up IPython Notebook with PySpark" itemprop="url">Setting up IPython Notebook with PySpark</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="vincent" target="_blank" itemprop="author">vincent</a>
+		
+  <p class="article-time">
+    <time datetime="2015-09-15T04:57:31.000Z" itemprop="datePublished"> 发表于 2015-09-15</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h1 id="Install-Spark"><a href="#Install-Spark" class="headerlink" title="Install Spark"></a>Install Spark</h1><p>Download latest spark </p>
+<ul>
+<li><a href="http://www.apache.org/dyn/closer.cgi/spark/spark-1.4.1/spark-1.4.1-bin-hadoop2.6.tgz" target="_blank" rel="external">spark-1.4.1-bin-hadoop2.6.tgz</a></li>
+<li>tar xvfz spark-1.4.1-bin-hadoop2.6.tgz -C /usr/local/</li>
+</ul>
+<p>Setup your environment variables for “SPARK_HOME” E.g. in Unix environments, add the following to ~/.bash_profile</p>
+<ul>
+<li>export SPARK_HOME=<code>&lt;location of the install&gt;</code></li>
+<li>export PATH=$SPARK_HOME/bin:$PATH</li>
+</ul>
+<h1 id="Install-Anaconda"><a href="#Install-Anaconda" class="headerlink" title="Install Anaconda"></a>Install Anaconda</h1><p>Download Anaconda which include python 2.7 and the main scientific</p>
+<ul>
+<li><a href="http://ipython.org/install.html" target="_blank" rel="external">http://ipython.org/install.html</a></li>
+</ul>
+<h1 id="Run-PySpark-from-IPython-notebook"><a href="#Run-PySpark-from-IPython-notebook" class="headerlink" title="Run PySpark from IPython notebook"></a>Run PySpark from IPython notebook</h1><p>Ipython notebook is sort of similar to Mathematica. Its a web app that allows you to write descriptions, images, visualization and executing run code.<br>Download the following python setup script from Github to create a new pyspark profile for running Ipython notebook <a href="https://github.com/felixcheung/vagrant-projects/blob/master/Spark-IPython-Zeppelin-Lightning/ipython-pyspark.py" target="_blank" rel="external">https://github.com/felixcheung/vagrant-projects/blob/master/Spark-IPython-Zeppelin-Lightning/ipython-pyspark.py</a> Run</p>
+<ul>
+<li>python ipython-pyspark.py</li>
+</ul>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/spark/">spark</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/09/15/Setting-up-IPython-Notebook-with-PySpark/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/09/15/Setting-up-IPython-Notebook-with-PySpark/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+
+  <nav id="page-nav" class="clearfix">
+    <a class="extend prev" rel="prev" href="/page/3/"><span></span>Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
+  </nav>
+
+</div>
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">标签云</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/Kubernetes/" style="font-size: 10px;">Kubernetes</a> <a href="/tags/docker/" style="font-size: 12px;">docker</a> <a href="/tags/linux/" style="font-size: 16px;">linux</a> <a href="/tags/mongodb/" style="font-size: 18px;">mongodb</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/oracle/" style="font-size: 20px;">oracle</a> <a href="/tags/python/" style="font-size: 18px;">python</a> <a href="/tags/spark/" style="font-size: 14px;">spark</a> <a href="/tags/statistics/" style="font-size: 12px;">statistics</a> <a href="/tags/zabbix/" style="font-size: 14px;">zabbix</a>
+    </div>
+  </div>
+
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1850090763&verifier=2163a5e7&dpc=1"></iframe>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Vincent Page in Google. <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1850090763" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/im-vincent" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/im_Vincent__" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="vincent">vincent</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+ </html>

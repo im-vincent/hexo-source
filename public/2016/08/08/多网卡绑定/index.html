@@ -1,0 +1,505 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>linux多网卡绑定 | im-vincent</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="vincent">
+    
+
+    
+    <meta name="description" content="相关配置文件位置  123/ect/hosts #配置主机名和IP地址的对应/etc/sysconfig/network #配置主机名和网关/etc/sysconfig/network-scripts/ifcfg-eth0 #eth0配置文件以此类推
+建立虚拟网卡  123456789101112cd /etc/sysconfig/network-scripts/touch ifcfg-bond0">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux多网卡绑定">
+<meta property="og:url" content="http://yoursite.com/2016/08/08/多网卡绑定/index.html">
+<meta property="og:site_name" content="im-vincent">
+<meta property="og:description" content="相关配置文件位置  123/ect/hosts #配置主机名和IP地址的对应/etc/sysconfig/network #配置主机名和网关/etc/sysconfig/network-scripts/ifcfg-eth0 #eth0配置文件以此类推
+建立虚拟网卡  123456789101112cd /etc/sysconfig/network-scripts/touch ifcfg-bond0">
+<meta property="og:updated_time" content="2016-10-19T02:27:12.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="linux多网卡绑定">
+<meta name="twitter:description" content="相关配置文件位置  123/ect/hosts #配置主机名和IP地址的对应/etc/sysconfig/network #配置主机名和网关/etc/sysconfig/network-scripts/ifcfg-eth0 #eth0配置文件以此类推
+建立虚拟网卡  123456789101112cd /etc/sysconfig/network-scripts/touch ifcfg-bond0">
+<meta name="twitter:creator" content="@im_Vincent__">
+
+    
+    <link rel="alternative" href="/atom.xml" title="im-vincent" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="im-vincent" title="im-vincent"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="im-vincent">im-vincent</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/08/08/多网卡绑定/" title="linux多网卡绑定" itemprop="url">linux多网卡绑定</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="vincent" target="_blank" itemprop="author">vincent</a>
+		
+  <p class="article-time">
+    <time datetime="2016-08-08T06:26:34.000Z" itemprop="datePublished"> 发表于 2016-08-08</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#相关配置文件位置"><span class="toc-number">1.</span> <span class="toc-text">相关配置文件位置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#建立虚拟网卡"><span class="toc-number">2.</span> <span class="toc-text">建立虚拟网卡</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#修改网卡参数文件"><span class="toc-number">3.</span> <span class="toc-text">修改网卡参数文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#加载到内核驱动"><span class="toc-number">4.</span> <span class="toc-text">加载到内核驱动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考脚本"><span class="toc-number">5.</span> <span class="toc-text">参考脚本</span></a></li></ol>
+		
+		</div>
+		
+		<h3 id="相关配置文件位置"><a href="#相关配置文件位置" class="headerlink" title="相关配置文件位置"></a>相关配置文件位置</h3>  <figure class="highlight dts"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta-keyword">/ect/</span>hosts <span class="meta">#配置主机名和IP地址的对应</span></div><div class="line"><span class="meta-keyword">/etc/</span>sysconfig/network <span class="meta">#配置主机名和网关</span></div><div class="line"><span class="meta-keyword">/etc/</span>sysconfig<span class="meta-keyword">/network-scripts/</span>ifcfg-eth0 <span class="meta">#eth0配置文件以此类推</span></div></pre></td></tr></table></figure>
+<h3 id="建立虚拟网卡"><a href="#建立虚拟网卡" class="headerlink" title="建立虚拟网卡"></a>建立虚拟网卡</h3>  <figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">cd /etc/sysconfig/network-scripts/</div><div class="line"><span class="section">touch</span> ifcfg-bond0</div><div class="line">cat &gt; ifcfg-bond0 &lt;&lt;<span class="literal">EOF</span></div><div class="line">DEVICE=bond0</div><div class="line">ONBOOT=yes</div><div class="line">BOOTPROTO=static</div><div class="line">USERCTL=yes</div><div class="line">IPADDR=<span class="number">192.168</span><span class="number">.1</span><span class="number">.1</span></div><div class="line">BROADCAST=<span class="number">192.168</span><span class="number">.2</span><span class="number">.7</span></div><div class="line">NETMASK=<span class="number">255.255</span><span class="number">.255</span><span class="number">.248</span></div><div class="line">BONDING_OPTS=<span class="string">"mode=5 miimon=100"</span></div><div class="line"><span class="literal">EOF</span></div></pre></td></tr></table></figure>
+<h3 id="修改网卡参数文件"><a href="#修改网卡参数文件" class="headerlink" title="修改网卡参数文件"></a>修改网卡参数文件</h3><p>修改其他各个网卡的ifcfg-ethx为slave，各自自动获取master的配置文件来配置自身。<br>  <figure class="highlight django"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="xml">cd /etc/sysconfig/network-scripts/</span></div><div class="line"></div><div class="line">cp ifcfg-em3 ifcfg-em3.bak</div><div class="line">cat &gt; ifcfg-em3 <span class="tag">&lt;&lt;<span class="attr">EOF</span></span></div><div class="line"><span class="attr">DEVICE</span>=<span class="string">em3</span></div><div class="line"><span class="attr">USERCTL</span>=<span class="string">no</span></div><div class="line"><span class="attr">ONBOOT</span>=<span class="string">yes</span></div><div class="line"><span class="attr">MASTER</span>=<span class="string">bond0</span></div><div class="line"><span class="attr">SLAVE</span>=<span class="string">yes</span></div><div class="line"><span class="attr">BOOTPROTO</span>=<span class="string">none</span></div><div class="line"><span class="attr">EOF</span></div><div class="line"></div><div class="line"><span class="attr">cp</span> <span class="attr">ifcfg-em4</span> <span class="attr">ifcfg-em4.bak</span></div><div class="line"><span class="attr">cat</span> &gt; ifcfg-em4 <span class="tag">&lt;&lt;<span class="attr">EOF</span></span></div><div class="line"><span class="attr">DEVICE</span>=<span class="string">em4</span></div><div class="line"><span class="attr">USERCTL</span>=<span class="string">no</span></div><div class="line"><span class="attr">ONBOOT</span>=<span class="string">yes</span></div><div class="line"><span class="attr">MASTER</span>=<span class="string">bond0</span></div><div class="line"><span class="attr">SLAVE</span>=<span class="string">yes</span></div><div class="line"><span class="attr">BOOTPROTO</span>=<span class="string">none</span></div><div class="line"><span class="attr">EOF</span></div></pre></td></tr></table></figure></p>
+<h3 id="加载到内核驱动"><a href="#加载到内核驱动" class="headerlink" title="加载到内核驱动"></a>加载到内核驱动</h3>  <figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">cat &gt;&gt; /etc/modprobe.d/dist.conf &lt;&lt;<span class="literal">EOF</span></div><div class="line">alias bond0 bonding</div><div class="line">options bond0 miimon=<span class="number">100</span> mode=<span class="number">5</span></div><div class="line"><span class="literal">EOF</span></div></pre></td></tr></table></figure>
+<p>  ​</p>
+<h3 id="参考脚本"><a href="#参考脚本" class="headerlink" title="参考脚本"></a>参考脚本</h3><figure class="highlight django"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="xml">#!/bin/bash</span></div><div class="line">cd /etc/sysconfig/network-scripts/</div><div class="line"></div><div class="line">cp ifcfg-em3 ifcfg-em3.bak</div><div class="line">cat &gt; ifcfg-em3 <span class="tag">&lt;&lt;<span class="attr">EOF</span></span></div><div class="line"><span class="attr">DEVICE</span>=<span class="string">em3</span></div><div class="line"><span class="attr">USERCTL</span>=<span class="string">no</span></div><div class="line"><span class="attr">ONBOOT</span>=<span class="string">yes</span></div><div class="line"><span class="attr">MASTER</span>=<span class="string">bond0</span></div><div class="line"><span class="attr">SLAVE</span>=<span class="string">yes</span></div><div class="line"><span class="attr">BOOTPROTO</span>=<span class="string">none</span></div><div class="line"><span class="attr">EOF</span></div><div class="line"></div><div class="line"><span class="attr">cp</span> <span class="attr">ifcfg-em4</span> <span class="attr">ifcfg-em4.bak</span></div><div class="line"><span class="attr">cat</span> &gt; ifcfg-em4 <span class="tag">&lt;&lt;<span class="attr">EOF</span></span></div><div class="line"><span class="attr">DEVICE</span>=<span class="string">em4</span></div><div class="line"><span class="attr">USERCTL</span>=<span class="string">no</span></div><div class="line"><span class="attr">ONBOOT</span>=<span class="string">yes</span></div><div class="line"><span class="attr">MASTER</span>=<span class="string">bond0</span></div><div class="line"><span class="attr">SLAVE</span>=<span class="string">yes</span></div><div class="line"><span class="attr">BOOTPROTO</span>=<span class="string">none</span></div><div class="line"><span class="attr">EOF</span></div><div class="line"></div><div class="line"><span class="attr">touch</span> <span class="attr">ifcfg-bond0</span></div><div class="line"><span class="attr">cat</span> &gt; ifcfg-bond0 <span class="tag">&lt;&lt;<span class="attr">EOF</span></span></div><div class="line"><span class="attr">DEVICE</span>=<span class="string">bond0</span></div><div class="line"><span class="attr">ONBOOT</span>=<span class="string">yes</span></div><div class="line"><span class="attr">BOOTPROTO</span>=<span class="string">static</span></div><div class="line"><span class="attr">USERCTL</span>=<span class="string">yes</span></div><div class="line"><span class="attr">IPADDR</span>=<span class="string">192.168.1.1</span></div><div class="line"><span class="attr">BROADCAST</span>=<span class="string">192.168.2.7</span></div><div class="line"><span class="attr">NETMASK</span>=<span class="string">255.255.255.248</span></div><div class="line"><span class="attr">BONDING_OPTS</span>=<span class="string">"mode=5 miimon=100"</span></div><div class="line"><span class="attr">EOF</span></div><div class="line"></div><div class="line"><span class="attr">cat</span> &gt;&gt; /etc/modprobe.d/dist.conf <span class="tag">&lt;&lt;<span class="attr">EOF</span></span></div><div class="line"><span class="attr">alias</span> <span class="attr">bond0</span> <span class="attr">bonding</span></div><div class="line"><span class="attr">options</span> <span class="attr">bond0</span> <span class="attr">miimon</span>=<span class="string">100</span> <span class="attr">mode</span>=<span class="string">5</span></div><div class="line"><span class="attr">EOF</span></div></pre></td></tr></table></figure>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/linux/">linux</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2016/08/08/多网卡绑定/" data-title="linux多网卡绑定 | im-vincent" data-tsina="1850090763" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/10/08/harbor搭建企业级docker仓库/" title="harbor搭建企业级docker仓库">
+  <strong>上一篇：</strong><br/>
+  <span>
+  harbor搭建企业级docker仓库</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/05/30/library-cache-mutex-X/"  title="library cache: mutex X">
+ <strong>下一篇：</strong><br/> 
+ <span>library cache: mutex X
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/08/08/多网卡绑定/" data-title="linux多网卡绑定" data-url="http://yoursite.com/2016/08/08/多网卡绑定/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#相关配置文件位置"><span class="toc-number">1.</span> <span class="toc-text">相关配置文件位置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#建立虚拟网卡"><span class="toc-number">2.</span> <span class="toc-text">建立虚拟网卡</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#修改网卡参数文件"><span class="toc-number">3.</span> <span class="toc-text">修改网卡参数文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#加载到内核驱动"><span class="toc-number">4.</span> <span class="toc-text">加载到内核驱动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考脚本"><span class="toc-number">5.</span> <span class="toc-text">参考脚本</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">标签云</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/Kubernetes/" style="font-size: 10px;">Kubernetes</a> <a href="/tags/docker/" style="font-size: 12px;">docker</a> <a href="/tags/linux/" style="font-size: 16px;">linux</a> <a href="/tags/mongodb/" style="font-size: 18px;">mongodb</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/oracle/" style="font-size: 20px;">oracle</a> <a href="/tags/python/" style="font-size: 18px;">python</a> <a href="/tags/spark/" style="font-size: 14px;">spark</a> <a href="/tags/statistics/" style="font-size: 12px;">statistics</a> <a href="/tags/zabbix/" style="font-size: 14px;">zabbix</a>
+    </div>
+  </div>
+
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1850090763&verifier=2163a5e7&dpc=1"></iframe>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Vincent Page in Google. <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1850090763" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/im-vincent" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/im_Vincent__" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="vincent">vincent</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"im-vincent"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

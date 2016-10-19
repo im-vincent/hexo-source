@@ -1,0 +1,1021 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>im-vincent</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="vincent">
+    
+
+    
+    <meta property="og:type" content="website">
+<meta property="og:title" content="im-vincent">
+<meta property="og:url" content="http://yoursite.com/page/2/index.html">
+<meta property="og:site_name" content="im-vincent">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="im-vincent">
+<meta name="twitter:creator" content="@im_Vincent__">
+
+    
+    <link rel="alternative" href="/atom.xml" title="im-vincent" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="im-vincent" title="im-vincent"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="im-vincent">im-vincent</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main">
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/12/17/编译oracle失效对象/" title="编译oracle失效对象" itemprop="url">编译oracle失效对象</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="vincent" target="_blank" itemprop="author">vincent</a>
+		
+  <p class="article-time">
+    <time datetime="2015-12-17T08:47:28.000Z" itemprop="datePublished"> 发表于 2015-12-17</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>编译oracle 失效对象</p>
+<ul>
+<li>执行@$ORACLE_HOME/rdbms/admin/utlrp.sql脚本编译数据库失效对象。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sqlplus / <span class="keyword">as</span> sysdba</div><div class="line"><span class="meta">@$ORACLE_HOME/rdbms/admin/utlrp.sql</span></div></pre></td></tr></table></figure>
+<ul>
+<li>ORACLE提供了自动编译的接口dbms_utility.compile_schema(user,false); 调用这个过程就会编译所有失效的过程、函数、触发器、包</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">exec</span> dbms_utility.compile_schema( <span class="string">'SCOTT'</span> )</div></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/oracle/">oracle</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/12/17/编译oracle失效对象/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/12/17/编译oracle失效对象/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/12/17/CentOS6-4不删除yum下载后的rpm包/" title="CentOS6.4不删除yum下载后的rpm包" itemprop="url">CentOS6.4不删除yum下载后的rpm包</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="vincent" target="_blank" itemprop="author">vincent</a>
+		
+  <p class="article-time">
+    <time datetime="2015-12-17T08:17:53.000Z" itemprop="datePublished"> 发表于 2015-12-17</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>yum 默认情况下，升级或者安装后，会删除下载的rpm包。<br>可以设置升级后不删除下载的rpm包</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">vi <span class="meta-keyword">/etc/</span>yum.conf</div><div class="line">[main]</div><div class="line">cachedir=<span class="meta-keyword">/var/</span>cache/yum</div><div class="line">keepcache=<span class="number">0</span></div><div class="line">将 keepcache=<span class="number">0</span> 修改为 keepcache=<span class="number">1</span>， 安装或者升级后，</div><div class="line">在目录 <span class="meta-keyword">/var/</span>cache<span class="meta-keyword">/yum/</span>i386/<span class="number">6</span><span class="meta-keyword">/base/</span>packages 下就会有下载的 rpm 包。</div></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/linux/">linux</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/12/17/CentOS6-4不删除yum下载后的rpm包/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/12/17/CentOS6-4不删除yum下载后的rpm包/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/12/14/zabbix利用orabbix监控oracle/" title="zabbix利用orabbix监控oracle" itemprop="url">zabbix利用orabbix监控oracle</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="vincent" target="_blank" itemprop="author">vincent</a>
+		
+  <p class="article-time">
+    <time datetime="2015-12-14T09:22:52.000Z" itemprop="datePublished"> 发表于 2015-12-14</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>下载orabbix</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wget http:<span class="regexp">//</span>www.vdisk.cn<span class="regexp">/Orabbix/</span>orabbix-<span class="number">1.2</span>.<span class="number">3</span>.zip</div></pre></td></tr></table></figure>
+<ul>
+<li>确保安装jdk环境，java version查看,没有则通过yum来安装JAVA：yum install java</li>
+</ul>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">midir -<span class="keyword">p</span> /<span class="keyword">opt</span>/orabbix</div><div class="line"><span class="keyword">cd</span> /<span class="keyword">opt</span>/orabbix</div><div class="line">unzip orabbix-<span class="number">1.2</span>.<span class="number">3</span>.zip</div><div class="line">chmod -R <span class="keyword">a</span>+<span class="keyword">x</span> orabbix/</div><div class="line"><span class="keyword">cp</span> /<span class="keyword">opt</span>/orabbix/<span class="keyword">conf</span>/config.props.sample /<span class="keyword">opt</span>/orabbix/<span class="keyword">conf</span>/config.props</div></pre></td></tr></table></figure>
+<ul>
+<li>编辑orabbix配置文件</li>
+</ul>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">vi confi/config.props</div><div class="line"></div><div class="line"><span class="attr">ZabbixServerList=ZabbixServer1</span></div><div class="line">ZabbixServer1.<span class="attr">Address=8.8.8.8</span> <span class="comment">#这里是zabbix server地址</span></div><div class="line">ZabbixServer1.<span class="attr">Port=10051</span></div><div class="line"></div><div class="line">OrabbixDaemon.<span class="attr">PidFile=./logs/orabbix.pid</span></div><div class="line">OrabbixDaemon.<span class="attr">Sleep=300</span></div><div class="line">OrabbixDaemon.<span class="attr">MaxThreadNumber=100</span></div><div class="line"></div><div class="line"><span class="attr">DatabaseList=ora29a</span></div><div class="line">DatabaseList.<span class="attr">MaxActive=10</span></div><div class="line">DatabaseList.<span class="attr">MaxWait=100</span></div><div class="line">DatabaseList.<span class="attr">MaxIdle=1</span></div><div class="line"></div><div class="line">ora29a.<span class="attr">Url=jdbc:oracle:thin:@1.2.3.4:1521:ora29a</span></div><div class="line">ora29a.<span class="attr">User=zabbix</span></div><div class="line">ora29a.<span class="attr">Password=zabbix</span></div><div class="line">ora29a.<span class="attr">MaxActive=10</span></div><div class="line">ora29a.<span class="attr">MaxWait=100</span></div><div class="line">ora29a.<span class="attr">MaxIdle=1</span></div><div class="line">ora29a.<span class="attr">QueryListFile=./conf/query.props</span></div></pre></td></tr></table></figure>
+<ul>
+<li>建立oracle user</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> ZABBIX</div><div class="line">     IDENTIFIEDBY zabbix     &lt;<span class="keyword">Password</span>&gt;;</div><div class="line">     <span class="keyword">GRANT</span> <span class="keyword">CONNECT</span> <span class="keyword">TO</span> ZABBIX;</div><div class="line">     GRANTRESOURCE TO ZABBIX;</div><div class="line">     ALTERUSER ZABBIX DEFAULT ROLE ALL;</div><div class="line">     <span class="keyword">GRANT</span> <span class="keyword">SELECT</span> <span class="keyword">ANY</span> <span class="keyword">TABLE</span> <span class="keyword">TO</span> ZABBIX;</div><div class="line">     <span class="keyword">GRANT</span> <span class="keyword">CREATE</span> <span class="keyword">SESSION</span> <span class="keyword">TO</span> ZABBIX;</div><div class="line">     GRANTSELECT ANY DICTIONARY TO ZABBIX;</div><div class="line">     GRANTUNLIMITED TABLESPACE TO ZABBIX;</div><div class="line">     GRANTSELECT ANY DICTIONARY TO ZABBIX;</div></pre></td></tr></table></figure>
+<ul>
+<li>Oracle 11g添加如下命令</li>
+</ul>
+<figure class="highlight sml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">exec dbms_network_acl_admin.create_acl(acl =&gt; <span class="symbol">'resolve</span>.xml',description =&gt;<span class="symbol">'resolve</span> acl', principal =&gt;<span class="symbol">'ZABBIX'</span>, is_grant =&gt; <span class="literal">true</span>, privilege =&gt;<span class="symbol">'resolve'</span>);</div><div class="line">exec dbms_network_acl_admin.assign_acl(acl=&gt; <span class="symbol">'resolve</span>.xml', host =&gt;<span class="string">'*'</span>);</div><div class="line">commit;</div></pre></td></tr></table></figure>
+<ul>
+<li>创建执行文件（直接cp即可）</li>
+</ul>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[root@oracle orabbix]<span class="comment"># cp /opt/orabbix/init.d/orabbix/etc/init.d/orabbix</span></div><div class="line"><span class="number">7</span>.保存退出，启动orabbix服务(确保有执行权限)</div><div class="line">/etc/init.d/orabbix start</div><div class="line">Orabbix服务加入随系统启动：</div><div class="line">chkconfig --<span class="keyword">add</span><span class="bash"> orabbix</span></div><div class="line">chkconfig --level <span class="number">345</span> orabbix on</div></pre></td></tr></table></figure>
+<ul>
+<li>zabbix server 导入模板</li>
+</ul>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/12/14/zabbix利用orabbix监控oracle/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/12/14/zabbix利用orabbix监控oracle/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/12/14/zabbix使用sendEmail发送告警邮件/" title="zabbix使用sendEmail发送告警邮件" itemprop="url">zabbix使用sendEmail发送告警邮件</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="vincent" target="_blank" itemprop="author">vincent</a>
+		
+  <p class="article-time">
+    <time datetime="2015-12-14T07:22:47.000Z" itemprop="datePublished"> 发表于 2015-12-14</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>zabbix使用sendEmail发送告警邮件</p>
+<ul>
+<li>sendEmail是一个免费、轻量级、命令行的SMTP邮件客户端。</li>
+<li>如果你需要使用命令行方式发送邮件，那么sendEmail是非常完美的选择：使用简单、功能强大。</li>
+</ul>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">cd <span class="regexp">/usr/</span>local<span class="regexp">/src/</span></div><div class="line">wget <span class="string">http:</span><span class="comment">//caspian.dotconf.net/menu/Software/SendEmail/sendEmail-v1.56.tar.gz</span></div><div class="line">tar xvfz sendEmail-v1<span class="number">.56</span>.tar.gz</div><div class="line">cp sendEmail-v1<span class="number">.56</span><span class="regexp">/sendEmail /</span>usr<span class="regexp">/local/</span>bin/</div><div class="line">chmod +x <span class="regexp">/usr/</span>local<span class="regexp">/bin/</span>sendEmail</div></pre></td></tr></table></figure>
+<ul>
+<li>zabbix服务器端发送邮件脚本</li>
+</ul>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">mkdir -p <span class="regexp">/etc/</span>zabbix/alertscripts</div><div class="line">chown -R <span class="string">zabbix:</span>zabbix <span class="regexp">/etc/</span>zabbix/alertscripts</div><div class="line">echo <span class="string">"AlertScriptsPath=/etc/zabbix/alertscripts"</span> &gt;&gt; <span class="regexp">/etc/</span>zabbix/zabbix_server.conf</div><div class="line">重启服务</div><div class="line"><span class="regexp">/etc/</span>init.d/zabbix-server stop</div><div class="line"><span class="regexp">/etc/</span>init.d/zabbix-server start</div></pre></td></tr></table></figure>
+<ul>
+<li>创建发送邮件脚本</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">vim /etc/zabbix/alertscripts/SendEmail.sh</div><div class="line"></div><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line">SMTP_server=<span class="string">'smtp.163.com'</span>    <span class="comment"># SMTP服务器</span></div><div class="line">username=<span class="string">'zabbix@163.com'</span>     <span class="comment"># 用户名</span></div><div class="line">password=<span class="string">'zabbix'</span>             <span class="comment"># 密码</span></div><div class="line">from_email_address=<span class="string">'zabbix@163.com'</span> <span class="comment"># 发件人Email地址</span></div><div class="line">to_email_address=<span class="string">"<span class="variable">$1</span>"</span>               <span class="comment"># 收件人Email地址，zabbix传入的第一个参数</span></div><div class="line">message_subject_utf8=<span class="string">"<span class="variable">$2</span>"</span>           <span class="comment"># 邮件标题，zabbix传入的第二个参数</span></div><div class="line">message_body_utf8=<span class="string">"<span class="variable">$3</span>"</span>              <span class="comment"># 邮件内容，zabbix传入的第三个参数</span></div><div class="line"></div><div class="line"><span class="comment"># 转换邮件标题为GB2312，解决邮件标题含有中文，收到邮件显示乱码的问题。</span></div><div class="line">message_subject_gb2312=`iconv -t GB2312 <span class="_">-f</span> UTF-8 &lt;&lt; EOF</div><div class="line"><span class="variable">$message_subject_utf8</span></div><div class="line">EOF`</div><div class="line">[ $? <span class="_">-eq</span> 0 ] &amp;&amp; message_subject=<span class="string">"<span class="variable">$message_subject_gb2312</span>"</span> || message_subject=<span class="string">"<span class="variable">$message_subject_utf8</span>"</span></div><div class="line"></div><div class="line"><span class="comment"># 转换邮件内容为GB2312</span></div><div class="line">message_body_gb2312=`iconv -t GB2312 <span class="_">-f</span> UTF-8 &lt;&lt; EOF</div><div class="line"><span class="variable">$message_body_utf8</span></div><div class="line">EOF`</div><div class="line">[ $? <span class="_">-eq</span> 0 ] &amp;&amp; message_body=<span class="string">"<span class="variable">$message_body_gb2312</span>"</span> || message_body=<span class="string">"<span class="variable">$message_body_utf8</span>"</span></div><div class="line"></div><div class="line"><span class="comment"># 发送邮件</span></div><div class="line">sendEmail=<span class="string">'/usr/local/bin/sendEmail'</span></div><div class="line"><span class="variable">$sendEmail</span> <span class="_">-s</span> <span class="string">"<span class="variable">$SMTP_server</span>"</span> -xu <span class="string">"<span class="variable">$username</span>"</span> -xp <span class="string">"<span class="variable">$password</span>"</span> <span class="_">-f</span> <span class="string">"<span class="variable">$from_email_address</span>"</span> -t <span class="string">"<span class="variable">$to_email_address</span>"</span> -u <span class="string">"<span class="variable">$message_subject</span>"</span> -m <span class="string">"<span class="variable">$message_body</span>"</span> -o message-content-type=text -o message-charset=gb2312</div></pre></td></tr></table></figure>
+<ul>
+<li>可以先简单测试下</li>
+</ul>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">chown zabbix:zabbix <span class="regexp">/etc/</span>zabbix<span class="regexp">/alertscripts/</span>SendEmail.sh</div><div class="line">chmod +x <span class="regexp">/etc/</span>zabbix<span class="regexp">/alertscripts/</span>SendEmail.sh </div><div class="line"></div><div class="line">[root@se120 alertscripts]<span class="comment"># ./SendEmail.sh wangxi@cis.com.cn sdfs sdfsdf</span></div><div class="line">Dec <span class="number">14</span> <span class="number">11</span>:<span class="number">13</span>:<span class="number">24</span> se120 sendEmail[<span class="number">80340</span>]: Email was sent successfully!</div></pre></td></tr></table></figure>
+<ul>
+<li>配置Email告警方式</li>
+<li>Administration -&gt; Media types<br><img src="http://i4.tietuku.com/45f09cddc6a664fbs.jpg" alt=""></li>
+</ul>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/linux/">linux</a><a href="/tags/zabbix/">zabbix</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/12/14/zabbix使用sendEmail发送告警邮件/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/12/14/zabbix使用sendEmail发送告警邮件/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/12/09/install-zabbix-from-packages/" title="install zabbix from packages" itemprop="url">install zabbix from packages</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="vincent" target="_blank" itemprop="author">vincent</a>
+		
+  <p class="article-time">
+    <time datetime="2015-12-09T07:32:17.000Z" itemprop="datePublished"> 发表于 2015-12-09</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="Installation-from-packages"><a href="#Installation-from-packages" class="headerlink" title="Installation from packages"></a>Installation from packages</h2><p><a href="https://www.zabbix.com/documentation/2.4/manual/installation/install_from_packages" target="_blank" rel="external">https://www.zabbix.com/documentation/2.4/manual/installation/install_from_packages</a></p>
+<p>本来准备用tar包去安装的，结果弄了一个上午都没弄好。网上写的大部分都有问题。</p>
+<p>索性就看官方文档了，发现还是官方文档比较好一点。</p>
+<p>有几个地方需要记录下</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#默认安装完mysql是没有启动的</span></div><div class="line">service mysqld start</div><div class="line"></div><div class="line"><span class="comment">#mysql建立数据库和赋予对应权限</span></div><div class="line">mysql -u root -p</div><div class="line">create database zabbix <span class="built_in">character</span> <span class="keyword">set</span> utf8;</div><div class="line">grant all privileges <span class="keyword">on</span> zabbix.* <span class="keyword">to</span> zabbix@localhost identified <span class="keyword">by</span> 'zabbix';</div><div class="line">flush privileges;</div><div class="line"></div><div class="line"><span class="comment">#php时区调整</span></div><div class="line">/etc/httpd/conf.d/zabbix.conf</div><div class="line">Asia/Shanghai</div></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/linux/">linux</a><a href="/tags/zabbix/">zabbix</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/12/09/install-zabbix-from-packages/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/12/09/install-zabbix-from-packages/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/12/08/RMAN-06207和RMAN-06208错误的分析以及解决办法/" title="RMAN-06207和RMAN-06208错误的分析以及解决办法" itemprop="url">RMAN-06207和RMAN-06208错误的分析以及解决办法</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="vincent" target="_blank" itemprop="author">vincent</a>
+		
+  <p class="article-time">
+    <time datetime="2015-12-08T03:02:33.000Z" itemprop="datePublished"> 发表于 2015-12-08</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <figure class="highlight http"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">RMAN-06207</span>: 警告: 由于状态不匹配, 所以不能删除 224 对象 (对于 DISK 通道)。</div><div class="line"><span class="attribute">RMAN-06208</span>: 请用 CROSSCHECK 命令修正状态</div><div class="line"><span class="attribute">RMAN-06210</span>: 不匹配对象的列表</div><div class="line"><span class="attribute">RMAN-06211</span>: ==========================</div><div class="line"><span class="attribute">RMAN-06212</span>: 对象类型   文件名/句柄</div><div class="line"><span class="attribute">RMAN-06213</span>: --------------- ---------------------------------------------------</div><div class="line"><span class="attribute">RMAN-06214</span>: Archivelog      D:\BACKUP\ARCH\ARC0000011141_0872694517.0001</div><div class="line"><span class="attribute">RMAN-06214</span>: Archivelog      D:\BACKUP\ARCH\ARC0000011142_0872694517.0001</div></pre></td></tr></table></figure>
+<p>crosscheck backup; 无法标记</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">可以使用以下命名标记</div><div class="line">crosscheck Archivelog <span class="string">'D:\BACKUP\ARCH\ARC0000011141_0872694517.0001'</span><span class="comment">;</span></div><div class="line"></div><div class="line">crosscheck Archivelog <span class="number">1075</span><span class="comment">;</span></div><div class="line"></div><div class="line">delete force Archivelog <span class="number">599</span><span class="comment">;</span></div></pre></td></tr></table></figure>
+<figure class="highlight q"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">以下命令应该也可以删除，未尝试</div><div class="line">crosscheck archivelog <span class="built_in">all</span>;</div><div class="line"><span class="keyword">delete</span> expired archivelog <span class="built_in">all</span>;</div></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/oracle/">oracle</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/12/08/RMAN-06207和RMAN-06208错误的分析以及解决办法/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/12/08/RMAN-06207和RMAN-06208错误的分析以及解决办法/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/12/04/MongoDB-Server-Parameters/" title="MongoDB Server Parameters" itemprop="url">MongoDB Server Parameters</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="vincent" target="_blank" itemprop="author">vincent</a>
+		
+  <p class="article-time">
+    <time datetime="2015-12-04T01:43:08.000Z" itemprop="datePublished"> 发表于 2015-12-04</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>MongoDB Server Parameters</p>
+<p><a href="https://docs.mongodb.org/manual/reference/parameters/#param.syncdelay" target="_blank" rel="external">https://docs.mongodb.org/manual/reference/parameters/#param.syncdelay</a></p>
+<p>wt parameter</p>
+<p><a href="http://source.wiredtiger.com/2.4.1/struct_w_t___c_o_n_n_e_c_t_i_o_n.html#a579141678af06217b22869cbc604c6d4" target="_blank" rel="external">http://source.wiredtiger.com/2.4.1/struct_w_t___c_o_n_n_e_c_t_i_o_n.html#a579141678af06217b22869cbc604c6d4</a></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/mongodb/">mongodb</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/12/04/MongoDB-Server-Parameters/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/12/04/MongoDB-Server-Parameters/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/12/01/mongodb-ycsb/" title="mongodb ycsb" itemprop="url">mongodb ycsb</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="vincent" target="_blank" itemprop="author">vincent</a>
+		
+  <p class="article-time">
+    <time datetime="2015-12-01T07:18:18.000Z" itemprop="datePublished"> 发表于 2015-12-01</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><p>This section describes how to run YCSB on MongoDB.</p>
+<h3 id="1-Download-Install-and-Start-MongoDB"><a href="#1-Download-Install-and-Start-MongoDB" class="headerlink" title="1. Download, Install and Start MongoDB"></a>1. Download, Install and Start MongoDB</h3><p>See <a href="https://www.mongodb.org/downloads" target="_blank" rel="external">https://www.mongodb.org/downloads</a> for different download locations depending on your platform.</p>
+<p>See <a href="http://docs.mongodb.org/manual/installation/" target="_blank" rel="external">http://docs.mongodb.org/manual/installation/</a> for installation steps for various operating systems.</p>
+<p>Download/Install MongoDB and start <code>mongod</code>.   </p>
+<h3 id="2-Install-Java-and-Maven"><a href="#2-Install-Java-and-Maven" class="headerlink" title="2. Install Java and Maven"></a>2. Install Java and Maven</h3><p>Go to <a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html" target="_blank" rel="external">http://www.oracle.com/technetwork/java/javase/downloads/index.html</a> and get the url to download the rpm into your server.</p>
+<p>For example:</p>
+<pre><code>wget http://download.oracle.com/otn-pub/java/jdk/7u40-b43/jdk-7u40-linux-x64.rpm?AuthParam=11232426132 -o jdk-7u40-linux-x64.rpm
+rpm -Uvh jdk-7u40-linux-x64.rpm
+</code></pre><p>Or install via yum/apt-get</p>
+<pre><code>sudo yum install java-devel
+</code></pre><p>Download MVN from <a href="http://maven.apache.org/download.cgi" target="_blank" rel="external">http://maven.apache.org/download.cgi</a></p>
+<pre><code>wget http://ftp.heanet.ie/mirrors/www.apache.org/dist/maven/maven-3/3.1.1/binaries/apache-maven-3.1.1-bin.tar.gz
+sudo tar xzf apache-maven-*-bin.tar.gz -C /usr/local
+cd /usr/local
+sudo ln -s apache-maven-* maven
+sudo vi /etc/profile.d/maven.sh
+</code></pre><p>Add the following to <code>maven.sh</code></p>
+<pre><code>export M2_HOME=/usr/local/maven
+export PATH=${M2_HOME}/bin:${PATH}
+</code></pre><p>Reload bash and test mvn</p>
+<pre><code>bash
+mvn -version
+</code></pre><h3 id="3-Set-Up-YCSB"><a href="#3-Set-Up-YCSB" class="headerlink" title="3. Set Up YCSB"></a>3. Set Up YCSB</h3><p>If using this repository, download or clone the repo and run<br>    mvn clean package</p>
+<p>If using the full YCSB package then:</p>
+<pre><code>Download and install YCSB.  
+Replace YCSB/mongodb/src/main/java/com/yahoo/ycsb/db/MongoDbClient.java
+cd YCSB-master
+mvn -pl com.yahoo.ycsb:core,com.yahoo.ycsb:mongodb-binding clean package
+</code></pre><h3 id="4-Run-YCSB"><a href="#4-Run-YCSB" class="headerlink" title="4. Run YCSB"></a>4. Run YCSB</h3><p>To load data:</p>
+<pre><code>./bin/ycsb load mongodb -s -P workloads/workloada &gt; outputLoad.txt
+</code></pre><p>To run the workload:</p>
+<pre><code>./bin/ycsb run mongodb -s -P workloads/workloada &gt; outputRun.txt
+</code></pre><p>See the next section for the list of configuration parameters for MongoDB.</p>
+<h2 id="MongoDB-Configuration-Parameters"><a href="#MongoDB-Configuration-Parameters" class="headerlink" title="MongoDB Configuration Parameters"></a>MongoDB Configuration Parameters</h2><ul>
+<li><p><code>mongodb.url</code> default: <code>localhost:27017</code></p>
+</li>
+<li><p><code>mongodb.database</code> default: <code>ycsb</code></p>
+</li>
+<li><p><code>mongodb.writeConcern</code> default <code>acknowledged</code></p>
+</li>
+<li><p>options are :</p>
+</li>
+<li><code>unacknowledged</code><ul>
+<li><code>acknowledged</code></li>
+<li><code>journaled</code></li>
+<li><code>replica_acknowledged</code></li>
+<li><code>majority</code></li>
+</ul>
+</li>
+</ul>
+<p>For example:</p>
+<pre><code>./bin/ycsb load mongodb -s -P workloads/workloada -p mongodb.writeConcern=majority
+</code></pre>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/mongodb/">mongodb</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/12/01/mongodb-ycsb/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/12/01/mongodb-ycsb/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/11/17/Manage-Sharded-Cluster-Balancer/" title="Manage Sharded Cluster Balancer" itemprop="url">Manage Sharded Cluster Balancer</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="vincent" target="_blank" itemprop="author">vincent</a>
+		
+  <p class="article-time">
+    <time datetime="2015-11-17T07:18:06.000Z" itemprop="datePublished"> 发表于 2015-11-17</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p><a href="https://docs.mongodb.org/manual/tutorial/manage-sharded-cluster-balancer/" target="_blank" rel="external">https://docs.mongodb.org/manual/tutorial/manage-sharded-cluster-balancer/</a></p>
+<h4 id="Check-the-Balancer-State"><a href="#Check-the-Balancer-State" class="headerlink" title="Check the Balancer State"></a>Check the Balancer State</h4><p>The following command checks if the balancer is enabled (i.e. that the balancer is allowed to run). The command does not check if the balancer is active (i.e. if it is actively balancing chunks).</p>
+<p>To see if the balancer is enabled in your cluster, issue the following command, which returns a boolean:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">sh</span><span class="selector-class">.getBalancerState</span>()</div></pre></td></tr></table></figure>
+<h4 id="Check-the-Balancer-Lock"><a href="#Check-the-Balancer-Lock" class="headerlink" title="Check the Balancer Lock"></a>Check the Balancer Lock</h4><p>To see if the balancer process is active in your cluster, do the following:</p>
+<p>Connect to any mongos in the cluster using the mongo shell.<br>Issue the following command to switch to the Config Database:<br>use config<br>Use the following query to return the balancer lock:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">db</span><span class="selector-class">.locks</span><span class="selector-class">.find</span>( &#123; <span class="attribute">_id </span>: <span class="string">"balancer"</span> &#125; )<span class="selector-class">.pretty</span>()</div></pre></td></tr></table></figure>
+<h4 id="Schedule-the-Balancing-Window"><a href="#Schedule-the-Balancing-Window" class="headerlink" title="Schedule the Balancing Window"></a>Schedule the Balancing Window</h4><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">use config</div><div class="line">sh.setBalancerState( <span class="literal">true</span> )</div><div class="line">db.settings.update(</div><div class="line">   &#123; <span class="string">_id:</span> <span class="string">"balancer"</span> &#125;,</div><div class="line">   &#123; <span class="string">$set:</span> &#123; <span class="string">activeWindow :</span> &#123; <span class="string">start:</span> <span class="string">"23:00"</span>, <span class="string">stop:</span> <span class="string">"6:00"</span> &#125; &#125; &#125;,</div><div class="line">   &#123; <span class="string">upsert:</span> <span class="literal">true</span> &#125;</div><div class="line">)</div></pre></td></tr></table></figure>
+<h4 id="Remove-a-Balancing-Window-Schedule"><a href="#Remove-a-Balancing-Window-Schedule" class="headerlink" title="Remove a Balancing Window Schedule"></a>Remove a Balancing Window Schedule</h4><p>If you have set the balancing window and wish to remove the schedule so that the balancer is always running, issue the following sequence of operations:</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">use</span> <span class="selector-tag">config</span></div><div class="line"><span class="selector-tag">db</span><span class="selector-class">.settings</span><span class="selector-class">.update</span>(&#123; <span class="attribute">_id </span>: <span class="string">"balancer"</span> &#125;, &#123; $<span class="attribute">unset </span>: &#123; <span class="attribute">activeWindow </span>: true &#125; &#125;)</div></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/mongodb/">mongodb</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/11/17/Manage-Sharded-Cluster-Balancer/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/11/17/Manage-Sharded-Cluster-Balancer/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/11/11/mongodb-change-oplog-size/" title="mongodb change oplog size" itemprop="url">mongodb change oplog size</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="vincent" target="_blank" itemprop="author">vincent</a>
+		
+  <p class="article-time">
+    <time datetime="2015-11-11T02:35:30.000Z" itemprop="datePublished"> 发表于 2015-11-11</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">use</span> <span class="keyword">local</span></div><div class="line"><span class="keyword">db</span> = <span class="keyword">db</span>.getSiblingDB('<span class="keyword">local</span>')</div><div class="line"><span class="keyword">db</span>.temp.<span class="keyword">drop</span>()</div><div class="line"><span class="keyword">db</span>.temp.<span class="keyword">save</span>( <span class="keyword">db</span>.oplog.rs.find( &#123; &#125;, &#123; ts: 1, <span class="keyword">h</span>: 1 &#125; ).<span class="keyword">sort</span>( &#123;<span class="variable">$natural</span> : -1&#125; ).limit(1).next() )</div><div class="line"><span class="keyword">db</span>.temp.find()</div><div class="line"><span class="keyword">db</span> = <span class="keyword">db</span>.getSiblingDB('<span class="keyword">local</span>')</div><div class="line"><span class="keyword">db</span>.oplog.rs.<span class="keyword">drop</span>()</div><div class="line"><span class="keyword">db</span>.runCommand( &#123; create: <span class="string">"oplog.rs"</span>, capped: true, size: (2 * 1024 * 1024 * 1024) &#125; )</div><div class="line"><span class="keyword">db</span>.oplog.rs.<span class="keyword">save</span>( <span class="keyword">db</span>.temp.findOne() )</div><div class="line"><span class="keyword">db</span>.oplog.rs.find()</div></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/mongodb/">mongodb</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/11/11/mongodb-change-oplog-size/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/11/11/mongodb-change-oplog-size/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+
+  <nav id="page-nav" class="clearfix">
+    <a class="extend prev" rel="prev" href="/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">Next<span></span></a>
+  </nav>
+
+</div>
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">标签云</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/Kubernetes/" style="font-size: 10px;">Kubernetes</a> <a href="/tags/docker/" style="font-size: 12px;">docker</a> <a href="/tags/linux/" style="font-size: 16px;">linux</a> <a href="/tags/mongodb/" style="font-size: 18px;">mongodb</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/oracle/" style="font-size: 20px;">oracle</a> <a href="/tags/python/" style="font-size: 18px;">python</a> <a href="/tags/spark/" style="font-size: 14px;">spark</a> <a href="/tags/statistics/" style="font-size: 12px;">statistics</a> <a href="/tags/zabbix/" style="font-size: 14px;">zabbix</a>
+    </div>
+  </div>
+
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=1850090763&verifier=2163a5e7&dpc=1"></iframe>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Vincent Page in Google. <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/1850090763" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/im-vincent" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		<a href="https://twitter.com/im_Vincent__" target="_blank" class="icon-twitter" title="twitter"></a>
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="vincent">vincent</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+ </html>
